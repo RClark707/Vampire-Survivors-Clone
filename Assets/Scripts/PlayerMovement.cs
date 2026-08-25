@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public float prevMoveY;
 
+    public GameObject currentChunk;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,5 +47,13 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         rb.linearVelocity = new Vector2(movementDirection.x * movementSpeed, movementDirection.y * movementSpeed);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Chunk" && currentChunk != collision.gameObject)
+        {
+            currentChunk = collision.gameObject;
+        }
     }
 }
