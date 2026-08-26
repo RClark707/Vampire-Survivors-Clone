@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public float movementSpeed;
 
     private Rigidbody2D rb;
@@ -11,14 +10,18 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public float prevMoveX;
     [HideInInspector]
-    public float prevMoveY;
+    public float prevMoveY; // not used by anything
+    [HideInInspector]
+    public Vector2 lastMoveDirection;
 
-    public GameObject currentChunk;
+    public MapController mc;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        mc = FindAnyObjectByType<MapController>();
+        lastMoveDirection = new Vector2(1f, 0f);
     }
 
     // Update is called once per frame
@@ -40,8 +43,24 @@ public class PlayerMovement : MonoBehaviour
 
         movementDirection = new Vector2(moveX, moveY);
 
-        if (movementDirection.x != 0) { prevMoveX = movementDirection.x; }
-        if (movementDirection.y != 0) { prevMoveY = movementDirection.y; }
+        // prevMoveX = movementDirection.x;
+        // prevMoveY = movementDirection.y;
+        // lastMoveDirection = new Vector2(prevMoveX != 0 ? prevMoveX : 0f, prevMoveY != 0 ? prevMoveY : 0f);
+
+        if (movementDirection.x != 0)
+        {
+            prevMoveX = movementDirection.x;
+            lastMoveDirection = new Vector2(prevMoveX, 0f);
+        }
+        if (movementDirection.y != 0)
+        {
+            prevMoveY = movementDirection.y;
+            lastMoveDirection = new Vector2(0f, prevMoveY);
+        }
+        if (movementDirection.x != 0 && movementDirection.y != 0)
+        {
+            lastMoveDirection = new Vector2(prevMoveX, prevMoveY);
+        }
     }
 
     void Move()
@@ -51,9 +70,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Chunk" && currentChunk != collision.gameObject)
+        // Used by the Map Controller to determine which chunk the player is in
+        if (collision.CompareTag("Chunk") && mc.currentChunk != collision.gameObject)
         {
-            currentChunk = collision.gameObject;
+            mc.currentChunk = collision.gameObject;
         }
     }
 }
