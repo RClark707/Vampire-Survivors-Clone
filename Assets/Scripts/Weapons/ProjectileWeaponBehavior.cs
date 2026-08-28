@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class ProjectileWeaponBehavior : MonoBehaviour
+public class ProjectileWeaponBehavior : WeaponBehavior
 {
     protected Vector3 projectileDirection;
-    public float projectileDuration;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected virtual void Start()
+    protected override void Start()
     {
-        // Set the projectile's lifespan
-        Destroy(gameObject, projectileDuration);
+        base.Start();
     }
 
     public void SetProjectileDirectionAndRotation(Vector3 dir)
@@ -17,6 +20,29 @@ public class ProjectileWeaponBehavior : MonoBehaviour
         projectileDirection = dir;
 
         float angle = Mathf.Atan2(projectileDirection.y, projectileDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90); // this hard codes a value, and assumes all weapons face UP?
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90); // this hard codes a value, and assumes all weapons face UP! We can use variables instead
+    }
+
+    // We override to update the projectile piercing
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        // base.OnTriggerEnter2D(collision);
+        if (collision.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            Debug.Log($"A {weaponStats.name} just hit a {enemy.name}");
+            enemy.TakeDamage(damage);
+            UpdatePierceCount();
+        }
+    }
+
+    void UpdatePierceCount()
+    {
+        pierceCount--;
+
+        if (pierceCount <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float movementSpeed;
+    public CharacterStats characterStats;
 
-    private Rigidbody2D rb;
-    [HideInInspector] // we want to make this public, but keep the inspector clear
+    // This is the player's current movement speed, not the base stat
+    float movementSpeed;
+    Rigidbody2D rb;
+
+    [HideInInspector]
     public Vector2 movementDirection;
     [HideInInspector]
     public float prevMoveX;
@@ -13,15 +16,20 @@ public class PlayerMovement : MonoBehaviour
     public float prevMoveY; // not used by anything
     [HideInInspector]
     public Vector2 lastMoveDirection;
-
+    [HideInInspector]
     public MapController mc;
+
+    private void Awake()
+    {
+        movementSpeed = characterStats.MovementSpeed;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         mc = FindAnyObjectByType<MapController>();
-        lastMoveDirection = new Vector2(1f, 0f);
+        lastMoveDirection = new Vector2(1, 0f);
     }
 
     // Update is called once per frame
@@ -42,10 +50,6 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         movementDirection = new Vector2(moveX, moveY);
-
-        // prevMoveX = movementDirection.x;
-        // prevMoveY = movementDirection.y;
-        // lastMoveDirection = new Vector2(prevMoveX != 0 ? prevMoveX : 0f, prevMoveY != 0 ? prevMoveY : 0f);
 
         if (movementDirection.x != 0)
         {

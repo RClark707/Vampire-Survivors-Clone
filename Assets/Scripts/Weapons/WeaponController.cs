@@ -3,19 +3,19 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [Header("Weapon Stats")]
-    public GameObject weaponPrefab;
-    public float baseDamage; // { get; private set; }
-    public float baseSpeed; // { get; private set; }
-    public float baseCooldown; // { get; private set; }
+    public WeaponStats weaponStats;
+
+    float maxCooldown;
     float currentCooldown;
-    public int basePierceCount; // { get; private set; }
 
     protected PlayerMovement pm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentCooldown = baseCooldown;
+        name = weaponStats.name;
+        maxCooldown = weaponStats.Cooldown;
+        currentCooldown = maxCooldown;
         pm = FindAnyObjectByType<PlayerMovement>();
     }
 
@@ -29,7 +29,7 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        currentCooldown = baseCooldown;
+        currentCooldown = maxCooldown;
 
         // Then Use the Weapon
         Use();
@@ -39,7 +39,7 @@ public class WeaponController : MonoBehaviour
     // and we can return a bool if we want to check that it runs successfully
     protected virtual void Use()
     {
-        Debug.Log($"Using {gameObject.name}!");
+        Debug.Log($"Using {name}!");
         return;
     }
 }

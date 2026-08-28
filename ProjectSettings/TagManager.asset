@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Chunk
   - Projectile
+  - Enemy
+  - Melee
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - Props
   - Terrain
   - Projectile
-  - 
-  - 
+  - Melee
+  - Pickup
   - 
   - 
   - 
@@ -49,20 +52,17 @@ TagManager:
   - name: Collision
     uniqueID: 766364813
     locked: 0
-  - name: Walk in Front
-    uniqueID: 3957370167
+  - name: Melee
+    uniqueID: 3132704733
     locked: 0
-  - name: Foreground
-    uniqueID: 1205915047
-    locked: 0
-  - name: Decoration
-    uniqueID: 3520100693
+  - name: Enemy
+    uniqueID: 1463457989
     locked: 0
   - name: Player
     uniqueID: 44132685
     locked: 0
-  - name: Walk Behind
-    uniqueID: 2086229089
+  - name: Pickup
+    uniqueID: 295424039
     locked: 0
   - name: Projectile
     uniqueID: 3115033043

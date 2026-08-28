@@ -6,18 +6,10 @@ public class PropsRandomizer : MonoBehaviour
     public List<GameObject> propSpawnLocations;
     public List<GameObject> propPrefabs;
 
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SpawnProps();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void SpawnProps()

@@ -31,11 +31,11 @@ public class MapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChunkChecker();
+        BuildNewChunks();
         ChunkOptimizer();
     }
 
-    void ChunkChecker()
+    void BuildNewChunks()
     {
         // check player movement direction
         // grab the current chunk and skip forwards in the direction the player is moving
