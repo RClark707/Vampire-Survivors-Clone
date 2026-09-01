@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2217977380394164843
+--- !u!1001 &7277803021568817838
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,12 +10,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1588660026635293371, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
       propertyPath: m_Name
-      value: XPGemGreen
+      value: RedXPGem
       objectReference: {fileID: 0}
+    - target: {fileID: 3551770045163655574, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
+      propertyPath: name
+      value: Red XP Gem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3551770045163655574, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
+      propertyPath: xpQuantity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3551770045163655574, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
+      propertyPath: pickupStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c17544930ed8424780abc6cac33228d, type: 2}
     - target: {fileID: 3556014253860797637, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -219094930, guid: 17cad266682a37644bc6991ce6c03e1c, type: 3}
+      objectReference: {fileID: 518481353, guid: 17cad266682a37644bc6991ce6c03e1c, type: 3}
     - target: {fileID: 5658872413028148747, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

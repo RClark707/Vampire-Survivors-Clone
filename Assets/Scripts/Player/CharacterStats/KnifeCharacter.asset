@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
   name: Arnold
   movementSpeed: 5
-  maxHealth: 25
+  maxHealth: 100
   startingWeapon: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
-  recovery: 0
-  armor: 0
-  might: 0
-  projectileSpeed: 0
-  area: 0
-  magnet: 0
-  growth: 0
-  luck: 0
+  recovery: 1
+  armor: 1
+  might: 1
+  projectileSpeed: 1
+  area: 1
+  magnet: 1
+  growth: 1
+  luck: 1

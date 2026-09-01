@@ -36,5 +36,12 @@ public class WeaponBehavior : MonoBehaviour
             Debug.Log($"A {weaponStats.name} just hit a {enemy.name}");
             enemy.TakeDamage(damage);
         }
+        else if (collision.CompareTag("Prop"))
+        {
+            if (collision.TryGetComponent(out BreakableProps prop))
+            {
+                prop.TakeDamage(damage);
+            }
+        }
     }
 }

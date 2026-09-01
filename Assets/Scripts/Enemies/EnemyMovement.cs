@@ -2,27 +2,20 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public EnemyStats enemyStats;
-
-    // This is the enemy's current movement speed, not the base stat
-    float movementSpeed;
+    Enemy enemy;
     Transform playerTransform;
-
-    private void Awake()
-    {
-        movementSpeed = enemyStats.MovementSpeed;
-    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerTransform = FindAnyObjectByType<PlayerMovement>().transform;
+        enemy = GetComponent<Enemy>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, movementSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, enemy.movementSpeed * Time.deltaTime);
         CheckEnemyPlayerDistance();
     }
 

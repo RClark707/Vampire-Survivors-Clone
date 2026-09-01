@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3664645716334694577}
   - component: {fileID: 1106628092959421700}
   - component: {fileID: -5488348723025432586}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hobgoblin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -203,12 +203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   pickups:
-  - name: Blue XP Gem
-    itemPrefab: {fileID: 1588660026635293371, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
+  - itemPrefab: {fileID: 1588660026635293371, guid: a7aa0474f478d464d8487b58617ba0aa, type: 3}
     dropChance: 50
-  - name: RedXP Gem
-    itemPrefab: {fileID: 8283244143240161301, guid: 2851dc89a4556da4bb909aaf301959ed, type: 3}
-    dropChance: 75
-  - name: Green XP Gem
-    itemPrefab: {fileID: 633841298923286736, guid: 86782db0435d9184590b0abd80856126, type: 3}
-    dropChance: 100
+  - itemPrefab: {fileID: 633841298923286736, guid: 86782db0435d9184590b0abd80856126, type: 3}
+    dropChance: 25
+  - itemPrefab: {fileID: 8283244143240161301, guid: 2851dc89a4556da4bb909aaf301959ed, type: 3}
+    dropChance: 10

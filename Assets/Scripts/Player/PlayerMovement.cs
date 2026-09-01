@@ -2,10 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterStats characterStats;
-
-    // This is the player's current movement speed, not the base stat
-    float movementSpeed;
+    Player player;
     Rigidbody2D rb;
 
     [HideInInspector]
@@ -19,17 +16,13 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public MapController mc;
 
-    private void Awake()
-    {
-        movementSpeed = characterStats.MovementSpeed;
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         mc = FindAnyObjectByType<MapController>();
         lastMoveDirection = new Vector2(1, 0f);
+        player = FindAnyObjectByType<Player>();
     }
 
     // Update is called once per frame
@@ -69,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        rb.linearVelocity = new Vector2(movementDirection.x * movementSpeed, movementDirection.y * movementSpeed);
+        rb.linearVelocity = new Vector2(movementDirection.x * player.movementSpeed, movementDirection.y * player.movementSpeed);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

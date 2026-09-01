@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public EnemyStats enemyStats;
-
     // These are the Enemy's Current Stat Values, NOT the base stats
-    float health;
-    float movementSpeed;
-    float damage;
+    [Header("Enemy Stats")]
+    public EnemyStats enemyStats;
+    [HideInInspector]
+    public float health { get; private set; }
+    [HideInInspector]
+    public float movementSpeed { get; private set; }
+    [HideInInspector]
+    public float damage { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -18,7 +21,7 @@ public class Enemy : MonoBehaviour
         damage = enemyStats.Damage;
     }
 
-    public bool TakeDamage(float dmg)
+    public void TakeDamage(float dmg)
     {
         health -= dmg;
         Debug.Log($"{name} has {health} health left!");
@@ -27,14 +30,22 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log($"The {name} is dead!");
             Kill();
-            return true;
         }
-
-        return false;
     }
 
     public void Kill()
     {
         Destroy(gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (collision.TryGetComponent(out Player player))
+            {
+                player.TakeDamage(damage);
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Melee
   - Pickup
+  - Prop
   layers:
   - Default
   - TransparentFX

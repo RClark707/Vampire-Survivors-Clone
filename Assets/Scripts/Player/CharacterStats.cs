@@ -8,34 +8,34 @@ public class CharacterStats : EntityStats
     public GameObject StartingWeapon { get => startingWeapon; private set => startingWeapon = value; }
 
     [SerializeField]
-    float recovery;
+    float recovery = 1f;
     public float Recovery { get => recovery; private set => recovery = value; }
 
     [SerializeField]
-    float armor;
+    float armor = 1f;
     public float Armor { get => armor; private set => armor = value; }
 
     [SerializeField]
-    float might;
+    float might = 1f;
     public float Might { get => might; private set => might = value; }
 
     [SerializeField]
-    float projectileSpeed;
+    float projectileSpeed = 1f;
     public float ProjectileSpeed { get => projectileSpeed; private set => projectileSpeed = value; }
 
     [SerializeField]
-    float area;
+    float area = 1f;
     public float Area { get => area; private set => area = value; }
 
     [SerializeField]
-    float magnet;
+    float magnet = 1f;
     public float Magnet { get => magnet; private set => magnet = value; }
 
     [SerializeField]
-    float growth;
+    float growth = 1f;
     public float Growth { get => growth; private set => growth = value; }
 
     [SerializeField]
-    float luck;
+    float luck = 1f;
     public float Luck { get => luck; private set => luck = value; }
 }

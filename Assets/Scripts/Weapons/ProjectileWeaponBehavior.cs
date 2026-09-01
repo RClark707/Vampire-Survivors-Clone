@@ -34,6 +34,14 @@ public class ProjectileWeaponBehavior : WeaponBehavior
             enemy.TakeDamage(damage);
             UpdatePierceCount();
         }
+        else if (collision.CompareTag("Prop"))
+        {
+            if (collision.TryGetComponent(out BreakableProps prop))
+            {
+                prop.TakeDamage(damage);
+                UpdatePierceCount();
+            }
+        }
     }
 
     void UpdatePierceCount()
