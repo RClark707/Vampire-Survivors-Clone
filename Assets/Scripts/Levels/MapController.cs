@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
+    [Header("Chunk Generation")]
     public List<GameObject> terrainChunks;
     public GameObject player;
     public GameObject chunksParent;
@@ -54,6 +55,8 @@ public class MapController : MonoBehaviour
             Debug.Log("No chunk data available");
             return;
         }
+
+        // these If-Statements are totally bugged out. Tons of extra chunks are spawning.
 
         if (pm.movementDirection.x > 0 && pm.movementDirection.y == 0)              // RIGHT
         {
@@ -129,6 +132,7 @@ public class MapController : MonoBehaviour
         latestChunk.transform.parent = chunksParent.transform;
 
         spawnedChunks.Add(latestChunk);
+        Debug.Log($"Spawned a new chunk at {spawnPosition}");
     }
 
     void ChunkOptimizer()

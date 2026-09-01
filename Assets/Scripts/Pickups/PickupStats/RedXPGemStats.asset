@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedXPGemStats
   m_EditorClassIdentifier: Assembly-CSharp::PickupStats
   name: Red XP Gem
-  movementSpeed: 0
+  movementSpeed: 10
   maxHealth: 0
   pickupType: 2
   pickupStrength: 5

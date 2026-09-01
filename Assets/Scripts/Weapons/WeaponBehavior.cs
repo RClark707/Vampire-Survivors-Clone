@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WeaponBehavior : MonoBehaviour
 {
+    [Header("Weapon Stats")]
     public WeaponStats weaponStats;
     public float weaponDuration;
 
@@ -33,7 +34,7 @@ public class WeaponBehavior : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            Debug.Log($"A {weaponStats.name} just hit a {enemy.name}");
+            Debug.Log($"A {name} just hit a {enemy.name}");
             enemy.TakeDamage(damage);
         }
         else if (collision.CompareTag("Prop"))

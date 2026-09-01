@@ -15,12 +15,12 @@ MonoBehaviour:
   name: Arnold
   movementSpeed: 5
   maxHealth: 100
-  startingWeapon: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
+  startingWeapon: {fileID: 9081550670044908651, guid: 1ccf03e2e480ce4499d8b06844c80245, type: 3}
   recovery: 1
   armor: 1
   might: 1
   projectileSpeed: 1
   area: 1
-  magnet: 1
+  magnet: 10
   growth: 1
   luck: 1

@@ -4,22 +4,30 @@ using UnityEngine;
 public class PickupController : MonoBehaviour
 {
     [System.Serializable]
-    public class Pickup
+    public class Drop
     {
         public GameObject itemPrefab;
         public float dropChance; // these need not add to 100
     }
 
-    public List<Pickup> pickups;
+    public List<Drop> pickups;
 
-    private void OnDestroy()
+    private bool isQuitting;
+
+    private void OnApplicationQuit()
     {
+        isQuitting = true;
+    }
+
+    private void OnDestroy() // need to stop this from running at the end of the game
+    {
+        if (isQuitting) return;
         DropItem();
     }
 
     void DropItem()
     {
-        Pickup pickup = null;
+        Drop pickup = null;
 
         float chance = UnityEngine.Random.Range(0f, 1f);
 
@@ -47,7 +55,7 @@ public class PickupController : MonoBehaviour
         Player player = FindAnyObjectByType<Player>();
         float sum = 0f;
 
-        foreach (Pickup p in pickups)
+        foreach (Drop p in pickups)
         {
             sum += p.dropChance * player.luck;
         }

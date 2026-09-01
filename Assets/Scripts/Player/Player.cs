@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     public float armor { get; private set; }
     [HideInInspector]
     public float might { get; private set; }
-    [HideInInspector]
-    public float projectileSpeed { get; private set; }
+    // [HideInInspector]
+    // public float projectileSpeed { get; private set; }
     [HideInInspector]
     public float area { get; private set; }
     [HideInInspector]
@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     public float growth { get; private set; }
     [HideInInspector]
     public float luck { get; private set; } // adjust all stats like this?
+
+    [Header("Weapons")]
+    public List<GameObject> weapons;
 
     [Header("Experience & Leveling")]
     public List<XPRequirement> xpRequirements;
@@ -53,19 +56,27 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if (CharacterSelector.Instance)
+        {
+            characterStats = CharacterSelector.GetCharacterStats();
+            CharacterSelector.Instance.DestroySingleton();
+        }
+
         name = characterStats.name;
         weapon = characterStats.StartingWeapon;
         maxHealth = characterStats.MaxHealth;
-        health = maxHealth;
         movementSpeed = characterStats.MovementSpeed;
         recovery = characterStats.Recovery;
         armor = characterStats.Armor;
         might = characterStats.Might;
-        projectileSpeed = characterStats.ProjectileSpeed;
+        // projectileSpeed = characterStats.ProjectileSpeed;
         area = characterStats.Area;
         magnet = characterStats.Magnet;
         growth = characterStats.Growth;
         luck = characterStats.Luck;
+
+        health = maxHealth;
+        AddWeapon(weapon);
     }
 
     private void Start()
@@ -83,6 +94,8 @@ public class Player : MonoBehaviour
         {
             isInvincible = false;
         }
+
+        Recover();
     }
 
     public void RestoreHealth(float healing)
@@ -90,6 +103,11 @@ public class Player : MonoBehaviour
         health = Mathf.Min(health + healing, maxHealth);
 
         Debug.Log($"After healing, you have {health} health left!");
+    }
+
+    public void Recover()
+    {
+        health = Mathf.Min(health + recovery * Time.deltaTime, maxHealth);
     }
 
     public void TakeDamage(float dmg)
@@ -144,5 +162,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddWeapon(GameObject weapon)
+    {
+        GameObject go = Instantiate(weapon, transform.position, Quaternion.identity);
+        go.transform.SetParent(transform);
+        weapons.Add(go);
     }
 }

@@ -15,7 +15,7 @@ public class KnifeBehavior : ProjectileWeaponBehavior
     void Update()
     {
         // fling the knife along a direction
-        transform.position += projectileDirection * weaponStats.Speed * Time.deltaTime;
+        transform.position += projectileDirection * speed * Time.deltaTime;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

@@ -4,16 +4,14 @@ public class WeaponController : MonoBehaviour
 {
     [Header("Weapon Stats")]
     public WeaponStats weaponStats;
-
     float maxCooldown;
     float currentCooldown;
-
     protected PlayerMovement pm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        name = weaponStats.name;
+        name = weaponStats.name + " Controller";
         maxCooldown = weaponStats.Cooldown;
         currentCooldown = maxCooldown;
         pm = FindAnyObjectByType<PlayerMovement>();

@@ -30,7 +30,7 @@ public class ProjectileWeaponBehavior : WeaponBehavior
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            Debug.Log($"A {weaponStats.name} just hit a {enemy.name}");
+            Debug.Log($"A {name} just hit a {enemy.name}");
             enemy.TakeDamage(damage);
             UpdatePierceCount();
         }

@@ -6,6 +6,6 @@ public class GarlicController : WeaponController
     {
         base.Use();
         GameObject go = Instantiate(weaponStats.WeaponPrefab, transform.position, Quaternion.identity);
-        go.transform.parent = transform; // the weapon is parented to the controller
+        go.transform.SetParent(transform); // the weapon is parented to the controller
     }
 }
