@@ -431,18 +431,25 @@ MonoBehaviour:
   - name: Wave 1
     enemyGroups:
     - name: Red Hobgoblins
-      totalEnemies: 5
+      totalEnemies: 4
       spawnCount: 0
       enemyPrefab: {fileID: 8329889980289980067, guid: 20d3fbf283f5aec4284db0c86509209d, type: 3}
+      isCircularWave: 0
+      isElite: 0
     - name: Hobgoblins
-      totalEnemies: 3
+      totalEnemies: 5
       spawnCount: 0
       enemyPrefab: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-    spawnInterval: 1
-    totalEnemies: 10
+      isCircularWave: 0
+      isElite: 0
+    spawnInterval: 2
+    totalEnemies: 9
     spawnCount: 0
   currentWaveIndex: 0
   distanceToSpawn: 10
+  enemyCount: 0
+  maxEnemies: 50
+  maxEnemiesReached: 0
 --- !u!1 &862792721
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,63 +531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714851c62bfdfdf46a2474191b7749e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollector
---- !u!1001 &1175450371
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_Name
-      value: Hobgoblin
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
 --- !u!1 &1392034372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,4 +1090,3 @@ SceneRoots:
   - {fileID: 1392034374}
   - {fileID: 1552432064}
   - {fileID: 1875948575}
-  - {fileID: 1175450371}

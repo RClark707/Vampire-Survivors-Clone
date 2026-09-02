@@ -48,4 +48,10 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        EnemySpawner es = FindAnyObjectByType<EnemySpawner>();
+        es.OnEnemyKilled();
+    }
 }
