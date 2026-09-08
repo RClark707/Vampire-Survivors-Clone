@@ -12,16 +12,8 @@ public class PickupController : MonoBehaviour
 
     public List<Drop> pickups;
 
-    private bool isQuitting;
-
-    private void OnApplicationQuit()
+    public void OnHostKilled()
     {
-        isQuitting = true;
-    }
-
-    private void OnDestroy() // need to stop this from running at the end of the game
-    {
-        if (isQuitting) return;
         DropItem();
     }
 

@@ -13,14 +13,11 @@ public class PlayerMovement : MonoBehaviour
     public float prevMoveY; // not used by anything
     [HideInInspector]
     public Vector2 lastMoveDirection;
-    [HideInInspector]
-    public MapController mc;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        mc = FindAnyObjectByType<MapController>();
         lastMoveDirection = new Vector2(1, 0f);
         player = FindAnyObjectByType<Player>();
     }
@@ -63,14 +60,5 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         rb.linearVelocity = new Vector2(movementDirection.x * player.movementSpeed, movementDirection.y * player.movementSpeed);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Used by the Map Controller to determine which chunk the player is in
-        if (collision.CompareTag("Chunk") && mc.currentChunk != collision.gameObject)
-        {
-            mc.currentChunk = collision.gameObject;
-        }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2824321351133177025}
   - component: {fileID: 8757896515824713838}
   - component: {fileID: 8028387865714749424}
-  - component: {fileID: -4561591687401908038}
+  - component: {fileID: 2200046048827840419}
   - component: {fileID: -9101155114286551765}
   m_Layer: 8
   m_Name: Decorations_38
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.65442413, y: 1.5684474}
   m_EdgeRadius: 0
---- !u!114 &-4561591687401908038
+--- !u!114 &2200046048827840419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,10 +149,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3042269856356352141}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17deca9086919f14a967e52118738713, type: 3}
+  m_Script: {fileID: 11500000, guid: 75e6058c4886bee45b8d33a5631efa10, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BreakableProps
-  propStats: {fileID: 11400000, guid: 00a7d05cd745a9d4fa2f73f064405378, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::DestructibleProp
+  stats: {fileID: 11400000, guid: 00a7d05cd745a9d4fa2f73f064405378, type: 2}
 --- !u!114 &-9101155114286551765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,5 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   pickups:
-  - itemPrefab: {fileID: 1912355119471883635, guid: 7ea684b3470c8d24fbb74a0097e62bfc, type: 3}
+  - itemPrefab: {fileID: 5422901954419795312, guid: 7ea684b3470c8d24fbb74a0097e62bfc, type: 3}
     dropChance: 25

@@ -24,13 +24,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1106628092959421700, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 94eec0c1828439947b749bca4ee36f52, type: 2}
     - target: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
       propertyPath: m_Name
       value: RedHobgoblin
       objectReference: {fileID: 0}
     - target: {fileID: 3664645716334694577, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
       propertyPath: m_LocalPosition.x

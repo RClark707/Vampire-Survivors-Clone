@@ -1,163 +1,175 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+/// <summary>
+/// This code was extracted from this blog post: https://blog.terresquall.com/community/topic/part-2-5-map-generation-on-roids-greatly-improved/
+/// </summary>
 
 public class MapController : MonoBehaviour
 {
-    [Header("Chunk Generation")]
-    public List<GameObject> terrainChunks;
-    public GameObject player;
+    public Camera referenceCamera;
+    public float checkInterval = 0.5f;
+
+    [Header("Chunk Settings")]
+    public PropsRandomizer[] terrainChunks;
+    public Vector2 chunkSize = new Vector2(30f, 30f);
+    public LayerMask terrainMask = 1;
+    public bool deleteCulledChunks = false;
     public GameObject chunksParent;
-    public float checkerRadius;
-    public float chunkWidth;
-    public LayerMask terrainMask;
-    [HideInInspector]
-    public GameObject currentChunk;
 
-    PlayerMovement pm;
+    // Stores the last camera's position and size.
+    // To determine whether we need to do checks.
+    Vector3 lastCameraPosition;
+    Rect lastCameraRect;
+    float cullDistanceSqr;
 
-    [Header("Optimization")]
-    public List<GameObject> spawnedChunks;
-    GameObject latestChunk;
-    public float maxOptimizationDistance; // must be greater than the length and width of tilemaps
-    float optimizationDistance;
-    float optimizerCooldown;
-    public float optimizerCooldownDuration;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        pm = FindAnyObjectByType<PlayerMovement>();
+        // Print out errors when important variables are not assigned.
+        if (!referenceCamera)
+            Debug.LogError("MapController cannot work without a reference camera.");
+
+        if (terrainChunks.Length < 1)
+            Debug.LogError("There are no Terrain Chunks assigned, so the map cannot be dynamically generated.");
+
+        // Begin the map checking coroutine.
+        StartCoroutine(HandleMapCheck());
+        HandleChunkSpawning(Vector2.zero, true);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Reset()
     {
-        BuildNewChunks();
-        ChunkOptimizer();
+        referenceCamera = Camera.main;
     }
 
-    void BuildNewChunks()
+    // Coroutine that runs periodically to check and spawn new map pieces.
+    IEnumerator HandleMapCheck()
     {
-        // check player movement direction
-        // grab the current chunk and skip forwards in the direction the player is moving
-        // then spawn the chunk in that location
+        for (; ; )
+        {
+            yield return new WaitForSeconds(checkInterval);
 
-        // TODO: What happens if you move RIGHT UP and come to a corner?
-        // Where should you place the chunk? We should probably cast multiple vectors?
-        // Probably just perform this at all times, checking in all directions
+            // Only update the map if one of these is true.
+            Vector3 moveDelta = referenceCamera.transform.position - lastCameraPosition;
+            bool hasCamWidthChanged = !Mathf.Approximately(referenceCamera.pixelWidth - lastCameraRect.width, 0),
+                 hasCamHeightChanged = !Mathf.Approximately(referenceCamera.pixelHeight - lastCameraRect.height, 0);
 
-        // Check https://blog.terresquall.com/community/topic/part-2-5-map-generation-on-roids-greatly-improved/ for improvements
+            if (hasCamWidthChanged || hasCamHeightChanged || moveDelta.magnitude > 0.1f)
+            {
+                HandleChunkCulling();
+                HandleChunkSpawning(moveDelta, true);
+            }
 
-        Vector3 chunkSpawnPosition;
-
-        if (currentChunk == null)
-        {
-            Debug.Log("No chunk data available");
-            return;
-        }
-
-        // these If-Statements are totally bugged out. Tons of extra chunks are spawning.
-
-        if (pm.movementDirection.x > 0 && pm.movementDirection.y == 0)              // RIGHT
-        {
-            // if there is no chunk in that specific direction, spawn a new one!
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(chunkWidth, 0, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(chunkWidth, 0, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x < 0 && pm.movementDirection.y == 0)              // LEFT
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(-chunkWidth, 0, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(-chunkWidth, 0, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x == 0 && pm.movementDirection.y > 0)              // UP
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(0, chunkWidth, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(0, chunkWidth, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x == 0 && pm.movementDirection.y < 0)              // DOWN
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(0, -chunkWidth, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(0, -chunkWidth, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x > 0 && pm.movementDirection.y > 0)              // RIGHT UP
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(chunkWidth, chunkWidth, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(chunkWidth, chunkWidth, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x > 0 && pm.movementDirection.y < 0)              // RIGHT DOWN
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(chunkWidth, -chunkWidth, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(chunkWidth, -chunkWidth, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x < 0 && pm.movementDirection.y > 0)              // LEFT UP
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(-chunkWidth, chunkWidth, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(-chunkWidth, chunkWidth, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
-        }
-        else if (pm.movementDirection.x < 0 && pm.movementDirection.y < 0)              // LEFT DOWN
-        {
-            if (!Physics2D.OverlapCircle(player.transform.position + new Vector3(-chunkWidth, -chunkWidth, 0), checkerRadius, terrainMask))
-            {
-                chunkSpawnPosition = currentChunk.transform.position + new Vector3(-chunkWidth, -chunkWidth, 0);
-                SpawnChunk(chunkSpawnPosition);
-            }
+            lastCameraPosition = referenceCamera.transform.position;
+            lastCameraRect = referenceCamera.pixelRect;
         }
     }
 
-    void SpawnChunk(Vector3 spawnPosition)
+    // Gets a rect that represents the area the camera covers in the game world.
+    public Rect GetWorldRectFromViewport()
     {
-        int rand = Random.Range(0, terrainChunks.Count);
-        latestChunk = Instantiate(terrainChunks[rand], spawnPosition, Quaternion.identity);
-        latestChunk.transform.parent = chunksParent.transform;
-
-        spawnedChunks.Add(latestChunk);
-        Debug.Log($"Spawned a new chunk at {spawnPosition}");
-    }
-
-    void ChunkOptimizer()
-    {
-        optimizerCooldown -= Time.deltaTime;
-
-        if (optimizerCooldown > 0f)
+        if (!referenceCamera)
         {
-            return;
+            Debug.LogError("Reference camera not found. Using Main Camera instead.");
+            referenceCamera = Camera.main;
         }
 
-        optimizerCooldown = optimizerCooldownDuration;
+        Vector2 minPoint = referenceCamera.ViewportToWorldPoint(referenceCamera.rect.min),
+                maxPoint = referenceCamera.ViewportToWorldPoint(referenceCamera.rect.max);
+        Vector2 size = new Vector2(maxPoint.x - minPoint.x, maxPoint.y - minPoint.y);
+        cullDistanceSqr = Mathf.Max(size.sqrMagnitude, chunkSize.sqrMagnitude) * 3;
 
-        foreach (GameObject chunk in spawnedChunks)
+        return new Rect(minPoint, size);
+    }
+
+    // Gets all the points we have to check for chunks on.
+    public Vector2[] GetCheckedPoints()
+    {
+        Rect viewArea = GetWorldRectFromViewport();
+        Vector2Int tileCount = new Vector2Int(
+            (int)Mathf.Ceil(viewArea.width / chunkSize.x) + 1,
+            (int)Mathf.Ceil(viewArea.height / chunkSize.y) + 1
+        );
+
+        HashSet<Vector2> result = new HashSet<Vector2>();
+        for (int y = -1; y < tileCount.y; y++)
         {
-            optimizationDistance = Vector3.Distance(player.transform.position, chunk.transform.position);
-            if (optimizationDistance > maxOptimizationDistance)
+            for (int x = -1; x < tileCount.x; x++)
             {
-                // disable the object
-                chunk.SetActive(false);
+                result.Add(new Vector2(
+                    viewArea.min.x + chunkSize.x * x,
+                    viewArea.min.y + chunkSize.y * y
+                ));
             }
-            else
+        }
+
+        return result.ToArray();
+    }
+
+    void HandleChunkSpawning(Vector2 moveDelta, bool checkWithoutDelta = false)
+    {
+
+        HashSet<Vector2> spawnedPositions = new HashSet<Vector2>();
+        Vector2 currentPosition = referenceCamera.transform.position;
+
+        // Checks all the viewport points we are interested in.
+        foreach (Vector3 vp in GetCheckedPoints())
+        {
+            if (!checkWithoutDelta)
             {
-                chunk.SetActive(true);
+                // Only check left / right if we are moving.
+                if (moveDelta.x > 0 && vp.x < 0.5f) continue;
+                else if (moveDelta.x < 0 && vp.x > 0.5f) continue;
+
+                // Only check up / down if we are moving.
+                if (moveDelta.y > 0 && vp.y < 0.5f) continue;
+                else if (moveDelta.y < 0 && vp.y > 0.5f) continue;
             }
+
+            // Snaps the checked position to the nearest chunked position.
+            Vector3 checkedPosition = SnapPosition(vp);
+
+            // If the position has no chunks, then spawn chunk.
+            if (!spawnedPositions.Contains(checkedPosition) && !Physics2D.OverlapPoint(checkedPosition, terrainMask))
+                SpawnChunk(checkedPosition);
+
+            spawnedPositions.Add(checkedPosition);
+        }
+    }
+
+    // Rounds a Vector to the nearest position as given by chunkSize.
+    Vector3 SnapPosition(Vector3 position)
+    {
+        return new Vector3(
+            Mathf.Round(position.x / chunkSize.x) * chunkSize.x,
+            Mathf.Round(position.y / chunkSize.y) * chunkSize.y,
+            transform.position.z
+        );
+    }
+
+    // Spawns a chunk at a designated position.
+    PropsRandomizer SpawnChunk(Vector3 spawnPosition, int variant = -1)
+    {
+        if (terrainChunks.Length < 1) return null;
+        int rand = variant < 0 ? Random.Range(0, terrainChunks.Length) : variant;
+        PropsRandomizer chunk = Instantiate(terrainChunks[rand], transform);
+        chunk.transform.position = spawnPosition;
+        chunk.transform.SetParent(chunksParent.transform);
+        return chunk;
+    }
+
+    // Determines whether a given chunk should be shown or hidden.
+    void HandleChunkCulling()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Transform chunk = transform.GetChild(i);
+            Vector2 dist = referenceCamera.transform.position - chunk.position;
+            bool cull = dist.sqrMagnitude > cullDistanceSqr;
+            chunk.gameObject.SetActive(!cull);
+            if (deleteCulledChunks && cull) Destroy(chunk.gameObject);
         }
     }
 }

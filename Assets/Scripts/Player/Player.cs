@@ -1,37 +1,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour // this is explicitly NOT an Entity
 {
     // These are the Player's Current Stat Values, NOT the base stats
     [Header("Character Stats")]
-    public CharacterStats characterStats;
+    public CharacterStats stats;
     GameObject weapon;
     [HideInInspector]
-    public float maxHealth { get; private set; }
+    public float maxHealth { get; set; }
     [HideInInspector]
-    public float health { get; private set; }
+    public float health { get; set; }
     [HideInInspector]
-    public float movementSpeed { get; private set; }// this needs to be passed to the movement script
+    public float movementSpeed { get; set; }
     [HideInInspector]
-    public float recovery { get; private set; }
+    public float recovery { get; set; }
     [HideInInspector]
-    public float armor { get; private set; }
+    public float armor { get; set; }
     [HideInInspector]
-    public float might { get; private set; }
+    public float might { get; set; }
     // [HideInInspector]
-    // public float projectileSpeed { get; private set; }
+    // public float projectileSpeed { get; set; }
     [HideInInspector]
-    public float area { get; private set; }
+    public float area { get; set; }
     [HideInInspector]
-    public float magnet { get; private set; }
+    public float magnet { get; set; }
     [HideInInspector]
-    public float growth { get; private set; }
+    public float growth { get; set; }
     [HideInInspector]
-    public float luck { get; private set; } // adjust all stats like this?
+    public float luck { get; set; } // adjust all stats like this?
 
-    [Header("Weapons")]
-    public List<GameObject> weapons;
+    [Header("Inventory")]
+    InventoryController inv;
+    public int openWeaponIndex;
+    public int openPassiveIndex;
+    public Transform weaponsParent;
+    public Transform passivesParent;
+
+    public GameObject secondWeapon;
+    public GameObject firstPassive, secondPassive;
 
     [Header("Experience & Leveling")]
     public List<XPRequirement> xpRequirements;
@@ -58,25 +65,32 @@ public class Player : MonoBehaviour
     {
         if (CharacterSelector.Instance)
         {
-            characterStats = CharacterSelector.GetCharacterStats();
+            stats = CharacterSelector.GetCharacterStats();
             CharacterSelector.Instance.DestroySingleton();
         }
 
-        name = characterStats.name;
-        weapon = characterStats.StartingWeapon;
-        maxHealth = characterStats.MaxHealth;
-        movementSpeed = characterStats.MovementSpeed;
-        recovery = characterStats.Recovery;
-        armor = characterStats.Armor;
-        might = characterStats.Might;
+        inv = FindAnyObjectByType<InventoryController>();
+        inv.weaponsParent = weaponsParent;
+        inv.passivesParent = passivesParent;
+
+        name = stats.name;
+        weapon = stats.StartingWeapon;
+        maxHealth = stats.MaxHealth;
+        movementSpeed = stats.MovementSpeed;
+        recovery = stats.Recovery;
+        armor = stats.Armor;
+        might = stats.Might;
         // projectileSpeed = characterStats.ProjectileSpeed;
-        area = characterStats.Area;
-        magnet = characterStats.Magnet;
-        growth = characterStats.Growth;
-        luck = characterStats.Luck;
+        area = stats.Area;
+        magnet = stats.Magnet;
+        growth = stats.Growth;
+        luck = stats.Luck;
 
         health = maxHealth;
-        AddWeapon(weapon);
+        AddItem(weapon);
+        AddItem(secondWeapon);
+        AddItem(firstPassive);
+        AddItem(secondPassive);
     }
 
     private void Start()
@@ -98,9 +112,9 @@ public class Player : MonoBehaviour
         Recover();
     }
 
-    public void RestoreHealth(float healing)
+    public void RestoreHealth(float amount)
     {
-        health = Mathf.Min(health + healing, maxHealth);
+        health = Mathf.Min(health + amount, maxHealth);
 
         Debug.Log($"After healing, you have {health} health left!");
     }
@@ -110,27 +124,24 @@ public class Player : MonoBehaviour
         health = Mathf.Min(health + recovery * Time.deltaTime, maxHealth);
     }
 
-    public void TakeDamage(float dmg)
+    public void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
-        health -= dmg;
+        health = Mathf.Max(health - amount, 0f);
+        Debug.Log($"{name} has {health} health left after taking {amount} damage!");
+        if (health <= 0f)
+        {
+            Kill();
+        }
 
         invincibilityTimer = invincibilityDuration;
         isInvincible = true;
-
-        Debug.Log($"You have {health} health left!");
-
-        if (health <= 0)
-        {
-            // End the game
-            Kill();
-        }
     }
 
     public void Kill()
     {
-        Debug.Log("You died!");
+        Debug.Log($"{name} has died! Oh no!");
     }
 
     public void GainXP(float amount)
@@ -164,10 +175,34 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void AddWeapon(GameObject weapon)
+    public void AddItem(GameObject item)
     {
-        GameObject go = Instantiate(weapon, transform.position, Quaternion.identity);
-        go.transform.SetParent(transform);
-        weapons.Add(go);
+        if (item.TryGetComponent(out WeaponController wc))
+        {
+            if (openWeaponIndex >= inv.weaponSlots.Count - 1)
+            {
+                Debug.Log("Weapon slots are already full!");
+                return;
+            }
+
+            GameObject go = Instantiate(item, transform.position, Quaternion.identity);
+            go.transform.SetParent(weaponsParent);
+            inv.AddWeapon(openWeaponIndex, wc);
+            openWeaponIndex++;
+
+        }
+        else if (item.TryGetComponent(out Passive p))
+        {
+            if (openPassiveIndex >= inv.passiveSlots.Count - 1)
+            {
+                Debug.Log("Passive slots are already full!");
+                return;
+            }
+
+            GameObject go = Instantiate(item, transform.position, Quaternion.identity);
+            go.transform.SetParent(passivesParent);
+            inv.AddPassive(openPassiveIndex, p);
+            openPassiveIndex++;
+        }
     }
 }
