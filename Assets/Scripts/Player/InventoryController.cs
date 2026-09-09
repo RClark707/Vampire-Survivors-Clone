@@ -1,26 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-    // can also opt to do a nested class
     public List<WeaponController> weaponSlots = new List<WeaponController>(6);
-    // public int[] weaponLevels = new int[6]; // we're opting to use levels ON the item itself
     public List<Passive> passiveSlots = new List<Passive>(6);
-    // public int[] passiveLevels = new int[6];
 
+    // TODO: Instead of what is implemented, use:
+    // get the horizontal box of weapon slots
+    // get the horizontal box of passive slots
+    public List<Image> weaponUISlots = new List<Image>(6);
+    public List<Image> passiveUISlots = new List<Image>(6);
+
+    [HideInInspector]
     public Transform weaponsParent;
+    [HideInInspector]
     public Transform passivesParent;
 
     public void AddWeapon(int slotIndex, WeaponController weapon)
     {
         weaponSlots[slotIndex] = weapon;
+        weaponUISlots[slotIndex].sprite = weapon.stats.icon;
+        weaponUISlots[slotIndex].enabled = true;
     }
 
     public void AddPassive(int slotIndex, Passive passive)
     {
         passiveSlots[slotIndex] = passive;
+        passiveUISlots[slotIndex].sprite = passive.stats.icon;
+        passiveUISlots[slotIndex].enabled = true;
     }
 
     public void LevelUpWeapon(int slotIndex)

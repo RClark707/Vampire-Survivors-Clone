@@ -3,32 +3,167 @@ using UnityEngine;
 
 public class Player : MonoBehaviour // this is explicitly NOT an Entity
 {
-    // These are the Player's Current Stat Values, NOT the base stats
     [Header("Character Stats")]
     public CharacterStats stats;
     GameObject weapon;
-    [HideInInspector]
-    public float maxHealth { get; set; }
-    [HideInInspector]
-    public float health { get; set; }
-    // [HideInInspector]
-    public float movementSpeed; // { get; set; }
-    [HideInInspector]
-    public float recovery { get; set; }
-    [HideInInspector]
-    public float armor { get; set; }
-    // [HideInInspector]
-    public float might; // { get; set; }
+    #region Current Stats
+    private float _maxHealth { get; set; }
+    public float MaxHealth
+    {
+        get { return _maxHealth; }
+        set
+        {
+            if (_maxHealth != value)
+            {
+                _maxHealth = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(_maxHealth);
+            }
+        }
+    }
+
+    private float _health { get; set; }
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            if (_health != value)
+            {
+                _health = Mathf.Clamp(value, 0f, MaxHealth);
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health); ;
+                if (_health <= 0f)
+                {
+                    Kill();
+                }
+            }
+        }
+    }
+
+    private float _movementSpeed { get; set; }
+    public float MovementSpeed
+    {
+        get { return _movementSpeed; }
+        set
+        {
+            if (_movementSpeed != value)
+            {
+                _movementSpeed = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.speedDisplay.text = "Speed: " + _movementSpeed;
+            }
+        }
+    }
+
+    private float _recovery { get; set; }
+    public float Recovery
+    {
+        get { return _recovery; }
+        set
+        {
+            if (_recovery != value)
+            {
+                _recovery = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.recoveryDisplay.text = "Recovery: " + _recovery;
+            }
+        }
+    }
+
+    private float _armor { get; set; }
+    public float Armor
+    {
+        get { return _armor; }
+        set
+        {
+            if (_armor != value)
+            {
+                _armor = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.armorDisplay.text = "Armor: " + _armor;
+            }
+        }
+    }
+
+    private float _might { get; set; }
+    public float Might
+    {
+        get { return _might; }
+        set
+        {
+            if (_might != value)
+            {
+                _might = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.mightDisplay.text = "Might: " + _might;
+            }
+        }
+    }
+
     // [HideInInspector]
     // public float projectileSpeed { get; set; }
-    [HideInInspector]
-    public float area { get; set; }
-    [HideInInspector]
-    public float magnet { get; set; }
-    [HideInInspector]
-    public float growth { get; set; }
-    [HideInInspector]
-    public float luck { get; set; } // adjust all stats like this?
+
+    private float _area { get; set; }
+    public float Area
+    {
+        get { return _area; }
+        set
+        {
+            if (_area != value)
+            {
+                _area = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.areaDisplay.text = "Area: " + _area;
+            }
+        }
+    }
+
+    private float _magnet { get; set; }
+    public float Magnet
+    {
+        get { return _magnet; }
+        set
+        {
+            if (_magnet != value)
+            {
+                _magnet = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.magnetDisplay.text = "Magnet: " + _magnet;
+            }
+        }
+    }
+
+    private float _growth { get; set; }
+    public float Growth
+    {
+        get { return _growth; }
+        set
+        {
+            if (_growth != value)
+            {
+                _growth = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.growthDisplay.text = "Growth: " + _growth;
+            }
+        }
+    }
+
+    private float _luck { get; set; }
+    public float Luck
+    {
+        get { return _luck; }
+        set
+        {
+            if (_luck != value)
+            {
+                _luck = value;
+                // put additional logic each time the value changes here
+                if (GameController.Instance != null) GameController.Instance.luckDisplay.text = "Luck: " + _luck;
+            }
+        }
+    }
+    #endregion
 
     [Header("Inventory")]
     InventoryController inv;
@@ -36,7 +171,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     public int openPassiveIndex;
     public Transform weaponsParent;
     public Transform passivesParent;
-
+    // For testing purposes only
     public GameObject secondWeapon;
     public GameObject firstPassive, secondPassive;
 
@@ -73,20 +208,22 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         inv.weaponsParent = weaponsParent;
         inv.passivesParent = passivesParent;
 
+        // SET CHARACTER STATS
         name = stats.name;
         weapon = stats.StartingWeapon;
-        maxHealth = stats.MaxHealth;
-        movementSpeed = stats.MovementSpeed;
-        recovery = stats.Recovery;
-        armor = stats.Armor;
-        might = stats.Might;
+        MaxHealth = stats.MaxHealth;
+        MovementSpeed = stats.MovementSpeed;
+        Recovery = stats.Recovery;
+        Armor = stats.Armor;
+        Might = stats.Might;
         // projectileSpeed = characterStats.ProjectileSpeed;
-        area = stats.Area;
-        magnet = stats.Magnet;
-        growth = stats.Growth;
-        luck = stats.Luck;
+        Area = stats.Area;
+        Magnet = stats.Magnet;
+        Growth = stats.Growth;
+        Luck = stats.Luck;
 
-        health = maxHealth;
+        Health = MaxHealth;
+
         AddItem(weapon);
         AddItem(secondWeapon);
         AddItem(firstPassive);
@@ -96,6 +233,18 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     private void Start()
     {
         nextLevelXPRequirement = xpRequirements[0].nextLevelXPRequirement;
+
+        // SET UI
+        GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(_maxHealth);
+        GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health);
+        GameController.Instance.speedDisplay.text = "Speed: " + _movementSpeed;
+        GameController.Instance.recoveryDisplay.text = "Recovery: " + _recovery;
+        GameController.Instance.armorDisplay.text = "Armor: " + _armor;
+        GameController.Instance.mightDisplay.text = "Might: " + _might;
+        GameController.Instance.areaDisplay.text = "Area: " + _area;
+        GameController.Instance.magnetDisplay.text = "Magnet: " + _magnet;
+        GameController.Instance.growthDisplay.text = "Growth: " + _growth;
+        GameController.Instance.luckDisplay.text = "Luck: " + _luck;
     }
 
     private void Update()
@@ -114,26 +263,22 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     public void RestoreHealth(float amount)
     {
-        health = Mathf.Min(health + amount, maxHealth);
+        Health += amount;
 
-        Debug.Log($"After healing, you have {health} health left!");
+        Debug.Log($"After healing, you have {Health} health left!");
     }
 
     public void Recover()
     {
-        health = Mathf.Min(health + recovery * Time.deltaTime, maxHealth);
+        Health += Recovery * Time.deltaTime;
     }
 
     public void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
-        health = Mathf.Max(health - amount, 0f);
-        Debug.Log($"{name} has {health} health left after taking {amount} damage!");
-        if (health <= 0f)
-        {
-            Kill();
-        }
+        Health -= amount;
+        Debug.Log($"{name} has {Health} health left after taking {amount} damage!");
 
         invincibilityTimer = invincibilityDuration;
         isInvincible = true;
@@ -146,8 +291,8 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     public void GainXP(float amount)
     {
-        xp += amount * growth;
-        totalXP += amount * growth;
+        xp += amount * Growth;
+        totalXP += amount * Growth;
 
         // Debug.Log($"You gained {amount * growth} XP.");
 

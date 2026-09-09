@@ -3,7 +3,6 @@ using UnityEngine;
 public class WeaponBehavior : MonoBehaviour
 {
     [Header("Weapon Stats")] // these stats are modified and set by the Weapon Controller when the weapon projectile* is instanced
-    // public WeaponStats weaponStats
     public float weaponDuration;
     [HideInInspector]
     public float damage;
@@ -19,12 +18,6 @@ public class WeaponBehavior : MonoBehaviour
 
     protected virtual void Awake()
     {
-        // name = weaponStats.name;
-        // damage = weaponStats.Damage;
-        // projectileSpeed = weaponStats.ProjectileSpeed;
-        // cooldown = weaponStats.Cooldown;
-        // pierceCount = weaponStats.PierceCount;
-
         player = FindAnyObjectByType<Player>();
     }
 
@@ -37,7 +30,7 @@ public class WeaponBehavior : MonoBehaviour
 
     public float GetCurrentDamage()
     {
-        return damage *= player.might;
+        return damage *= player.Might;
     }
 
     // We make these virtual in case we need to override them later

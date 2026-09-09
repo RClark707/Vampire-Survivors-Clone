@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: GarlicStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
   name: Garlic
-  icon: {fileID: 0}
+  icon: {fileID: -155655292, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   level: 1
+  upgrades: []
   weaponPrefab: {fileID: 9161930105638311388, guid: 86e8566399b9c9d4286fd9c7001ba6c9, type: 3}
-  evolvedStats: {fileID: 0}
+  evolvedStats: 0
   evolutionPrefab: {fileID: 0}
   damage: 5
-  speed: 0
+  projectileSpeed: 10
   cooldown: 3
   pierceCount: 0

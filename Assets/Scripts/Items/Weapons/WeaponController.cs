@@ -139,28 +139,28 @@ public class WeaponController : MonoBehaviour, IItem
     //    switch (stat)
     //    {
     //        case ItemStats.PlayerStats.Armor:
-    //            player.armor *= 1 + multiplier / 100f;
+    //            player.Armor *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Area:
-    //            player.area *= 1 + multiplier / 100f;
+    //            player.Area *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Growth:
-    //            player.growth *= 1 + multiplier / 100f;
+    //            player.Growth *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Health:
-    //            player.maxHealth *= 1 + multiplier / 100f;
+    //            player.MaxHealth *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Luck:
-    //            player.luck *= 1 + multiplier / 100f;
+    //            player.Luck *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Magnet:
-    //            player.magnet *= 1 + multiplier / 100f;
+    //            player.Magnet *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Might:
-    //            player.might *= 1 + multiplier / 100f;
+    //            player.Might *= 1 + multiplier / 100f;
     //            break;
     //        case ItemStats.PlayerStats.Speed:
-    //            player.movementSpeed *= 1 + multiplier / 100f;
+    //            player.MovementSpeed *= 1 + multiplier / 100f;
     //            break;
     //        default:
     //            Debug.Log($"No modifier to apply to player stat type of {stat}");

@@ -38,7 +38,7 @@ public class PickupController : MonoBehaviour
         if (pickup != null)
         {
             GameObject go = Instantiate(pickup.itemPrefab, transform.position, Quaternion.identity);
-            Debug.Log($"The {name} dropped a {go.name}!");
+            // Debug.Log($"The {name} dropped a {go.name}!");
         }
     }
 
@@ -49,7 +49,7 @@ public class PickupController : MonoBehaviour
 
         foreach (Drop p in pickups)
         {
-            sum += p.dropChance * player.luck;
+            sum += p.dropChance * player.Luck;
         }
 
         float cumulative = 0f;
@@ -61,7 +61,7 @@ public class PickupController : MonoBehaviour
 
         for (int i = 0; i <= index + 1; i++)
         {
-            cumulative += pickups[i].dropChance * player.luck;
+            cumulative += pickups[i].dropChance * player.Luck;
         }
 
         return cumulative / sum;

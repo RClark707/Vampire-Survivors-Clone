@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpinachStats
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStats
   name: Spinach
-  icon: {fileID: 0}
+  icon: {fileID: -1707671804, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   level: 1
   upgrades: []
   stat: 3
