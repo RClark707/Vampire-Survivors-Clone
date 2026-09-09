@@ -20,8 +20,8 @@ public class WeaponStats : ItemStats
     public float Damage { get => damage; private set => damage = value; }
 
     [SerializeField]
-    float speed = 10;
-    public float Speed { get => speed; private set => speed = value; }
+    float projectileSpeed = 10;
+    public float ProjectileSpeed { get => projectileSpeed; private set => projectileSpeed = value; }
 
     [SerializeField]
     float cooldown = 2;

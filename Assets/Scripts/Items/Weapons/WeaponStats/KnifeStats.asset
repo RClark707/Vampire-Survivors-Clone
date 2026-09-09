@@ -15,10 +15,26 @@ MonoBehaviour:
   name: Knife
   icon: {fileID: 0}
   level: 1
+  upgrades:
+  - description: Increase Speed by 50%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 3
+      multiplier: 50
+  - description: Increase Speed by 100%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 3
+      multiplier: 100
+  - description: Increase Damage by 5
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 1
+      multiplier: 100
   weaponPrefab: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
-  evolvedStats: {fileID: 0}
+  evolvedStats: 0
   evolutionPrefab: {fileID: 0}
   damage: 5
-  speed: 10
+  projectileSpeed: 10
   cooldown: 2
   pierceCount: 1

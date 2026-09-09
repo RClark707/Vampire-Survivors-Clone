@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,33 +25,60 @@ public class InventoryController : MonoBehaviour
 
     public void LevelUpWeapon(int slotIndex)
     {
-        if (weaponSlots[slotIndex].MaxLevelReached())
-        {
-            // evolve the weapon
-            WeaponController wc = weaponSlots[slotIndex];
-            GameObject evolution = Instantiate(wc.stats.EvolutionPrefab, transform.position, Quaternion.identity);
-            evolution.transform.SetParent(weaponsParent);
-            AddWeapon(slotIndex, evolution.GetComponent<WeaponController>());
-            Destroy(wc.gameObject);
-        }
-        else
-        {
-            weaponSlots[slotIndex].stats.Level++;
-        }
+        //if (weaponSlots[slotIndex].MaxLevelReached() && weaponSlots[slotIndex].stats.EvolutionPrefab != null)
+        //{
+        //    Debug.Log($"The {weaponSlots[slotIndex].name} is at maximum level and can be evolved.");
+        //    // evolve the weapon
+        //    WeaponController wc = weaponSlots[slotIndex];
+        //    GameObject evolution = Instantiate(wc.stats.EvolutionPrefab, transform.position, Quaternion.identity);
+        //    evolution.transform.SetParent(weaponsParent);
+        //    AddWeapon(slotIndex, evolution.GetComponent<WeaponController>());
+        //    Destroy(wc.gameObject);
+        //}
+        //else if (weaponSlots[slotIndex].MaxLevelReached())
+        //{
+        //    Debug.Log($"The {weaponSlots[slotIndex].name} is at maximum level and cannot be evolved.");
+        //}
+        //else
+        //{
+        //    Debug.Log($"The {weaponSlots[slotIndex].name} is about to level up.");
+        //    weaponSlots[slotIndex].UpgradeItem();
+        //}
+
+        Debug.Log($"The {weaponSlots[slotIndex].name} is about to level up.");
+        weaponSlots[slotIndex].UpgradeItem();
     }
 
     public void LevelUpPassive(int slotIndex)
     {
-        if (passiveSlots[slotIndex].MaxLevelReached())
-        {
-            Debug.Log("This item can't be upgraded any more!");
-            // add functionality for evolving passive items here
-            return;
-        }
-        else
-        {
-            passiveSlots[slotIndex].stats.Level++;
-        }
+        //if (passiveSlots[slotIndex].MaxLevelReached())
+        //{
+        //    Debug.Log($"The {passiveSlots[slotIndex].name} is at maximum level and cannot be evolved.");
+        //    // add functionality for evolving passive items here
+        //    return;
+        //}
+        //else
+        //{
+        //    Debug.Log($"The {passiveSlots[slotIndex].name} is about to level up.");
+        //    passiveSlots[slotIndex].UpgradeItem();
+        //}
 
+        Debug.Log($"The {passiveSlots[slotIndex].name} is about to level up.");
+        passiveSlots[slotIndex].UpgradeItem();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(LevelUpItems());
+    }
+
+    IEnumerator LevelUpItems()
+    {
+        yield return new WaitForSeconds(2);
+
+        LevelUpPassive(0);
+        LevelUpPassive(1);
+        LevelUpWeapon(0);
+        LevelUpWeapon(1);
     }
 }

@@ -43,5 +43,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be427481890125e4fa7cb219e6b22475, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::KnifeController
   stats: {fileID: 11400000, guid: bdf43cfc1cad25c4f812d49b7b577ffc, type: 2}
+  level: 0

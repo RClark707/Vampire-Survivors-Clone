@@ -2,26 +2,28 @@ using UnityEngine;
 
 public class WeaponBehavior : MonoBehaviour
 {
-    [Header("Weapon Stats")]
-    public WeaponStats weaponStats;
+    [Header("Weapon Stats")] // these stats are modified and set by the Weapon Controller when the weapon projectile* is instanced
+    // public WeaponStats weaponStats
     public float weaponDuration;
-
-    // Current Stats
-    protected float damage;
-    protected float speed;
-    protected float cooldown;
-    protected int pierceCount;
+    [HideInInspector]
+    public float damage;
+    [HideInInspector]
+    public float projectileSpeed;
+    [HideInInspector]
+    public float cooldown; // this value is never used
+    [HideInInspector]
+    public int pierceCount;
 
     [Header("Player Reference")]
     Player player;
 
     protected virtual void Awake()
     {
-        name = weaponStats.name;
-        damage = weaponStats.Damage;
-        speed = weaponStats.Speed;
-        cooldown = weaponStats.Cooldown;
-        pierceCount = weaponStats.PierceCount;
+        // name = weaponStats.name;
+        // damage = weaponStats.Damage;
+        // projectileSpeed = weaponStats.ProjectileSpeed;
+        // cooldown = weaponStats.Cooldown;
+        // pierceCount = weaponStats.PierceCount;
 
         player = FindAnyObjectByType<Player>();
     }
@@ -43,7 +45,7 @@ public class WeaponBehavior : MonoBehaviour
     {
         if (collision.TryGetComponent(out Entity e))
         {
-            Debug.Log($"A {name} just hit an {e.name}");
+            // Debug.Log($"A {name} just hit an {e.name}");
             e.TakeDamage(GetCurrentDamage());
         }
     }

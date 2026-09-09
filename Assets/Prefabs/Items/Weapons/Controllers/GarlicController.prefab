@@ -43,5 +43,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 355c70118365f2b4ab31700b324f28e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::GarlicController
   stats: {fileID: 11400000, guid: f1676a56fdcbc424eb3f51500e081f13, type: 2}
+  level: 0

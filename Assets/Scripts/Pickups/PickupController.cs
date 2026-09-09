@@ -37,8 +37,8 @@ public class PickupController : MonoBehaviour
 
         if (pickup != null)
         {
-            Debug.Log($"The {name} dropped a {pickup.itemPrefab.name}!");
-            Instantiate(pickup.itemPrefab, transform.position, Quaternion.identity);
+            GameObject go = Instantiate(pickup.itemPrefab, transform.position, Quaternion.identity);
+            Debug.Log($"The {name} dropped a {go.name}!");
         }
     }
 

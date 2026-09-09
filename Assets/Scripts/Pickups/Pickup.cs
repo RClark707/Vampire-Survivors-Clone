@@ -27,7 +27,7 @@ public class Pickup : MonoBehaviour, IPickup
     {
         if (collision.TryGetComponent(out Player player))
         {
-            Debug.Log($"You picked up a {name}.");
+            // Debug.Log($"You picked up a {name}.");
             Collect(player);
         }
     }
@@ -36,7 +36,7 @@ public class Pickup : MonoBehaviour, IPickup
     {
         following = true;
         targetPlayer = target;
-        Debug.Log($"The {name} is now following {targetPlayer.name}");
+        // Debug.Log($"The {name} is now following {targetPlayer.name}");
     }
 
     // this method is meant to be overridden

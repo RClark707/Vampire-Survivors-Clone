@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Passive
   stats: {fileID: 11400000, guid: b7929b5e377786e448bf0a59f207b5ed, type: 2}
+  level: 0

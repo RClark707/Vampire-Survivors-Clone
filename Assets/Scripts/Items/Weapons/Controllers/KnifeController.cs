@@ -6,6 +6,15 @@ public class KnifeController : WeaponController
     {
         base.Use();
         GameObject go = Instantiate(stats.WeaponPrefab, transform.position, Quaternion.identity);
+
+        // SET WEAPON STATS
+        KnifeBehavior behavior = go.GetComponent<KnifeBehavior>();
+        behavior.gameObject.name = stats.name;
+        behavior.damage = damage;
+        behavior.projectileSpeed = projectileSpeed;
+        behavior.cooldown = maxCooldown;
+        behavior.pierceCount = pierceCount;
+
         go.GetComponent<KnifeBehavior>().SetProjectileDirectionAndRotation(pm.lastMoveDirection);
     }
 }

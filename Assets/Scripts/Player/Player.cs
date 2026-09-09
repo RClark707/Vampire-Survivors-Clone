@@ -11,14 +11,14 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     public float maxHealth { get; set; }
     [HideInInspector]
     public float health { get; set; }
-    [HideInInspector]
-    public float movementSpeed { get; set; }
+    // [HideInInspector]
+    public float movementSpeed; // { get; set; }
     [HideInInspector]
     public float recovery { get; set; }
     [HideInInspector]
     public float armor { get; set; }
-    [HideInInspector]
-    public float might { get; set; }
+    // [HideInInspector]
+    public float might; // { get; set; }
     // [HideInInspector]
     // public float projectileSpeed { get; set; }
     [HideInInspector]
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         xp += amount * growth;
         totalXP += amount * growth;
 
-        Debug.Log($"You gained {amount * growth} XP.");
+        // Debug.Log($"You gained {amount * growth} XP.");
 
         CheckXP();
     }
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
             GameObject go = Instantiate(item, transform.position, Quaternion.identity);
             go.transform.SetParent(weaponsParent);
-            inv.AddWeapon(openWeaponIndex, wc);
+            inv.AddWeapon(openWeaponIndex, go.GetComponent<WeaponController>()); // this is a different controller than wc!
             openWeaponIndex++;
 
         }
@@ -201,7 +201,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
             GameObject go = Instantiate(item, transform.position, Quaternion.identity);
             go.transform.SetParent(passivesParent);
-            inv.AddPassive(openPassiveIndex, p);
+            inv.AddPassive(openPassiveIndex, go.GetComponent<Passive>());
             openPassiveIndex++;
         }
     }

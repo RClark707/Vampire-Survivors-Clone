@@ -15,5 +15,6 @@ MonoBehaviour:
   name: Wings
   icon: {fileID: 0}
   level: 1
-  stat: 1
+  upgrades: []
+  stat: 2
   multiplier: 50

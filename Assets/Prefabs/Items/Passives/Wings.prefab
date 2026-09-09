@@ -43,5 +43,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91d943473d724fa4da7e2f351bc70c33, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wings
+  m_EditorClassIdentifier: Assembly-CSharp::Passive
   stats: {fileID: 11400000, guid: 484ea6097694e454ca39399e77f19b2f, type: 2}
+  level: 0

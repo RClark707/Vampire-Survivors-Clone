@@ -15,5 +15,6 @@ MonoBehaviour:
   name: Spinach
   icon: {fileID: 0}
   level: 1
-  stat: 2
+  upgrades: []
+  stat: 3
   multiplier: 50
