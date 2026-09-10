@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: KnifeCharacter
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
   name: Arnold
+  icon: {fileID: 7903562892379627633, guid: 8c086848334a1c94992cb877807f787c, type: 3}
   movementSpeed: 5
   maxHealth: 100
   startingWeapon: {fileID: 9081550670044908651, guid: 1ccf03e2e480ce4499d8b06844c80245, type: 3}
   recovery: 1
   armor: 1
-  might: 1
+  might: 3
   projectileSpeed: 1
   area: 1
   magnet: 10
-  growth: 1
+  growth: 10
   luck: 1

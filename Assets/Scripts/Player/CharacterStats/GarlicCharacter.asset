@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GarlicCharacter
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
   name: Sebastian
+  icon: {fileID: 7903562892379627633, guid: 8c086848334a1c94992cb877807f787c, type: 3}
   movementSpeed: 5
   maxHealth: 80
   startingWeapon: {fileID: 7831784006209319345, guid: 7cd783ec9adfeb24d98eb021da49e403, type: 3}

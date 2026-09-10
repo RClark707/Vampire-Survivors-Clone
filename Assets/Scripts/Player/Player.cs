@@ -245,6 +245,9 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         GameController.Instance.magnetDisplay.text = "Magnet: " + _magnet;
         GameController.Instance.growthDisplay.text = "Growth: " + _growth;
         GameController.Instance.luckDisplay.text = "Luck: " + _luck;
+        GameController.Instance.AssignCharacterUI(stats.Icon, stats.name);
+        GameController.Instance.AssignLevelUI(level);
+        GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots);
     }
 
     private void Update()
@@ -286,7 +289,10 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     public void Kill()
     {
-        Debug.Log($"{name} has died! Oh no!");
+        if (!GameController.Instance.isGameOver) // we only want to call this method once!
+        {
+            GameController.Instance.GameOver();
+        }
     }
 
     public void GainXP(float amount)
@@ -305,6 +311,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         {
             xp -= nextLevelXPRequirement;
             level++;
+            GameController.Instance.AssignLevelUI(level);
             Debug.Log($"You are now level {level}.");
             foreach (XPRequirement xpr in xpRequirements)
             {
@@ -333,6 +340,10 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
             GameObject go = Instantiate(item, transform.position, Quaternion.identity);
             go.transform.SetParent(weaponsParent);
             inv.AddWeapon(openWeaponIndex, go.GetComponent<WeaponController>()); // this is a different controller than wc!
+            if (GameController.Instance != null)
+            {
+                GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots);
+            }
             openWeaponIndex++;
 
         }
