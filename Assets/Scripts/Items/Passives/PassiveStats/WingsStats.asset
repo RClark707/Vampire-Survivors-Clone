@@ -14,7 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStats
   name: Wings
   icon: {fileID: -335470898, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Increase Movement Speed by 10%
   level: 1
-  upgrades: []
+  upgrades:
+  - description: Increase Movement Speed by 15%
+    statUpgrades:
+    - playerStatUpgrade: 2
+      weaponStatUpgrade: 0
+      multiplier: 15
+  - description: Increase Movement Speed by 5%
+    statUpgrades:
+    - playerStatUpgrade: 2
+      weaponStatUpgrade: 0
+      multiplier: 5
   stat: 2
-  multiplier: 50
+  multiplier: 10

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     [Header("Character Stats")]
     public CharacterStats stats;
     GameObject weapon;
+
     #region Current Stats
     private float _maxHealth { get; set; }
     public float MaxHealth
@@ -32,7 +33,12 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
             {
                 _health = Mathf.Clamp(value, 0f, MaxHealth);
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health); ;
+                if (GameController.Instance != null)
+                {
+                    GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health);
+                    GameController.Instance.AssignHealthBarUI(_health / MaxHealth);
+                }
+
                 if (_health <= 0f)
                 {
                     Kill();
@@ -172,16 +178,46 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     public Transform weaponsParent;
     public Transform passivesParent;
     // For testing purposes only
-    public GameObject secondWeapon;
-    public GameObject firstPassive, secondPassive;
+    // public GameObject secondWeapon;
+    // public GameObject firstPassive, secondPassive;
 
     [Header("Experience & Leveling")]
     public List<XPRequirement> xpRequirements;
 
-    float xp = 0;
+    float _xp = 0;
+    float XP
+    {
+        get { return _xp; }
+        set
+        {
+            if (_xp != value)
+            {
+                _xp = value;
+                if (GameController.Instance != null)
+                {
+                    GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
+                }
+            }
+        }
+    }
     float totalXP = 0;
     float nextLevelXPRequirement;
-    int level = 1;
+    int _level = 1;
+    int Level
+    {
+        get { return _level; }
+        set
+        {
+            if (_level != value)
+            {
+                _level = value;
+                if (GameController.Instance != null)
+                {
+                    GameController.Instance.AssignLevelUI(Level);
+                }
+            }
+        }
+    }
 
     [System.Serializable]
     public class XPRequirement
@@ -225,16 +261,16 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         Health = MaxHealth;
 
         AddItem(weapon);
-        AddItem(secondWeapon);
-        AddItem(firstPassive);
-        AddItem(secondPassive);
+        // AddItem(secondWeapon);
+        // AddItem(firstPassive);
+        // AddItem(secondPassive);
     }
 
     private void Start()
     {
         nextLevelXPRequirement = xpRequirements[0].nextLevelXPRequirement;
 
-        // SET UI
+        #region Assign UI with GameController
         GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(_maxHealth);
         GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health);
         GameController.Instance.speedDisplay.text = "Speed: " + _movementSpeed;
@@ -246,8 +282,11 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         GameController.Instance.growthDisplay.text = "Growth: " + _growth;
         GameController.Instance.luckDisplay.text = "Luck: " + _luck;
         GameController.Instance.AssignCharacterUI(stats.Icon, stats.name);
-        GameController.Instance.AssignLevelUI(level);
+        GameController.Instance.AssignLevelUI(Level);
         GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots);
+        GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
+        GameController.Instance.AssignHealthBarUI(Health / MaxHealth);
+        #endregion
     }
 
     private void Update()
@@ -297,7 +336,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     public void GainXP(float amount)
     {
-        xp += amount * Growth;
+        XP += amount * Growth;
         totalXP += amount * Growth;
 
         // Debug.Log($"You gained {amount * growth} XP.");
@@ -307,23 +346,24 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     void CheckXP()
     {
-        if (xp >= nextLevelXPRequirement)
+        if (XP >= nextLevelXPRequirement)
         {
-            xp -= nextLevelXPRequirement;
-            level++;
-            GameController.Instance.AssignLevelUI(level);
-            Debug.Log($"You are now level {level}.");
+            XP -= nextLevelXPRequirement;
+            Level++;
+            Debug.Log($"You are now level {Level}.");
             foreach (XPRequirement xpr in xpRequirements)
             {
-                if (level < xpr.minLevel)
+                if (Level < xpr.minLevel)
                 {
                     break;
                 }
                 else
                 {
                     nextLevelXPRequirement = xpr.nextLevelXPRequirement;
+                    GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
                 }
             }
+            GameController.Instance.StartPlayerLevelUp();
         }
     }
 
@@ -359,6 +399,11 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
             go.transform.SetParent(passivesParent);
             inv.AddPassive(openPassiveIndex, go.GetComponent<Passive>());
             openPassiveIndex++;
+        }
+
+        if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
+        {
+            GameController.Instance.EndPlayerLevelUp();
         }
     }
 }

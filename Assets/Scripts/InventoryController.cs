@@ -19,6 +19,30 @@ public class InventoryController : MonoBehaviour
     [HideInInspector]
     public Transform passivesParent;
 
+    public List<WeaponController> GetActiveWeapons()
+    {
+        List<WeaponController> active = new List<WeaponController>();
+
+        foreach (WeaponController wc in weaponSlots)
+        {
+            if (wc != null) active.Add(wc);
+        }
+
+        return active;
+    }
+
+    public List<Passive> GetActivePassives()
+    {
+        List<Passive> active = new List<Passive>();
+
+        foreach (Passive p in passiveSlots)
+        {
+            if (p != null) active.Add(p);
+        }
+
+        return active;
+    }
+
     public void AddWeapon(int slotIndex, WeaponController weapon)
     {
         weaponSlots[slotIndex] = weapon;
@@ -57,6 +81,11 @@ public class InventoryController : MonoBehaviour
 
         Debug.Log($"The {weaponSlots[slotIndex].name} is about to level up.");
         weaponSlots[slotIndex].UpgradeItem();
+
+        if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
+        {
+            GameController.Instance.EndPlayerLevelUp();
+        }
     }
 
     public void LevelUpPassive(int slotIndex)
@@ -75,11 +104,15 @@ public class InventoryController : MonoBehaviour
 
         Debug.Log($"The {passiveSlots[slotIndex].name} is about to level up.");
         passiveSlots[slotIndex].UpgradeItem();
+        if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
+        {
+            GameController.Instance.EndPlayerLevelUp();
+        }
     }
 
     private void Start()
     {
-        StartCoroutine(LevelUpItems());
+        // StartCoroutine(LevelUpItems());
     }
 
     IEnumerator LevelUpItems()

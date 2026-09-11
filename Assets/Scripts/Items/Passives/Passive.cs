@@ -6,6 +6,7 @@ public class Passive : MonoBehaviour, IItem
     public PassiveStats stats;
     [SerializeField]
     protected int level;
+    public int Level { get => level; set => level = value; }
     protected Player player;
 
     public bool MaxLevelReached()

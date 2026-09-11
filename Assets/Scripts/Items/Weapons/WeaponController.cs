@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour, IItem
     public WeaponStats stats;
     [SerializeField]
     protected int level;
+    public int Level { get => level; set => level = value; }
     protected float damage;
     protected float projectileSpeed;
     protected float maxCooldown;
@@ -116,7 +117,7 @@ public class WeaponController : MonoBehaviour, IItem
                 projectileSpeed *= 1 + multiplier / 100f;
                 break;
             case ItemStats.WeaponStats.Cooldown:
-                maxCooldown *= 1 + multiplier / 100f;
+                maxCooldown /= 1 + multiplier / 100f; // we divide by the percentage! 10 / 1.1 is smaller than 10 / 1
                 break;
             case ItemStats.WeaponStats.Pierce_Count:
                 pierceCount *= Mathf.RoundToInt(1 + multiplier / 100f); // THIS IS IMPORTANT FUNCTIONALITY

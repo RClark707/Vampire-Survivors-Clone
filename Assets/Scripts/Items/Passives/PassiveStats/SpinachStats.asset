@@ -14,7 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStats
   name: Spinach
   icon: {fileID: -1707671804, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Increase Might by 50%
   level: 1
-  upgrades: []
+  upgrades:
+  - description: Increase Might by 5%
+    statUpgrades:
+    - playerStatUpgrade: 3
+      weaponStatUpgrade: 0
+      multiplier: 5
+  - description: Increase Might by 15%
+    statUpgrades:
+    - playerStatUpgrade: 3
+      weaponStatUpgrade: 0
+      multiplier: 15
   stat: 3
-  multiplier: 50
+  multiplier: 10

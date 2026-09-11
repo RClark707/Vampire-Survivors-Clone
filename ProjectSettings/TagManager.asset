@@ -68,5 +68,8 @@ TagManager:
   - name: Projectile
     uniqueID: 3115033043
     locked: 0
+  - name: HealthBar
+    uniqueID: 3203069921
+    locked: 0
   m_RenderingLayers:
   - Default

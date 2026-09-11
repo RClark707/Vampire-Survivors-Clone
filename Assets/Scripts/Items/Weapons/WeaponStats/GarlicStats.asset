@@ -14,8 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
   name: Garlic
   icon: {fileID: -155655292, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Creates a damaging aura around you
   level: 1
-  upgrades: []
+  upgrades:
+  - description: Increase Damage by 5%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 1
+      multiplier: 5
+  - description: Increase Damage by 10%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 1
+      multiplier: 10
+  - description: Decrease Cooldown by 10%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 2
+      multiplier: 10
+  - description: Decrease Cooldown by 15%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 2
+      multiplier: 15
   weaponPrefab: {fileID: 9161930105638311388, guid: 86e8566399b9c9d4286fd9c7001ba6c9, type: 3}
   evolvedStats: 0
   evolutionPrefab: {fileID: 0}
