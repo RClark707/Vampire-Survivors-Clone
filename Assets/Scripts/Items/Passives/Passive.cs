@@ -4,15 +4,11 @@ public class Passive : MonoBehaviour, IItem
 {
     [Header("Passive Stats")]
     public PassiveStats stats;
-    [SerializeField]
+    // [SerializeField]
     protected int level;
+    [HideInInspector]
     public int Level { get => level; set => level = value; }
     protected Player player;
-
-    public bool MaxLevelReached()
-    {
-        return stats.upgrades.Count != 0 && (level == stats.upgrades.Count + 1);
-    }
 
     public bool IsUpgradeable()
     {
@@ -70,34 +66,34 @@ public class Passive : MonoBehaviour, IItem
     /// </summary>
     /// <param name="stat"></param>
     /// <param name="multiplier"></param>
-    protected void ApplyPlayerStatModifier(ItemStats.PlayerStats stat, float multiplier)
+    protected void ApplyPlayerStatModifier(ItemStats.PlayerUpgradeStats stat, float multiplier)
     {
         Debug.Log($"Applying a {multiplier}% modifier to your {stat}");
 
         switch (stat)
         {
-            case ItemStats.PlayerStats.Armor:
+            case ItemStats.PlayerUpgradeStats.Armor:
                 player.Armor *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Area:
+            case ItemStats.PlayerUpgradeStats.Area:
                 player.Area *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Growth:
+            case ItemStats.PlayerUpgradeStats.Growth:
                 player.Growth *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Health:
+            case ItemStats.PlayerUpgradeStats.Health:
                 player.MaxHealth *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Luck:
+            case ItemStats.PlayerUpgradeStats.Luck:
                 player.Luck *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Magnet:
+            case ItemStats.PlayerUpgradeStats.Magnet:
                 player.Magnet *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Might:
+            case ItemStats.PlayerUpgradeStats.Might:
                 player.Might *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.PlayerStats.Speed:
+            case ItemStats.PlayerUpgradeStats.Speed:
                 player.MovementSpeed *= 1 + multiplier / 100f;
                 break;
             default:

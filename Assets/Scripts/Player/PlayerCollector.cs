@@ -20,6 +20,10 @@ public class PlayerCollector : MonoBehaviour
     {
         if (collision.TryGetComponent(out IPickup pickup))
         {
+            if (collision.TryGetComponent(out BobbingAnimation bobbingAnimation))
+            {
+                bobbingAnimation.bobbing = false;
+            }
             pickup.Follow(player.transform);
         }
     }

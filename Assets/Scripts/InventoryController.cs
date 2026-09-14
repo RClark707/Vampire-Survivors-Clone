@@ -31,17 +31,17 @@ public class InventoryController : MonoBehaviour
         return active;
     }
 
-    public List<Passive> GetActivePassives()
-    {
-        List<Passive> active = new List<Passive>();
+    //public List<Passive> GetActivePassives()
+    //{
+    //    List<Passive> active = new List<Passive>();
 
-        foreach (Passive p in passiveSlots)
-        {
-            if (p != null) active.Add(p);
-        }
+    //    foreach (Passive p in passiveSlots)
+    //    {
+    //        if (p != null) active.Add(p);
+    //    }
 
-        return active;
-    }
+    //    return active;
+    //}
 
     public void AddWeapon(int slotIndex, WeaponController weapon)
     {
@@ -79,8 +79,26 @@ public class InventoryController : MonoBehaviour
         //    weaponSlots[slotIndex].UpgradeItem();
         //}
 
-        Debug.Log($"The {weaponSlots[slotIndex].name} is about to level up.");
-        weaponSlots[slotIndex].UpgradeItem();
+        WeaponController item = weaponSlots[slotIndex];
+
+        if (item.IsUpgradeable())
+        {
+            Debug.Log($"The {item.name} is about to level up.");
+            item.UpgradeItem();
+        }
+        else
+        {
+            Debug.Log($"The {item.name} item is already at its maximum level of {item.Level}!");
+
+            if (item.CanEvolve())
+            {
+                Debug.Log($"Instead, the {item.name} will be evolved!");
+                WeaponController evolvedController = Instantiate(item.stats.EvolvedWeaponController, transform.position, Quaternion.identity); // adds the controller to the game
+                evolvedController.transform.SetParent(weaponsParent); // places the controller beneath the player, with all other controllers
+                AddWeapon(slotIndex, evolvedController); // adds the weapon to the UI
+                Destroy(item.gameObject); // removes the old weapon controller from the game scene
+            }
+        }
 
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {
@@ -90,20 +108,19 @@ public class InventoryController : MonoBehaviour
 
     public void LevelUpPassive(int slotIndex)
     {
-        //if (passiveSlots[slotIndex].MaxLevelReached())
-        //{
-        //    Debug.Log($"The {passiveSlots[slotIndex].name} is at maximum level and cannot be evolved.");
-        //    // add functionality for evolving passive items here
-        //    return;
-        //}
-        //else
-        //{
-        //    Debug.Log($"The {passiveSlots[slotIndex].name} is about to level up.");
-        //    passiveSlots[slotIndex].UpgradeItem();
-        //}
+        Passive item = passiveSlots[slotIndex];
 
-        Debug.Log($"The {passiveSlots[slotIndex].name} is about to level up.");
-        passiveSlots[slotIndex].UpgradeItem();
+        if (item.IsUpgradeable())
+        {
+            Debug.Log($"The {item.name} is about to level up.");
+            item.UpgradeItem();
+        }
+        else
+        {
+            Debug.Log($"The {item.name} item is already at its maximum level of {item.Level}!");
+            // this is where you can add functionality for evolving passive items
+        }
+
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {
             GameController.Instance.EndPlayerLevelUp();

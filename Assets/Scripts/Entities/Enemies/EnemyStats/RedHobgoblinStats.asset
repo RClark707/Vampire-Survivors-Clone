@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RedHobgoblinStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   name: Red Hobgoblin
+  icon: {fileID: 0}
   movementSpeed: 3
-  maxHealth: 20
+  maxHealth: 2
   damage: 5

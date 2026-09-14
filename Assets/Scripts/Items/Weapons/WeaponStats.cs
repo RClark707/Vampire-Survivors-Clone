@@ -4,16 +4,16 @@ using UnityEngine;
 public class WeaponStats : ItemStats
 {
     [SerializeField]
-    GameObject weaponPrefab;
+    GameObject weaponPrefab; // this is the weapon behavior!
     public GameObject WeaponPrefab { get => weaponPrefab; private set => weaponPrefab = value; }
 
-    [SerializeField]
-    WeaponStats evolvedStats;
-    public WeaponStats EvolvedStats { get => evolvedStats; private set => evolvedStats = value; }
+    // [SerializeField]
+    // WeaponStats evolvedStats; // the stats of the evolved form of the weapon
+    // public WeaponStats EvolvedStats { get => evolvedStats; private set => evolvedStats = value; }
 
     [SerializeField]
-    GameObject evolutionPrefab;
-    public GameObject EvolutionPrefab { get => evolutionPrefab; private set => evolutionPrefab = value; }
+    WeaponController evolvedWeaponController; // the weapon controller used by the evolved weapon
+    public WeaponController EvolvedWeaponController { get => evolvedWeaponController; private set => evolvedWeaponController = value; }
 
     [SerializeField]
     float damage = 1;

@@ -13,7 +13,7 @@ public class RewardsController : MonoBehaviour
     [Serializable]
     public class WeaponUpgrade
     {
-        public GameObject initialWeapon; // this is the weapon controller we need
+        public WeaponController initialWeapon; // this is the weapon controller we need
         public WeaponStats weaponStats;
     }
 
@@ -21,7 +21,7 @@ public class RewardsController : MonoBehaviour
     [Serializable]
     public class PassiveUpgrade
     {
-        public GameObject initialPassive;
+        public Passive initialPassive;
         public PassiveStats passiveStats;
     }
 
@@ -53,6 +53,10 @@ public class RewardsController : MonoBehaviour
 
         foreach (var upgradeOption in upgradeUIOptions)
         {
+            string nameDisplayText = "";
+            string descriptionDisplayText = "";
+            Sprite itemIcon = null;
+
             if (availabeWeaponUpgrades.Count == 0 && availabePassiveUpgrades.Count == 0)
             {
                 return;
@@ -72,7 +76,7 @@ public class RewardsController : MonoBehaviour
             }
             else
             {
-                upgradeType = UnityEngine.Random.Range(0, 2);
+                upgradeType = UnityEngine.Random.Range(0, 2); // this should be a weighted average based on the count of each list
             }
 
             // PRESENT AN OPTION FOR A WEAPON UPGRADE
@@ -95,28 +99,33 @@ public class RewardsController : MonoBehaviour
                         {
                             newWeapon = false;
 
-                            if (!weapons[i].IsUpgradeable()) // if we can't upgrade any further, don't assign anything?
+                            if (!weapons[i].IsUpgradeable() && weapons[i].CanEvolve())
+                            {
+                                // do something here
+                                DisableUpgradeUI(upgradeOption);
+                                break;
+                            }
+                            else if (!weapons[i].IsUpgradeable()) // if we can't upgrade any further, don't assign anything
                             {
                                 DisableUpgradeUI(upgradeOption);
                                 break;
                             }
 
                             upgradeOption.upgradeButton.onClick.AddListener(() => inventoryController.LevelUpWeapon(i));
-                            // TODO: somewhere in here we need to check if we have reached the max level (for evolutions) and for upgradeability
-                            upgradeOption.upgradeDescriptionDisplay.text = weapons[i].stats.upgrades[weapons[i].Level - 1].description; // we want to see the 0th array element for a Level 1 item!
-                            upgradeOption.upgradeNameDisplay.text = chosenWeaponUpgrade.weaponStats.name + " Level: " + (weapons[i].Level + 1).ToString();
-                            // we need a way to change the text for evolutions!
-                            // add functionality for "If the weapon is basically going to evolve", here but also that might only be relevant for chests!
+                            descriptionDisplayText = weapons[i].stats.upgrades[weapons[i].Level - 1].description; // we want to see the 0th array element for a Level 1 item!
+                            nameDisplayText = chosenWeaponUpgrade.weaponStats.name + " Level: " + (weapons[i].Level + 1).ToString();
                             break;
                         }
                     }
                     if (newWeapon) // is this a new weapon to work with? TODO: We also haven't checked for full inventory slots yet!
                     {
-                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenWeaponUpgrade.initialWeapon));
-                        upgradeOption.upgradeDescriptionDisplay.text = chosenWeaponUpgrade.weaponStats.Summary;
-                        upgradeOption.upgradeNameDisplay.text = "(New) " + chosenWeaponUpgrade.weaponStats.name;
+                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenWeaponUpgrade.initialWeapon.gameObject));
+                        descriptionDisplayText = chosenWeaponUpgrade.weaponStats.Summary;
+                        nameDisplayText = chosenWeaponUpgrade.weaponStats.name + " (New)";
                     }
 
+                    upgradeOption.upgradeNameDisplay.text = nameDisplayText;
+                    upgradeOption.upgradeDescriptionDisplay.text = descriptionDisplayText;
                     upgradeOption.upgradeIcon.sprite = chosenWeaponUpgrade.weaponStats.icon;
                 }
             }
@@ -147,18 +156,21 @@ public class RewardsController : MonoBehaviour
                             }
 
                             upgradeOption.upgradeButton.onClick.AddListener(() => inventoryController.LevelUpPassive(i));
-                            upgradeOption.upgradeDescriptionDisplay.text = passives[i].stats.upgrades[passives[i].Level - 1].description;
-                            upgradeOption.upgradeNameDisplay.text = chosenPassiveUpgrade.passiveStats.name + " Level: " + (passives[i].Level + 1).ToString();
+                            nameDisplayText = chosenPassiveUpgrade.passiveStats.name + " Level: " + (passives[i].Level + 1).ToString();
+                            descriptionDisplayText = passives[i].stats.upgrades[passives[i].Level - 1].description;
                             break;
                         }
                     }
                     if (newPassive)
                     {
-                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenPassiveUpgrade.initialPassive));
-                        upgradeOption.upgradeDescriptionDisplay.text = chosenPassiveUpgrade.passiveStats.Summary;
-                        upgradeOption.upgradeNameDisplay.text = "(New) " + chosenPassiveUpgrade.passiveStats.name;
+                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenPassiveUpgrade.initialPassive.gameObject));
+                        nameDisplayText = chosenPassiveUpgrade.passiveStats.name + " (New)";
+                        descriptionDisplayText = chosenPassiveUpgrade.passiveStats.Summary;
+
                     }
 
+                    upgradeOption.upgradeNameDisplay.text = nameDisplayText;
+                    upgradeOption.upgradeDescriptionDisplay.text = descriptionDisplayText;
                     upgradeOption.upgradeIcon.sprite = chosenPassiveUpgrade.passiveStats.icon;
                 }
             }

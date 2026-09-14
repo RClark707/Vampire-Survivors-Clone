@@ -19,8 +19,9 @@ public class EnemySpawner : MonoBehaviour
         public class EnemyGroup
         {
             public string name;
-            public int totalEnemies; // how many should we spawn
             // [HideInInspector]
+            public int totalEnemies; // how many should we spawn
+            [HideInInspector]
             public int spawnCount; // how many have we spawned so far
             public GameObject enemyPrefab;
             public bool isCircularWave; // Is this a circular group?
@@ -39,21 +40,6 @@ public class EnemySpawner : MonoBehaviour
     public int maxEnemies;
     public Transform enemyParent;
     bool canSpawn = true;
-    int minutes = 0; // this is only for creating a graphic of the timer
-    private int seconds = 0;
-    public int Seconds
-    {
-        get => seconds;
-        private set
-        {
-            seconds = value;
-            if (seconds >= 60)
-            {
-                seconds -= 60;
-                minutes += 1;
-            }
-        }
-    }
 
     private void Start()
     {
@@ -125,12 +111,6 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (eg.spawnCount < eg.totalEnemies) // ENEMIES ARE STILL SPAWNING?
                 {
-                    if (enemyCount >= maxEnemies)
-                    {
-                        canSpawn = false;
-                        return;
-                    }
-
                     if (eg.isCircularWave)
                     {
                         StartCoroutine(SpawnTimer(eg, eg.totalEnemies)); // spawn the entire enemy group in a circle
@@ -173,12 +153,20 @@ public class EnemySpawner : MonoBehaviour
         eg.spawnCount++;
         waves[currentWaveIndex].spawnCount++;
         enemyCount++;
+
+        if (enemyCount >= maxEnemies)
+        {
+            canSpawn = false;
+        }
         // here you can factor code to handle assigning any variables for the enemy or making it elite
     }
 
     Vector2 GetRandomSpawnPosition()
     {
-        return player.transform.position + Random.onUnitSphere * distanceToSpawn;
+        Vector2 offset = (new Vector2(0, distanceToSpawn)) - (Vector2)player.transform.position;
+        Vector2 spawnPosition = Quaternion.Euler(0, 0, Random.Range(0, 360)) * offset; // grab a random rotation
+
+        return spawnPosition + (Vector2)player.transform.position;
     }
 
     void SpawnEnemies(EnemyGroup eg, int amount)
@@ -193,5 +181,10 @@ public class EnemySpawner : MonoBehaviour
     public void OnEnemyKilled()
     {
         enemyCount--;
+
+        if (enemyCount < maxEnemies)
+        {
+            canSpawn = true;
+        }
     }
 }

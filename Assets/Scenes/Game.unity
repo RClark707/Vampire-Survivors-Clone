@@ -3518,7 +3518,7 @@ MonoBehaviour:
       totalEnemies: 5
       spawnCount: 0
       enemyPrefab: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      isCircularWave: 0
+      isCircularWave: 1
       isElite: 0
     spawnInterval: 2
     totalEnemies: 9
@@ -3536,6 +3536,17 @@ MonoBehaviour:
       spawnCount: 0
       enemyPrefab: {fileID: 8329889980289980067, guid: 20d3fbf283f5aec4284db0c86509209d, type: 3}
       isCircularWave: 0
+      isElite: 0
+    spawnInterval: 2
+    totalEnemies: 9
+    spawnCount: 0
+  - name: Wave 3
+    enemyGroups:
+    - name: Hobgoblins
+      totalEnemies: 30
+      spawnCount: 0
+      enemyPrefab: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
+      isCircularWave: 1
       isElite: 0
     spawnInterval: 2
     totalEnemies: 9
@@ -5576,9 +5587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d772d4424a5064e91216454ba13268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  healthBar: {fileID: 1903399840}
-  experienceBar: {fileID: 1320242964}
-  inGameLevelDisplay: {fileID: 119047571}
   stats: {fileID: 11400000, guid: b973a309708e70f458104910ef065d39, type: 2}
   openWeaponIndex: 0
   openPassiveIndex: 0

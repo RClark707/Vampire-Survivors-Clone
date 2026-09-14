@@ -1,6 +1,6 @@
 public interface IItem
 {
-    public bool MaxLevelReached();
+    // public bool MaxLevelReached();
 
     public bool IsUpgradeable();
 

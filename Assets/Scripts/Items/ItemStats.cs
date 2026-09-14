@@ -17,8 +17,8 @@ public class ItemStats : ScriptableObject
 
     public List<LevelUpUpgrades> upgrades;
 
-    public enum PlayerStats { None, Health, Speed, Might, Armor, Recovery, Area, Magnet, Growth, Luck };
-    public enum WeaponStats { None, Damage, Cooldown, Projectile_Speed, Pierce_Count };
+    public enum PlayerUpgradeStats { None, Health, Speed, Might, Armor, Recovery, Area, Magnet, Growth, Luck };
+    public enum WeaponUpgradeStats { None, Damage, Cooldown, Projectile_Speed, Pierce_Count };
 
     [Serializable]
     public class LevelUpUpgrades
@@ -29,8 +29,8 @@ public class ItemStats : ScriptableObject
         [Serializable]
         public class Upgrade
         {
-            public PlayerStats playerStatUpgrade;
-            public WeaponStats weaponStatUpgrade;
+            public PlayerUpgradeStats playerStatUpgrade;
+            public WeaponUpgradeStats weaponStatUpgrade;
             public float multiplier;
         }
     }

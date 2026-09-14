@@ -4,8 +4,8 @@ using UnityEngine;
 public class PassiveStats : ItemStats
 {
     [SerializeField]
-    PlayerStats stat;
-    public PlayerStats Stat { get => stat; protected set => stat = value; }
+    PlayerUpgradeStats stat;
+    public PlayerUpgradeStats Stat { get => stat; protected set => stat = value; }
 
     [SerializeField]
     float multiplier;

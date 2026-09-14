@@ -4,8 +4,10 @@ public class WeaponController : MonoBehaviour, IItem
 {
     [Header("Weapon Stats")]
     public WeaponStats stats;
-    [SerializeField]
+
+    // [SerializeField]
     protected int level;
+    [HideInInspector]
     public int Level { get => level; set => level = value; }
     protected float damage;
     protected float projectileSpeed;
@@ -16,17 +18,15 @@ public class WeaponController : MonoBehaviour, IItem
     // protected Player player;
     protected PlayerMovement pm;
 
-    public bool MaxLevelReached()
-    {
-        // this means that you need at least one upgrade to be upgradeable
-        return stats.upgrades.Count != 0 && (level == stats.upgrades.Count + 1);
-    }
-
     public bool IsUpgradeable()
     {
-        // TODO: When this function runs, it evaluates level as 0, even when level is 1. Why?
         // Debug.Log($"So, can we upgrade? {level - 1 < stats.upgrades.Count}");
         return level - 1 < stats.upgrades.Count;
+    }
+
+    public bool CanEvolve()
+    {
+        return stats.EvolvedWeaponController != null;
     }
 
     public void UpgradeItem()
@@ -35,8 +35,9 @@ public class WeaponController : MonoBehaviour, IItem
 
         if (!IsUpgradeable())
         {
-            Debug.Log($"Your {name} item is already at its maximum level of {level}!");
+            Debug.Log($"The {name} item is already at its maximum level of {level}!");
             // Debug.Log($"The {name} has {stats.upgrades.Count} total upgrades available.");
+
             return;
         }
 
@@ -104,22 +105,22 @@ public class WeaponController : MonoBehaviour, IItem
         return;
     }
 
-    protected void ApplyWeaponStatModifier(ItemStats.WeaponStats stat, float multiplier)
+    protected void ApplyWeaponStatModifier(ItemStats.WeaponUpgradeStats stat, float multiplier)
     {
         Debug.Log($"Applying a {multiplier}% multiplier to the {name}'s {stat}");
 
         switch (stat)
         {
-            case ItemStats.WeaponStats.Damage:
+            case ItemStats.WeaponUpgradeStats.Damage:
                 damage *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.WeaponStats.Projectile_Speed:
+            case ItemStats.WeaponUpgradeStats.Projectile_Speed:
                 projectileSpeed *= 1 + multiplier / 100f;
                 break;
-            case ItemStats.WeaponStats.Cooldown:
+            case ItemStats.WeaponUpgradeStats.Cooldown:
                 maxCooldown /= 1 + multiplier / 100f; // we divide by the percentage! 10 / 1.1 is smaller than 10 / 1
                 break;
-            case ItemStats.WeaponStats.Pierce_Count:
+            case ItemStats.WeaponUpgradeStats.Pierce_Count:
                 pierceCount *= Mathf.RoundToInt(1 + multiplier / 100f); // THIS IS IMPORTANT FUNCTIONALITY
                 break;
             default:

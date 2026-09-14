@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6efc25ee93de24d9d5cfc1e26a4c5e, type: 3}
+  m_Name: EvolvedKnifeStats
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
+  name: Many Knives
+  icon: {fileID: -1222791839, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Hurl many knives in one direction
+  level: 1
+  upgrades: []
+  weaponPrefab: {fileID: 8739154804731534065, guid: 70a4e96837f9f594f924e9ec4a3d099b, type: 3}
+  evolvedWeaponController: {fileID: 0}
+  damage: 10
+  projectileSpeed: 20
+  cooldown: 0.2
+  pierceCount: 5

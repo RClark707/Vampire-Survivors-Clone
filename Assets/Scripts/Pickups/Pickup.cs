@@ -34,6 +34,8 @@ public class Pickup : MonoBehaviour, IPickup
 
     public virtual void Follow(Transform target)
     {
+        if (following) return;
+
         following = true;
         targetPlayer = target;
         // Debug.Log($"The {name} is now following {targetPlayer.name}");

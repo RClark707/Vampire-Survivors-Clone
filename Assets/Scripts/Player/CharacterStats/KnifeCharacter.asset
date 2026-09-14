@@ -22,6 +22,6 @@ MonoBehaviour:
   might: 3
   projectileSpeed: 1
   area: 1
-  magnet: 10
+  magnet: 1
   growth: 10
   luck: 1

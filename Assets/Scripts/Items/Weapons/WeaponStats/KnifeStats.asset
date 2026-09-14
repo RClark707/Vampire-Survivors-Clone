@@ -17,30 +17,14 @@ MonoBehaviour:
   summary: Throws a knife in front of you
   level: 1
   upgrades:
-  - description: Increase Speed by 50%
+  - description: Increase Damage by 1
     statUpgrades:
     - playerStatUpgrade: 0
-      weaponStatUpgrade: 3
-      multiplier: 50
-  - description: Increase Speed by 100%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 3
+      weaponStatUpgrade: 1
       multiplier: 100
-  - description: Increase Damage by 50%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 1
-      multiplier: 50
-  - description: Increase Damage by 20%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 1
-      multiplier: 20
   weaponPrefab: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
-  evolvedStats: 0
-  evolutionPrefab: {fileID: 0}
-  damage: 5
+  evolvedWeaponController: {fileID: 6516014123215866080, guid: 15e9798dac1a21742a34b2065ed10d8d, type: 3}
+  damage: 1
   projectileSpeed: 10
   cooldown: 2
   pierceCount: 1
