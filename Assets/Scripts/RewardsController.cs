@@ -13,7 +13,7 @@ public class RewardsController : MonoBehaviour
     [Serializable]
     public class WeaponUpgrade
     {
-        public WeaponController initialWeapon; // this is the weapon controller we need
+        public GameObject initialWeapon; // this is the weapon controller we need
         public WeaponStats weaponStats;
     }
 
@@ -21,7 +21,7 @@ public class RewardsController : MonoBehaviour
     [Serializable]
     public class PassiveUpgrade
     {
-        public Passive initialPassive;
+        public GameObject initialPassive;
         public PassiveStats passiveStats;
     }
 
@@ -99,7 +99,7 @@ public class RewardsController : MonoBehaviour
                         {
                             newWeapon = false;
 
-                            if (!weapons[i].IsUpgradeable() && weapons[i].CanEvolve())
+                            if (!weapons[i].IsUpgradeable() && weapons[i].HasEvolution())
                             {
                                 // do something here
                                 DisableUpgradeUI(upgradeOption);
@@ -117,9 +117,10 @@ public class RewardsController : MonoBehaviour
                             break;
                         }
                     }
+
                     if (newWeapon) // is this a new weapon to work with? TODO: We also haven't checked for full inventory slots yet!
                     {
-                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenWeaponUpgrade.initialWeapon.gameObject));
+                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenWeaponUpgrade.initialWeapon));
                         descriptionDisplayText = chosenWeaponUpgrade.weaponStats.Summary;
                         nameDisplayText = chosenWeaponUpgrade.weaponStats.name + " (New)";
                     }
@@ -161,9 +162,10 @@ public class RewardsController : MonoBehaviour
                             break;
                         }
                     }
+
                     if (newPassive)
                     {
-                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenPassiveUpgrade.initialPassive.gameObject));
+                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenPassiveUpgrade.initialPassive));
                         nameDisplayText = chosenPassiveUpgrade.passiveStats.name + " (New)";
                         descriptionDisplayText = chosenPassiveUpgrade.passiveStats.Summary;
 

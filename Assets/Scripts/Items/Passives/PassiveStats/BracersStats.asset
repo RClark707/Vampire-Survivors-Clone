@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be24915e84c1eb4198ec11f75e4f68d, type: 3}
+  m_Name: BracersStats
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveStats
+  name: Bracers (Stats)
+  icon: {fileID: -1695089915, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Increase Projectile Speed by 10%
+  level: 1
+  upgrades:
+  - description: Increase Projectile Speed by 5%
+    statUpgrades:
+    - playerStatUpgrade: 10
+      weaponStatUpgrade: 0
+      multiplier: 5
+  - description: Increase Projectile Speed by 10%
+    statUpgrades:
+    - playerStatUpgrade: 10
+      weaponStatUpgrade: 0
+      multiplier: 10
+  stat: 10
+  multiplier: 10

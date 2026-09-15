@@ -30,7 +30,12 @@ public class WeaponBehavior : MonoBehaviour
 
     public float GetCurrentDamage()
     {
-        return damage *= player.Might;
+        return damage * player.Might;
+    }
+
+    public float GetCurrentProjectileSpeed()
+    {
+        return projectileSpeed * player.ProjectileSpeed;
     }
 
     // We make these virtual in case we need to override them later

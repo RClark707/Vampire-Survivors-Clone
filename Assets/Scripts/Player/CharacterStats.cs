@@ -4,7 +4,7 @@ using UnityEngine;
 public class CharacterStats : EntityStats
 {
     [SerializeField]
-    GameObject startingWeapon;
+    GameObject startingWeapon; // this is the controller!
     public GameObject StartingWeapon { get => startingWeapon; private set => startingWeapon = value; }
 
     [SerializeField]

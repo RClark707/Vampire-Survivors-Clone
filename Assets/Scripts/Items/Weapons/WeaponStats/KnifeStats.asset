@@ -22,8 +22,9 @@ MonoBehaviour:
     - playerStatUpgrade: 0
       weaponStatUpgrade: 1
       multiplier: 100
-  weaponPrefab: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
-  evolvedWeaponController: {fileID: 6516014123215866080, guid: 15e9798dac1a21742a34b2065ed10d8d, type: 3}
+  weaponBehavior: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
+  catalystPassive: {fileID: 11400000, guid: 3e9327155c4b88f48a24441ba8bbed6d, type: 2}
+  evolvedWeaponController: {fileID: 9081550670044908651, guid: 15e9798dac1a21742a34b2065ed10d8d, type: 3}
   damage: 1
   projectileSpeed: 10
   cooldown: 2

@@ -8,7 +8,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     GameObject weapon;
 
     #region Current Stats
-    private float _maxHealth { get; set; }
+    private float _maxHealth;
     public float MaxHealth
     {
         get { return _maxHealth; }
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _health { get; set; }
+    private float _health;
     public float Health
     {
         get { return _health; }
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _movementSpeed { get; set; }
+    private float _movementSpeed;
     public float MovementSpeed
     {
         get { return _movementSpeed; }
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _recovery { get; set; }
+    private float _recovery;
     public float Recovery
     {
         get { return _recovery; }
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _armor { get; set; }
+    private float _armor;
     public float Armor
     {
         get { return _armor; }
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _might { get; set; }
+    private float _might;
     public float Might
     {
         get { return _might; }
@@ -107,10 +107,22 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    // [HideInInspector]
-    // public float projectileSpeed { get; set; }
+    private float _projectileSpeed;
+    public float ProjectileSpeed
+    {
+        get { return _projectileSpeed; }
+        set
+        {
+            if (_projectileSpeed != value)
+            {
+                _projectileSpeed = value;
+                // put additional logic each time the value changes here
+                // if (GameController.Instance != null) GameController.Instance.projectileSpeedDisplay.text = "Projectile Speed: " + _projectileSpeed;
+            }
+        }
+    }
 
-    private float _area { get; set; }
+    private float _area;
     public float Area
     {
         get { return _area; }
@@ -125,7 +137,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _magnet { get; set; }
+    private float _magnet;
     public float Magnet
     {
         get { return _magnet; }
@@ -140,7 +152,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _growth { get; set; }
+    private float _growth;
     public float Growth
     {
         get { return _growth; }
@@ -155,7 +167,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _luck { get; set; }
+    private float _luck;
     public float Luck
     {
         get { return _luck; }
@@ -252,7 +264,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         Recovery = stats.Recovery;
         Armor = stats.Armor;
         Might = stats.Might;
-        // projectileSpeed = characterStats.ProjectileSpeed;
+        ProjectileSpeed = stats.ProjectileSpeed;
         Area = stats.Area;
         Magnet = stats.Magnet;
         Growth = stats.Growth;

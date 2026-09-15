@@ -15,7 +15,7 @@ public class EvolvedKnifeBehavior : ProjectileWeaponBehavior
     void Update()
     {
         // fling the knife along a direction
-        transform.position += projectileDirection * projectileSpeed * Time.deltaTime;
+        transform.position += projectileDirection * GetCurrentProjectileSpeed() * Time.deltaTime;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

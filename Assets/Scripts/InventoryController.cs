@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +7,6 @@ public class InventoryController : MonoBehaviour
     public List<WeaponController> weaponSlots = new List<WeaponController>(6);
     public List<Passive> passiveSlots = new List<Passive>(6);
 
-    // TODO: Instead of what is implemented, use:
-    // get the horizontal box of weapon slots
-    // get the horizontal box of passive slots
     public List<Image> weaponUISlots = new List<Image>(6);
     public List<Image> passiveUISlots = new List<Image>(6);
 
@@ -18,6 +14,8 @@ public class InventoryController : MonoBehaviour
     public Transform weaponsParent;
     [HideInInspector]
     public Transform passivesParent;
+
+    Player player;
 
     public List<WeaponController> GetActiveWeapons()
     {
@@ -90,12 +88,12 @@ public class InventoryController : MonoBehaviour
         {
             Debug.Log($"The {item.name} item is already at its maximum level of {item.Level}!");
 
-            if (item.CanEvolve())
+            if (GetPossibleEvolutions().Contains(item)) // is it eligible for evolution?
             {
                 Debug.Log($"Instead, the {item.name} will be evolved!");
-                WeaponController evolvedController = Instantiate(item.stats.EvolvedWeaponController, transform.position, Quaternion.identity); // adds the controller to the game
+                GameObject evolvedController = Instantiate(item.stats.EvolvedWeaponController, player.transform.position, Quaternion.identity); // adds the controller to the game
                 evolvedController.transform.SetParent(weaponsParent); // places the controller beneath the player, with all other controllers
-                AddWeapon(slotIndex, evolvedController); // adds the weapon to the UI
+                AddWeapon(slotIndex, evolvedController.GetComponent<WeaponController>()); // adds the weapon to the UI
                 Destroy(item.gameObject); // removes the old weapon controller from the game scene
             }
         }
@@ -127,18 +125,70 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    public List<WeaponController> GetPossibleEvolutions()
+    {
+        // find all possible evolutions based on the current inventory
+        List<WeaponController> possibleEvolutions = new List<WeaponController>();
+
+        foreach (WeaponController wc in weaponSlots) // for each slot we have (weapons)
+        {
+            if (wc != null) // is the slot filled with a weapon?
+            {
+                if (wc.HasEvolution() && !wc.IsUpgradeable()) // does the weapon have an evolution and is it max level?
+                {
+                    Debug.Log($"We found a {wc.name} that can evolve, but do you have the right passive?");
+                    if (wc.stats.CatalystPassive != null) // does it require a catalyst?
+                    {
+                        foreach (Passive p in passiveSlots) // for each slot we have (passives)
+                        {
+                            if (p != null) // is the slot filled with a passive?
+                            {
+                                if (wc.stats.CatalystPassive == p.stats) // do we have the correct item to evolve with?
+                                {
+                                    // this is where we can implement checking for the correct level of the passive
+                                    // we can evolve!
+                                    Debug.Log($"You have the correct passive, {p.name}, to evolve your {wc.name}!");
+                                    possibleEvolutions.Add(wc);
+                                }
+                                else
+                                {
+                                    Debug.Log($"We checked your {p.name}, but that doesn't match {wc.stats.CatalystPassive.name}");
+                                }
+                            }
+                        }
+                    }
+                    else // then the weapon doesn't require a catalyst
+                    {
+                        Debug.Log($"Your {wc.name} can evolve all on its own!");
+                        possibleEvolutions.Add(wc);
+                    }
+                }
+            }
+        }
+
+        return possibleEvolutions;
+    }
+
+    // private void Update()
+    // {
+    //     if (GetPossibleEvolutions().Count > 0)
+    //     {
+    //         Debug.Log("There are possible evolutions available!");
+    //     }
+    // }
+
     private void Start()
     {
-        // StartCoroutine(LevelUpItems());
+        player = FindAnyObjectByType<Player>();
     }
 
-    IEnumerator LevelUpItems()
-    {
-        yield return new WaitForSeconds(2);
+    //IEnumerator LevelUpItems()
+    //{
+    //    yield return new WaitForSeconds(2);
 
-        LevelUpPassive(0);
-        LevelUpPassive(1);
-        LevelUpWeapon(0);
-        LevelUpWeapon(1);
-    }
+    //    LevelUpPassive(0);
+    //    LevelUpPassive(1);
+    //    LevelUpWeapon(0);
+    //    LevelUpWeapon(1);
+    //}
 }

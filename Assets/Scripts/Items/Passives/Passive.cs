@@ -93,6 +93,9 @@ public class Passive : MonoBehaviour, IItem
             case ItemStats.PlayerUpgradeStats.Might:
                 player.Might *= 1 + multiplier / 100f;
                 break;
+            case ItemStats.PlayerUpgradeStats.ProjectileSpeed:
+                player.ProjectileSpeed *= 1 + multiplier / 100f;
+                break;
             case ItemStats.PlayerUpgradeStats.Speed:
                 player.MovementSpeed *= 1 + multiplier / 100f;
                 break;

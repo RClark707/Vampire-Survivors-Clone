@@ -5,7 +5,7 @@ public class KnifeController : WeaponController
     protected override void Use()
     {
         base.Use();
-        GameObject go = Instantiate(stats.WeaponPrefab, transform.position, Quaternion.identity);
+        GameObject go = Instantiate(stats.WeaponBehavior, transform.position, Quaternion.identity);
 
         // SET WEAPON STATS
         KnifeBehavior behavior = go.GetComponent<KnifeBehavior>();

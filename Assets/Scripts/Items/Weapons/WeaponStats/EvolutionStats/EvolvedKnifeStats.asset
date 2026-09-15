@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: EvolvedKnifeStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
   name: Many Knives
-  icon: {fileID: -1222791839, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  icon: {fileID: -247890373, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   summary: Hurl many knives in one direction
   level: 1
   upgrades: []
-  weaponPrefab: {fileID: 8739154804731534065, guid: 70a4e96837f9f594f924e9ec4a3d099b, type: 3}
+  weaponBehavior: {fileID: 8739154804731534065, guid: 70a4e96837f9f594f924e9ec4a3d099b, type: 3}
+  catalystPassive: {fileID: 0}
   evolvedWeaponController: {fileID: 0}
   damage: 10
   projectileSpeed: 20

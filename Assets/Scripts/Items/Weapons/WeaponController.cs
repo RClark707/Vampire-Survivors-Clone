@@ -24,7 +24,7 @@ public class WeaponController : MonoBehaviour, IItem
         return level - 1 < stats.upgrades.Count;
     }
 
-    public bool CanEvolve()
+    public bool HasEvolution()
     {
         return stats.EvolvedWeaponController != null;
     }
@@ -67,6 +67,7 @@ public class WeaponController : MonoBehaviour, IItem
         currentCooldown = maxCooldown;
         damage = stats.Damage;
         projectileSpeed = stats.ProjectileSpeed;
+        pierceCount = stats.PierceCount;
         level = stats.Level;
         // player = FindAnyObjectByType<Player>();
         pm = FindAnyObjectByType<PlayerMovement>();
