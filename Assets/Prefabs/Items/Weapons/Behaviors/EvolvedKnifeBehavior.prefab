@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EvolvedKnifeBehavior
   weaponDuration: 2
+  knockbackAmount: 25
   damage: 0
   projectileSpeed: 0
   cooldown: 0

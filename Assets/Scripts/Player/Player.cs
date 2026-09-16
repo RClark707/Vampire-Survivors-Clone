@@ -238,11 +238,13 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         public float nextLevelXPRequirement;
     }
 
-    // Invincibility Frames
     [Header("I-Frames")]
     public float invincibilityDuration;
     float invincibilityTimer;
     bool isInvincible;
+
+    [Header("Particles")]
+    public ParticleSystem damageEffect;
 
     private void Awake()
     {
@@ -333,6 +335,8 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
         Health -= amount;
         Debug.Log($"{name} has {Health} health left after taking {amount} damage!");
+
+        if (damageEffect) Instantiate(damageEffect, transform.position, Quaternion.identity);
 
         invincibilityTimer = invincibilityDuration;
         isInvincible = true;

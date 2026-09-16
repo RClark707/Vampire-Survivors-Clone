@@ -4,6 +4,7 @@ public class WeaponBehavior : MonoBehaviour
 {
     [Header("Weapon Stats")] // these stats are modified and set by the Weapon Controller when the weapon projectile* is instanced
     public float weaponDuration;
+    public float knockbackAmount;
     [HideInInspector]
     public float damage;
     [HideInInspector]
@@ -14,7 +15,7 @@ public class WeaponBehavior : MonoBehaviour
     public int pierceCount;
 
     [Header("Player Reference")]
-    Player player;
+    protected Player player;
 
     protected virtual void Awake()
     {
@@ -45,6 +46,11 @@ public class WeaponBehavior : MonoBehaviour
         {
             // Debug.Log($"A {name} just hit an {e.name}");
             e.TakeDamage(GetCurrentDamage());
+            if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))
+            {
+                // Debug.Log("Applying Knockback after a Projectile collided with an Enemy");
+                enemy.ApplyKnockback(player.transform.position, knockbackAmount);
+            }
         }
     }
 }

@@ -24,6 +24,11 @@ public class GarlicBehavior : MeleeWeaponBehavior
             e.TakeDamage(GetCurrentDamage());
             if (e) // is it still alive?
             {
+                if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))
+                {
+                    // Debug.Log("Applying Knockback after a Projectile collided with an Enemy");
+                    enemy.ApplyKnockback(player.transform.position, knockbackAmount);
+                }
                 markedEnemies.Add(e.gameObject);
             }
         }

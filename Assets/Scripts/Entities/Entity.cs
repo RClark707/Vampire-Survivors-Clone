@@ -1,10 +1,22 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Entity : MonoBehaviour
 {
     [HideInInspector]
     public float health { get; set; }
-    PickupController pc;
+    protected PickupController pc;
+
+    [Header("Damage Feedback")]
+    public Color damagedColor = new Color(1, 0, 0, 1);
+    public float damageFlashDuration = 0.2f;
+    public float deathFadeTime = 0.6f;
+    public Canvas damageCanvas;
+    public TextMeshProUGUI damageDisplay;
+    protected Color originalColor;
+    protected SpriteRenderer sr;
 
     public virtual void Awake()
     {
@@ -12,16 +24,60 @@ public class Entity : MonoBehaviour
         {
             pc = component;
         }
+
+        sr = GetComponent<SpriteRenderer>();
+        originalColor = sr.color;
     }
 
     public virtual void TakeDamage(float amount)
     {
         health = Mathf.Max(health - amount, 0f);
         Debug.Log($"The {name} has {health} health left after taking {amount} damage!");
+        if (damageDisplay != null)
+        {
+            StartCoroutine(ShowDamagePopup(amount));
+        }
+        StartCoroutine(DamageFlash());
+
         if (health <= 0f)
         {
             Kill();
         }
+    }
+
+    protected IEnumerator DamageFlash()
+    {
+        sr.color = damagedColor;
+        yield return new WaitForSeconds(damageFlashDuration);
+        sr.color = originalColor;
+    }
+
+    protected IEnumerator ShowDamagePopup(float amount, bool criticalHit = false)
+    {
+        TextMeshProUGUI popup = Instantiate(damageDisplay, transform.position, Quaternion.identity);
+        popup.text = amount.ToString();
+        popup.transform.SetParent(damageCanvas.transform);
+        popup.transform.position = transform.position + new Vector3(1.2f, 0.4f, 0f);
+        // modify other properties of the text here
+
+        if (criticalHit)
+        {
+            // add particle effects here
+            popup.color = Color.red;
+        }
+
+        WaitForEndOfFrame w = new WaitForEndOfFrame();
+        float t = 0f;
+
+        while (t < damageFlashDuration)
+        {
+            yield return w;
+            t += Time.deltaTime;
+
+            popup.color = new Color(popup.color.r, popup.color.g, popup.color.b, 1 - t / damageFlashDuration); // linear interpolate the alpha
+        }
+
+        Destroy(popup.gameObject);
     }
 
     public virtual void Kill()

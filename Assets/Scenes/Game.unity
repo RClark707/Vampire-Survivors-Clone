@@ -5600,6 +5600,7 @@ MonoBehaviour:
   - minLevel: 7
     nextLevelXPRequirement: 40
   invincibilityDuration: 0.5
+  damageEffect: {fileID: 4718418558746045724, guid: 5d30bfb65ea87f845b5210fec0b91903, type: 3}
 --- !u!1 &1423149612
 GameObject:
   m_ObjectHideFlags: 0

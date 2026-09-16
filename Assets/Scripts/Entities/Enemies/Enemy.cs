@@ -2,24 +2,31 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMovement))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class Enemy : Entity
 {
     EnemySpawner es;
+    bool isElite;
+    public bool IsElite
+    {
+        get { return isElite; }
+        set
+        {
+            isElite = value;
+            if (isElite)
+            {
+                // set the sprite to be larger
+                // modify the stats by 2 times
+                // apply a shader
+            }
+        }
+    }
 
     [Header("Enemy Stats")]
     public EnemyStats stats;
-    [HideInInspector]
     public float movementSpeed { get; private set; }
-    [HideInInspector]
     public float damage { get; private set; }
 
     [Header("Damage Feedback")]
-    public Color damagedColor = new Color(1, 0, 0, 1);
-    public float damageFlashDuration = 0.2f;
-    public float deathFadeTime = 0.6f;
-    Color originalColor;
-    SpriteRenderer sr;
     EnemyMovement em;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,48 +38,52 @@ public class Enemy : Entity
         damage = stats.Damage;
 
         es = FindAnyObjectByType<EnemySpawner>();
-        sr = GetComponent<SpriteRenderer>();
         em = GetComponent<EnemyMovement>();
-
-        originalColor = sr.color;
 
         base.Awake();
     }
 
     public override void TakeDamage(float amount)
     {
-        // rewrite this function to take a source as a parameter
-        StartCoroutine(DamageFlash());
-        // em.ApplyKnockback();
         base.TakeDamage(amount);
+    }
+
+    public void ApplyKnockback(Vector2 source, float amount)
+    {
+        em.knockedBack = true;
+        em.knockback = (source - (Vector2)transform.position).normalized * amount;
     }
 
     public override void Kill()
     {
-        es.OnEnemyKilled();
-        base.Kill();
+        Debug.Log($"The {name} has been killed.");
+        StartCoroutine(KillFade());
+        // base.Kill();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision.TryGetComponent(out Player player))
         {
-            if (collision.TryGetComponent(out Player player))
-            {
-                player.TakeDamage(damage);
-            }
+            player.TakeDamage(damage);
         }
     }
 
-    IEnumerator DamageFlash()
+    IEnumerator KillFade()
     {
-        sr.color = damagedColor;
-        yield return new WaitForSeconds(damageFlashDuration);
-        sr.color = originalColor;
-    }
+        WaitForEndOfFrame w = new WaitForEndOfFrame();
+        float t = 0, origAlpha = sr.color.a;
 
-    // IEnumerator KillFade()
-    // {
-    // 
-    // }
+        while (t < deathFadeTime)
+        {
+            yield return w;
+            t += Time.deltaTime;
+
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (1 - t / deathFadeTime) * origAlpha); // linear interpolate the alpha
+        }
+
+        Destroy(gameObject);
+        es.OnEnemyKilled();
+        if (pc) pc.OnHostKilled(); // update this with reference to if we are an elite enemy!
+    }
 }
