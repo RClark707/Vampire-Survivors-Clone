@@ -75,6 +75,15 @@ public class Entity : MonoBehaviour
             t += Time.deltaTime;
 
             popup.color = new Color(popup.color.r, popup.color.g, popup.color.b, 1 - t / damageFlashDuration); // linear interpolate the alpha
+
+            popup.transform.position = Vector3.MoveTowards(
+                popup.transform.position,
+                new Vector3(
+                    popup.transform.position.x,
+                    popup.transform.position.y + 0.03f * (1f - t / damageFlashDuration),
+                    popup.transform.position.z
+                    ),
+                1f);
         }
 
         Destroy(popup.gameObject);

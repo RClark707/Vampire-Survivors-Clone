@@ -195,7 +195,6 @@ MonoBehaviour:
   damageFlashDuration: 0.2
   deathFadeTime: 0.6
   damageCanvas: {fileID: 8499694111103141112}
-  referenceCam: {fileID: 0}
   damageDisplay: {fileID: 9106673356233323592, guid: 4989a7eca0ea8f84ebe8a8de7ba35fcd, type: 3}
   stats: {fileID: 11400000, guid: 210acac6d1ac2de41b09bd9735ca4f48, type: 2}
 --- !u!114 &-5488348723025432586

@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete("This will be replaced by the WeaponStatsB class")]
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Stats/Weapon Stats")]
 public class WeaponStats : ItemStats
 {

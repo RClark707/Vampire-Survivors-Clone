@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete("This will be replaced by the WeaponB class")]
 public class WeaponController : MonoBehaviour, IItem
 {
     [Header("Weapon Stats")]
