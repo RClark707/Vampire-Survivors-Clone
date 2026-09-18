@@ -1,13 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Weapon Stats B", menuName = "Stats/Weapon Stats B")]
-public class WeaponStatsB : ScriptableObject
+public class WeaponStatsB : ItemStatsB
 {
-    public Sprite icon;
-    public int maxLevel;
-
-    //public enum Behavior { None, AuraWeapon, AxeWeapon, LightningWeapon, ProjectileWeapon, WhipWeapon }
-    // public Behavior behavior;
     [HideInInspector]
     public string behavior;
     public WeaponB.Stats baseStats;

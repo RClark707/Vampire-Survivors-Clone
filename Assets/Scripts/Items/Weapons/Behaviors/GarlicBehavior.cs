@@ -21,7 +21,7 @@ public class GarlicBehavior : MeleeWeaponBehavior
         if (collision.TryGetComponent(out Entity e))
         {
             Debug.Log($"A {name} just hit an {e.name}");
-            e.TakeDamage(GetCurrentDamage());
+            e.TakeDamage(GetCurrentDamage(), collision.transform.position);
             if (e) // is it still alive?
             {
                 if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))

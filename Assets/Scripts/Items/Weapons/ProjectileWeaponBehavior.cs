@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete("This will be replaced by Weapon Effects/ProjectileWeaponB")]
 public class ProjectileWeaponBehavior : WeaponBehavior
 {
     protected Vector3 projectileDirection;
@@ -29,7 +31,7 @@ public class ProjectileWeaponBehavior : WeaponBehavior
         if (collision.TryGetComponent(out Entity e))
         {
             Debug.Log($"A {name} just hit an {e.name}");
-            e.TakeDamage(GetCurrentDamage());
+            e.TakeDamage(GetCurrentDamage(), collision.transform.position);
             if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))
             {
                 // Debug.Log("Applying Knockback after a Projectile collided with an Enemy");

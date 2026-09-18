@@ -29,6 +29,8 @@ public class Enemy : Entity
     [Header("Damage Feedback")]
     EnemyMovement em;
 
+    Player player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Awake()
     {
@@ -39,13 +41,14 @@ public class Enemy : Entity
 
         es = FindAnyObjectByType<EnemySpawner>();
         em = GetComponent<EnemyMovement>();
+        player = FindAnyObjectByType<Player>();
 
         base.Awake();
     }
 
-    public override void TakeDamage(float amount)
+    public override void TakeDamage(float amount, Vector3 source)
     {
-        base.TakeDamage(amount);
+        base.TakeDamage(amount, source);
     }
 
     public void ApplyKnockback(Vector2 source, float amount)

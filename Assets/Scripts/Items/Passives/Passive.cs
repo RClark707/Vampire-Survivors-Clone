@@ -1,5 +1,6 @@
+using System;
 using UnityEngine;
-
+[Obsolete("This class has been overwritten by PassiveB")]
 public class Passive : MonoBehaviour, IItem
 {
     [Header("Passive Stats")]
@@ -97,7 +98,7 @@ public class Passive : MonoBehaviour, IItem
                 player.ProjectileSpeed *= 1 + multiplier / 100f;
                 break;
             case ItemStats.PlayerUpgradeStats.Speed:
-                player.MovementSpeed *= 1 + multiplier / 100f;
+                player.MoveSpeed *= 1 + multiplier / 100f;
                 break;
             default:
                 Debug.Log($"No modifier to apply to player stat type of {stat}");

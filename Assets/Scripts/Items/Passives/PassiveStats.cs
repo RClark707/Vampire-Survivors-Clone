@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+
+[Obsolete("This class has been overwritten by PassiveStatsB")]
 
 [CreateAssetMenu(fileName = "New Passive Stats", menuName = "Stats/Passive Stats")]
 public class PassiveStats : ItemStats

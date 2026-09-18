@@ -89,7 +89,7 @@ public class Projectile : WeaponEffect
         }
         else if (dp)
         {
-            dp.TakeDamage(GetDamage());
+            dp.TakeDamage(GetDamage(), new Vector3(0, 0, 0)); // this source isn't real, get rid of it!
             piercing--;
 
             WeaponB.Stats stats = weapon.GetStats();

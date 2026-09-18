@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Obsolete("This has been repalced by Player Inventory Controller")]
 public class RewardsController : MonoBehaviour
 {
     InventoryController inventoryController;
@@ -120,7 +121,7 @@ public class RewardsController : MonoBehaviour
 
                     if (newWeapon) // is this a new weapon to work with? TODO: We also haven't checked for full inventory slots yet!
                     {
-                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenWeaponUpgrade.initialWeapon));
+                        //upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenWeaponUpgrade.initialWeapon));
                         descriptionDisplayText = chosenWeaponUpgrade.weaponStats.Summary;
                         nameDisplayText = chosenWeaponUpgrade.weaponStats.name + " (New)";
                     }
@@ -165,7 +166,7 @@ public class RewardsController : MonoBehaviour
 
                     if (newPassive)
                     {
-                        upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenPassiveUpgrade.initialPassive));
+                        //upgradeOption.upgradeButton.onClick.AddListener(() => player.AddItem(chosenPassiveUpgrade.initialPassive));
                         nameDisplayText = chosenPassiveUpgrade.passiveStats.name + " (New)";
                         descriptionDisplayText = chosenPassiveUpgrade.passiveStats.Summary;
 

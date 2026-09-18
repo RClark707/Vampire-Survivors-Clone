@@ -45,7 +45,7 @@ public class WeaponBehavior : MonoBehaviour
         if (collision.TryGetComponent(out Entity e))
         {
             // Debug.Log($"A {name} just hit an {e.name}");
-            e.TakeDamage(GetCurrentDamage());
+            e.TakeDamage(GetCurrentDamage(), collision.transform.position);
             if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))
             {
                 // Debug.Log("Applying Knockback after a Projectile collided with an Enemy");

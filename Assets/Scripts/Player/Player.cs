@@ -1,24 +1,27 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour // this is explicitly NOT an Entity
 {
     [Header("Character Stats")]
-    public CharacterStats stats;
+    CharacterStatsB characterData;
+    public CharacterStatsB.Stats baseStats;
+    [SerializeField] CharacterStatsB.Stats actualStats;
+
     GameObject weapon;
 
     #region Current Stats
-    private float _maxHealth;
     public float MaxHealth
     {
-        get { return _maxHealth; }
+        get { return actualStats.maxHealth; }
         set
         {
-            if (_maxHealth != value)
+            if (actualStats.maxHealth != value)
             {
-                _maxHealth = value;
+                actualStats.maxHealth = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(_maxHealth);
+                if (GameController.Instance != null) GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(actualStats.maxHealth);
             }
         }
     }
@@ -47,144 +50,182 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _movementSpeed;
-    public float MovementSpeed
+    public float CurrentMoveSpeed
     {
-        get { return _movementSpeed; }
+        get { return MoveSpeed; }
+        set { MoveSpeed = value; }
+    }
+    public float MoveSpeed
+    {
+        get { return actualStats.moveSpeed; }
         set
         {
-            if (_movementSpeed != value)
+            if (actualStats.moveSpeed != value)
             {
-                _movementSpeed = value;
+                actualStats.moveSpeed = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.speedDisplay.text = "Speed: " + _movementSpeed;
+                if (GameController.Instance != null) GameController.Instance.speedDisplay.text = "Move Speed: " + actualStats.moveSpeed;
             }
         }
     }
 
-    private float _recovery;
+    public float CurrentRecovery
+    {
+        get { return Recovery; }
+        set { Recovery = value; }
+    }
     public float Recovery
     {
-        get { return _recovery; }
+        get { return actualStats.recovery; }
         set
         {
-            if (_recovery != value)
+            if (actualStats.recovery != value)
             {
-                _recovery = value;
+                actualStats.recovery = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.recoveryDisplay.text = "Recovery: " + _recovery;
+                if (GameController.Instance != null) GameController.Instance.recoveryDisplay.text = "Recovery: " + actualStats.recovery;
             }
         }
     }
 
-    private float _armor;
+    public float CurrentArmor
+    {
+        get { return Armor; }
+        set { Armor = value; }
+
+    }
     public float Armor
     {
-        get { return _armor; }
+        get { return actualStats.armor; }
         set
         {
-            if (_armor != value)
+            if (actualStats.armor != value)
             {
-                _armor = value;
+                actualStats.armor = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.armorDisplay.text = "Armor: " + _armor;
+                if (GameController.Instance != null) GameController.Instance.armorDisplay.text = "Armor: " + actualStats.armor;
             }
         }
     }
 
-    private float _might;
+    public float CurrentMight
+    {
+        get { return Might; }
+        set { Might = value; }
+    }
     public float Might
     {
-        get { return _might; }
+        get { return actualStats.might; }
         set
         {
-            if (_might != value)
+            if (actualStats.might != value)
             {
-                _might = value;
+                actualStats.might = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.mightDisplay.text = "Might: " + _might;
+                if (GameController.Instance != null) GameController.Instance.mightDisplay.text = "Might: " + actualStats.might;
             }
         }
     }
 
-    private float _projectileSpeed;
+    public float CurrentProjectileSpeed
+    {
+        get { return ProjectileSpeed; }
+        set { ProjectileSpeed = value; }
+    }
     public float ProjectileSpeed
     {
-        get { return _projectileSpeed; }
+        get { return actualStats.projectileSpeed; }
         set
         {
-            if (_projectileSpeed != value)
+            if (actualStats.projectileSpeed != value)
             {
-                _projectileSpeed = value;
+                actualStats.projectileSpeed = value;
                 // put additional logic each time the value changes here
                 // if (GameController.Instance != null) GameController.Instance.projectileSpeedDisplay.text = "Projectile Speed: " + _projectileSpeed;
             }
         }
     }
 
-    private float _area;
+    public float CurrentArea
+    {
+        get { return Area; }
+        set { Area = value; }
+
+    }
     public float Area
     {
-        get { return _area; }
+        get { return actualStats.area; }
         set
         {
-            if (_area != value)
+            if (actualStats.area != value)
             {
-                _area = value;
+                actualStats.area = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.areaDisplay.text = "Area: " + _area;
+                if (GameController.Instance != null) GameController.Instance.areaDisplay.text = "Area: " + actualStats.area;
             }
         }
     }
 
-    private float _magnet;
+    public float CurrentMagnet
+    {
+        get { return Magnet; }
+        set { Magnet = value; }
+    }
     public float Magnet
     {
-        get { return _magnet; }
+        get { return actualStats.magnet; }
         set
         {
-            if (_magnet != value)
+            if (actualStats.magnet != value)
             {
-                _magnet = value;
+                actualStats.magnet = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.magnetDisplay.text = "Magnet: " + _magnet;
+                if (GameController.Instance != null) GameController.Instance.magnetDisplay.text = "Magnet: " + actualStats.magnet;
             }
         }
     }
 
-    private float _growth;
+    public float CurrentGrowth
+    {
+        get { return Growth; }
+        set { Growth = value; }
+    }
     public float Growth
     {
-        get { return _growth; }
+        get { return actualStats.growth; }
         set
         {
-            if (_growth != value)
+            if (actualStats.growth != value)
             {
-                _growth = value;
+                actualStats.growth = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.growthDisplay.text = "Growth: " + _growth;
+                if (GameController.Instance != null) GameController.Instance.growthDisplay.text = "Growth: " + actualStats.growth;
             }
         }
     }
 
-    private float _luck;
+    private float CurrentLuck
+    {
+        get { return Luck; }
+        set { Luck = value; }
+    }
     public float Luck
     {
-        get { return _luck; }
+        get { return actualStats.luck; }
         set
         {
-            if (_luck != value)
+            if (actualStats.luck != value)
             {
-                _luck = value;
+                actualStats.luck = value;
                 // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.luckDisplay.text = "Luck: " + _luck;
+                if (GameController.Instance != null) GameController.Instance.luckDisplay.text = "Luck: " + actualStats.luck;
             }
         }
     }
     #endregion
 
     [Header("Inventory")]
-    InventoryController inv;
+    PlayerInventoryController inv;
     public int openWeaponIndex;
     public int openPassiveIndex;
     public Transform weaponsParent;
@@ -250,54 +291,39 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     {
         if (CharacterSelector.Instance)
         {
-            stats = CharacterSelector.GetCharacterStats();
+            characterData = CharacterSelector.GetCharacterStats();
             CharacterSelector.Instance.DestroySingleton();
         }
 
-        inv = FindAnyObjectByType<InventoryController>();
-        inv.weaponsParent = weaponsParent;
-        inv.passivesParent = passivesParent;
+        inv = GetComponent<PlayerInventoryController>();
 
-        // SET CHARACTER STATS
-        name = stats.name;
-        weapon = stats.StartingWeapon;
-        MaxHealth = stats.MaxHealth;
-        MovementSpeed = stats.MovementSpeed;
-        Recovery = stats.Recovery;
-        Armor = stats.Armor;
-        Might = stats.Might;
-        ProjectileSpeed = stats.ProjectileSpeed;
-        Area = stats.Area;
-        Magnet = stats.Magnet;
-        Growth = stats.Growth;
-        Luck = stats.Luck;
+        // Assign variables
 
-        Health = MaxHealth;
-
-        AddItem(weapon);
-        // AddItem(secondWeapon);
-        // AddItem(firstPassive);
-        // AddItem(secondPassive);
+        baseStats = actualStats = characterData.stats;
+        _health = actualStats.maxHealth;
     }
 
     private void Start()
     {
+        inv.Add(characterData.StartingWeapon);
+
         nextLevelXPRequirement = xpRequirements[0].nextLevelXPRequirement;
 
         #region Assign UI with GameController
-        GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(_maxHealth);
-        GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health);
-        GameController.Instance.speedDisplay.text = "Speed: " + _movementSpeed;
-        GameController.Instance.recoveryDisplay.text = "Recovery: " + _recovery;
-        GameController.Instance.armorDisplay.text = "Armor: " + _armor;
-        GameController.Instance.mightDisplay.text = "Might: " + _might;
-        GameController.Instance.areaDisplay.text = "Area: " + _area;
-        GameController.Instance.magnetDisplay.text = "Magnet: " + _magnet;
-        GameController.Instance.growthDisplay.text = "Growth: " + _growth;
-        GameController.Instance.luckDisplay.text = "Luck: " + _luck;
-        GameController.Instance.AssignCharacterUI(stats.Icon, stats.name);
+        GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(MaxHealth);
+        GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(Health);
+        GameController.Instance.speedDisplay.text = "Move Speed: " + MoveSpeed;
+        // GameController.Instance.projectileSpeedDisplay.text = "Proj. Speed: " + ProjectileSpeed;
+        GameController.Instance.recoveryDisplay.text = "Recovery: " + Recovery;
+        GameController.Instance.armorDisplay.text = "Armor: " + Armor;
+        GameController.Instance.mightDisplay.text = "Might: " + Might;
+        GameController.Instance.areaDisplay.text = "Area: " + Area;
+        GameController.Instance.magnetDisplay.text = "Magnet: " + Magnet;
+        GameController.Instance.growthDisplay.text = "Growth: " + Growth;
+        GameController.Instance.luckDisplay.text = "Luck: " + Luck;
+        GameController.Instance.AssignCharacterUI(characterData.Icon, characterData.name);
         GameController.Instance.AssignLevelUI(Level);
-        GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots);
+        // GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots); // this is no longer necessary
         GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
         GameController.Instance.AssignHealthBarUI(Health / MaxHealth);
         #endregion
@@ -336,7 +362,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         Health -= amount;
         Debug.Log($"{name} has {Health} health left after taking {amount} damage!");
 
-        if (damageEffect) Instantiate(damageEffect, transform.position, Quaternion.identity);
+        if (damageEffect) Destroy(Instantiate(damageEffect, transform.position, Quaternion.identity), 5f);
 
         invincibilityTimer = invincibilityDuration;
         isInvincible = true;
@@ -383,43 +409,57 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    public void AddItem(GameObject item)
+    [Obsolete("Old function we used to add weapons, no longer used")]
+    //public void AddItem(GameObject item)
+    //{
+    //    if (item.TryGetComponent(out WeaponController wc))
+    //    {
+    //        if (openWeaponIndex >= inv.weaponSlots.Count - 1)
+    //        {
+    //            Debug.Log("Weapon slots are already full!");
+    //            return;
+    //        }
+
+    //        GameObject go = Instantiate(item, transform.position, Quaternion.identity);
+    //        go.transform.SetParent(weaponsParent);
+    //        inv.AddWeapon(openWeaponIndex, go.GetComponent<WeaponController>()); // this is a different controller than wc!
+    //        if (GameController.Instance != null)
+    //        {
+    //            GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots);
+    //        }
+    //        openWeaponIndex++;
+
+    //    }
+    //    else if (item.TryGetComponent(out Passive p))
+    //    {
+    //        if (openPassiveIndex >= inv.passiveSlots.Count - 1)
+    //        {
+    //            Debug.Log("Passive slots are already full!");
+    //            return;
+    //        }
+
+    //        GameObject go = Instantiate(item, transform.position, Quaternion.identity);
+    //        go.transform.SetParent(passivesParent);
+    //        inv.AddPassive(openPassiveIndex, go.GetComponent<Passive>());
+    //        openPassiveIndex++;
+    //    }
+
+    //    if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
+    //    {
+    //        GameController.Instance.EndPlayerLevelUp();
+    //    }
+    //}
+
+    public void RecalculateStats()
     {
-        if (item.TryGetComponent(out WeaponController wc))
+        actualStats = baseStats;
+        foreach (PlayerInventoryController.Slot s in inv.passiveSlots)
         {
-            if (openWeaponIndex >= inv.weaponSlots.Count - 1)
+            PassiveB p = s.item as PassiveB;
+            if (p)
             {
-                Debug.Log("Weapon slots are already full!");
-                return;
+                actualStats += p.GetBoosts();
             }
-
-            GameObject go = Instantiate(item, transform.position, Quaternion.identity);
-            go.transform.SetParent(weaponsParent);
-            inv.AddWeapon(openWeaponIndex, go.GetComponent<WeaponController>()); // this is a different controller than wc!
-            if (GameController.Instance != null)
-            {
-                GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots);
-            }
-            openWeaponIndex++;
-
-        }
-        else if (item.TryGetComponent(out Passive p))
-        {
-            if (openPassiveIndex >= inv.passiveSlots.Count - 1)
-            {
-                Debug.Log("Passive slots are already full!");
-                return;
-            }
-
-            GameObject go = Instantiate(item, transform.position, Quaternion.identity);
-            go.transform.SetParent(passivesParent);
-            inv.AddPassive(openPassiveIndex, go.GetComponent<Passive>());
-            openPassiveIndex++;
-        }
-
-        if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
-        {
-            GameController.Instance.EndPlayerLevelUp();
         }
     }
 }

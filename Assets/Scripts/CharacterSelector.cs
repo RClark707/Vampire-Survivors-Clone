@@ -4,7 +4,7 @@ public class CharacterSelector : MonoBehaviour
 {
     public static CharacterSelector Instance;
     [HideInInspector]
-    public CharacterStats characterStats;
+    public CharacterStatsB characterStats;
 
     private void Awake()
     {
@@ -19,12 +19,26 @@ public class CharacterSelector : MonoBehaviour
         }
     }
 
-    public static CharacterStats GetCharacterStats()
+    public static CharacterStatsB GetCharacterStats()
     {
-        return Instance.characterStats;
+        if (Instance && Instance.characterStats)
+        {
+            return Instance.characterStats;
+        }
+        else
+        {
+            // no character stats are assigned
+            CharacterStatsB[] characters = Resources.FindObjectsOfTypeAll<CharacterStatsB>();
+            if (characters.Length > 0)
+            {
+                return characters[Random.Range(0, characters.Length)];
+            }
+        }
+        Debug.LogError("No Character Stats found anywhere");
+        return null;
     }
 
-    public void SelectCharacter(CharacterStats character)
+    public void SelectCharacter(CharacterStatsB character)
     {
         characterStats = character;
     }

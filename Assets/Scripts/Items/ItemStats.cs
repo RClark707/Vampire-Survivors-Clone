@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Obsolete("This is replaced by ItemStatsB")]
 public class ItemStats : ScriptableObject
 {
     public new string name;
@@ -14,6 +15,7 @@ public class ItemStats : ScriptableObject
     [SerializeField]
     int level = 1; // this doesn't actually get changed
     public int Level { get => level; set => level = value; }
+    public int maxLevel = 1;
 
     public List<LevelUpUpgrades> upgrades;
 

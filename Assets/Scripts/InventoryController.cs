@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Obsolete("This has been repalced by PlayerInventoryController")]
 public class InventoryController : MonoBehaviour
 {
     public List<WeaponController> weaponSlots = new List<WeaponController>(6);

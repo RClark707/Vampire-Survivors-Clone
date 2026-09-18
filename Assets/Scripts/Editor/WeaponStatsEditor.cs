@@ -29,7 +29,7 @@ public class WeaponStatsEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        selectedWeaponSubtype = EditorGUILayout.Popup("Behavior", Math.Max(0, selectedWeaponSubtype, weaponSubtypes));
+        selectedWeaponSubtype = EditorGUILayout.Popup("Behavior", Math.Max(0, selectedWeaponSubtype), weaponSubtypes);
 
         if (selectedWeaponSubtype > 0)
         {

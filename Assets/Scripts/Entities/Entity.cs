@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 
+[Obsolete("Don't use!")]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Entity : MonoBehaviour
 {
@@ -29,7 +31,7 @@ public class Entity : MonoBehaviour
         originalColor = sr.color;
     }
 
-    public virtual void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount, Vector3 source)
     {
         health = Mathf.Max(health - amount, 0f);
         Debug.Log($"The {name} has {health} health left after taking {amount} damage!");

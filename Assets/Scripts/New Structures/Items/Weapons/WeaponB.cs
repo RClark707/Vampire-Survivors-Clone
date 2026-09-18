@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class WeaponB : MonoBehaviour // because this is an abstract class, we need to subclass it in order to attach to GOs
+public abstract class WeaponB : ItemB // because this is an abstract class, we need to subclass it in order to attach to GOs
 {
     [System.Serializable]
     public struct Stats
@@ -8,7 +8,7 @@ public abstract class WeaponB : MonoBehaviour // because this is an abstract cla
         public string name, description;
 
         [Header("Visuals")]
-        // public Projectile projectilePrefab;
+        public Projectile projectilePrefab;
         // public Aura auraPrefab;
         public ParticleSystem hitEffect;
         public Rect spawnVariance;
@@ -50,8 +50,6 @@ public abstract class WeaponB : MonoBehaviour // because this is an abstract cla
         }
     }
 
-    public int currentLevel = 1, maxLevel = 1;
-    protected Player owner;
     protected PlayerMovement pm;
     protected Stats currentStats;
     public WeaponStatsB statsData;
@@ -60,12 +58,10 @@ public abstract class WeaponB : MonoBehaviour // because this is an abstract cla
     // some weapons need to be initialized
     public virtual void Initialize(WeaponStatsB stats)
     {
-
-        owner = FindAnyObjectByType<Player>();
+        base.Initialize(stats);
         pm = owner.GetComponent<PlayerMovement>();
 
         this.statsData = stats;
-        maxLevel = stats.maxLevel;
         currentStats = stats.baseStats;
         currentCooldown = currentStats.cooldown;
     }
@@ -89,13 +85,9 @@ public abstract class WeaponB : MonoBehaviour // because this is an abstract cla
         }
     }
 
-    public virtual bool CanLevelUp()
+    public override bool LevelUp()
     {
-        return currentLevel < maxLevel; // double check if this should be <= for evolutions
-    }
-
-    public virtual bool LevelUp()
-    {
+        // base.LevelUp(); // this does nothing but return true
         if (!CanLevelUp())
         {
             Debug.LogWarning($"Cannot level up your {name} to level {currentLevel + 1}. It has already reached the max level of {maxLevel}");

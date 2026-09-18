@@ -258,41 +258,41 @@ public class GameController : MonoBehaviour
         timeDisplay.text = "Run Duration: " + Mathf.RoundToInt(minutes) + ":" + Mathf.RoundToInt(seconds);
     }
 
-    public void AssignItemsUI(List<Image> weapons, List<Image> passives)
-    {
-        if (weapons.Count != weaponsUI.Count || passives.Count != passivesUI.Count)
-        {
-            Debug.LogError("Item arrays have different length!");
-            return;
-        }
+    //public void AssignItemsUI(List<Image> weapons, List<Image> passives)
+    //{
+    //    if (weapons.Count != weaponsUI.Count || passives.Count != passivesUI.Count)
+    //    {
+    //        Debug.LogError("Item arrays have different length!");
+    //        return;
+    //    }
 
-        // assign weapons UI
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            if (weapons[i].sprite)
-            {
-                weaponsUI[i].enabled = true;
-                weaponsUI[i].sprite = weapons[i].sprite;
-            }
-            else
-            {
-                weaponsUI[i].enabled = false;
-            }
-        }
+    //    // assign weapons UI
+    //    for (int i = 0; i < weapons.Count; i++)
+    //    {
+    //        if (weapons[i].sprite)
+    //        {
+    //            weaponsUI[i].enabled = true;
+    //            weaponsUI[i].sprite = weapons[i].sprite;
+    //        }
+    //        else
+    //        {
+    //            weaponsUI[i].enabled = false;
+    //        }
+    //    }
 
-        // assign passives UI
-        for (int i = 0; i < passives.Count; i++)
-        {
-            if (passives[i].sprite)
-            {
-                passivesUI[i].enabled = true;
-                passivesUI[i].sprite = passives[i].sprite;
-            }
-            else
-            {
-                passivesUI[i].enabled = false;
-            }
-        }
-    }
+    //    // assign passives UI
+    //    for (int i = 0; i < passives.Count; i++)
+    //    {
+    //        if (passives[i].sprite)
+    //        {
+    //            passivesUI[i].enabled = true;
+    //            passivesUI[i].sprite = passives[i].sprite;
+    //        }
+    //        else
+    //        {
+    //            passivesUI[i].enabled = false;
+    //        }
+    //    }
+    //}
     #endregion
 }
