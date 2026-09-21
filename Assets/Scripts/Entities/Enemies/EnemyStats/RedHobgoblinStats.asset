@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Red Hobgoblin
   icon: {fileID: 0}
   movementSpeed: 3
-  maxHealth: 2
+  maxHealth: 30
   damage: 5

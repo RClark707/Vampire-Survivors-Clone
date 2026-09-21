@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     public GameState previousState;
     public bool isGameOver = false;
     public bool choosingUpgrades = false;
-    public GameObject rewardsControllerObject;
+    public GameObject playerInventoryController;
 
     [Header("General UI")]
     public GameObject displayScreen;
@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI recoveryDisplay;
     public TextMeshProUGUI armorDisplay;
     public TextMeshProUGUI speedDisplay;
+    public TextMeshProUGUI projSpeedDisplay;
     public TextMeshProUGUI mightDisplay;
     public TextMeshProUGUI areaDisplay;
     public TextMeshProUGUI magnetDisplay;
@@ -173,7 +174,7 @@ public class GameController : MonoBehaviour
     public void StartPlayerLevelUp()
     {
         ChangeState(GameState.LevelUp);
-        rewardsControllerObject.SendMessage("ClearAndSetUpgradeOptions");
+        playerInventoryController.SendMessage("ClearAndSetUpgradeOptions");
     }
 
     public void EndPlayerLevelUp()

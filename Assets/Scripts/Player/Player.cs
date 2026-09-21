@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour // this is explicitly NOT an Entity
 {
     [Header("Character Stats")]
-    CharacterStatsB characterData;
-    public CharacterStatsB.Stats baseStats;
-    [SerializeField] CharacterStatsB.Stats actualStats;
+    [SerializeField] CharacterStatsB characterData;
+    [HideInInspector] public CharacterStatsB.Stats baseStats;
+    CharacterStatsB.Stats actualStats;
 
     GameObject weapon;
 
@@ -141,7 +140,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
             {
                 actualStats.projectileSpeed = value;
                 // put additional logic each time the value changes here
-                // if (GameController.Instance != null) GameController.Instance.projectileSpeedDisplay.text = "Projectile Speed: " + _projectileSpeed;
+                if (GameController.Instance != null) GameController.Instance.projSpeedDisplay.text = "Projectile Speed: " + actualStats.projectileSpeed;
             }
         }
     }
@@ -313,7 +312,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(MaxHealth);
         GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(Health);
         GameController.Instance.speedDisplay.text = "Move Speed: " + MoveSpeed;
-        // GameController.Instance.projectileSpeedDisplay.text = "Proj. Speed: " + ProjectileSpeed;
+        GameController.Instance.projSpeedDisplay.text = "Proj. Speed: " + ProjectileSpeed;
         GameController.Instance.recoveryDisplay.text = "Recovery: " + Recovery;
         GameController.Instance.armorDisplay.text = "Armor: " + Armor;
         GameController.Instance.mightDisplay.text = "Might: " + Might;
@@ -393,7 +392,9 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
             XP -= nextLevelXPRequirement;
             Level++;
             Debug.Log($"You are now level {Level}.");
-            foreach (XPRequirement xpr in xpRequirements)
+            GameController.Instance.StartPlayerLevelUp();
+
+            foreach (XPRequirement xpr in xpRequirements) // reassign nextLevelXPRequirement
             {
                 if (Level < xpr.minLevel)
                 {
@@ -405,11 +406,10 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
                     GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
                 }
             }
-            GameController.Instance.StartPlayerLevelUp();
         }
     }
 
-    [Obsolete("Old function we used to add weapons, no longer used")]
+    //[Obsolete("Old function we used to add weapons, no longer used")]
     //public void AddItem(GameObject item)
     //{
     //    if (item.TryGetComponent(out WeaponController wc))

@@ -9,23 +9,89 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6efc25ee93de24d9d5cfc1e26a4c5e, type: 3}
+  m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
   m_Name: KnifeStats
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
-  name: Knife
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
   icon: {fileID: -1494385616, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
-  summary: Throws a knife in front of you
-  level: 1
-  upgrades:
-  - description: Increase Damage by 1
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 1
-      multiplier: 100
-  weaponBehavior: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
-  catalystPassive: {fileID: 11400000, guid: 3e9327155c4b88f48a24441ba8bbed6d, type: 2}
-  evolvedWeaponController: {fileID: 9081550670044908651, guid: 15e9798dac1a21742a34b2065ed10d8d, type: 3}
-  damage: 1
-  projectileSpeed: 10
-  cooldown: 2
-  pierceCount: 1
+  maxLevel: 3
+  evolutionData:
+  - name: Knife + Wings
+    evoReq: 0
+    consumes: 2
+    evolutionLevel: 3
+    catalysts:
+    - itemType: {fileID: 11400000, guid: 9fec34d1ebd7e3645ba942b86db0847b, type: 2}
+      level: 1
+    outcome:
+      itemType: {fileID: 11400000, guid: a51f8d117097d19409dea81ba46c64c2, type: 2}
+      level: 0
+  behavior: ProjectileWeaponB
+  baseStats:
+    name: Knife
+    description: Fires quickly in the faced direction.
+    projectilePrefab: {fileID: 6963808102643740350, guid: 06892c392a1f1724b8a5cf099625198b, type: 3}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 3
+    damage: 6
+    damageVariance: 2
+    area: 1
+    speed: 10
+    cooldown: 1
+    projectileInterval: 2
+    knockback: 0.5
+    number: 1
+    piercing: 1
+    maxInstances: 70
+  linearGrowth:
+  - name: Level 2
+    description: Increase Speed by 50%
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    speed: 5
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    number: 0
+    piercing: 0
+    maxInstances: 0
+  - name: Level 3
+    description: Decrease Interval by 0.1
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    speed: 0
+    cooldown: 0
+    projectileInterval: -0.1
+    knockback: 0
+    number: 0
+    piercing: 0
+    maxInstances: 0
+  randomGrowth: []

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Character Stats", menuName = "Stats/Character Stats B")]
-public class CharacterStatsB : MonoBehaviour
+public class CharacterStatsB : ScriptableObject
 {
     [SerializeField]
     Sprite icon;

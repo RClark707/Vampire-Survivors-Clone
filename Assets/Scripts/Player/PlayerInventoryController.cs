@@ -9,7 +9,7 @@ public class PlayerInventoryController : MonoBehaviour
     [Serializable]
     public class Slot
     {
-        public ItemB item;
+        [HideInInspector] public ItemB item;
         public Image image;
 
         public void Assign(ItemB assignedItem)
@@ -43,6 +43,7 @@ public class PlayerInventoryController : MonoBehaviour
         }
     }
 
+    [Header("Inventory Slots UI")]
     public List<Slot> weaponSlots = new List<Slot>(6);
     public List<Slot> passiveSlots = new List<Slot>(6);
 
@@ -55,9 +56,11 @@ public class PlayerInventoryController : MonoBehaviour
         public Button upgradeButton;
     }
 
-    [Header("UI Elements")]
+    [Header("All Available Items")]
     public List<WeaponStatsB> availableWeapons = new List<WeaponStatsB>();
     public List<PassiveStatsB> availablePassives = new List<PassiveStatsB>();
+
+    [Header("Level Up UI")]
     public List<UpgradeUI> upgradeUIOptions = new List<UpgradeUI>();
 
     Player player;

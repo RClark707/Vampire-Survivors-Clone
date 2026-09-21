@@ -9,7 +9,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
 
         [Header("Visuals")]
         public Projectile projectilePrefab;
-        // public Aura auraPrefab;
+        public Aura auraPrefab;
         public ParticleSystem hitEffect;
         public Rect spawnVariance;
 
@@ -25,8 +25,8 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
             {
                 name = s2.name ?? s1.name,
                 description = s2.description ?? s1.description,
-                //projectilePrefab = s2.projectilePrefab ?? s1.projectilePrefab,
-                //auraPrefab = s2.auraPrefab ?? s1.auraPrefab,
+                projectilePrefab = s2.projectilePrefab ?? s1.projectilePrefab,
+                auraPrefab = s2.auraPrefab ?? s1.auraPrefab,
                 hitEffect = s2.hitEffect ?? s1.hitEffect,
                 spawnVariance = s2.spawnVariance,
                 lifespan = s1.lifespan + s2.lifespan,

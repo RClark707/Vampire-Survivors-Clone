@@ -34,6 +34,10 @@ public class Projectile : WeaponEffect
         if (stats.lifespan > 0) Destroy(gameObject, stats.lifespan);
 
         if (hasAutoAim) AcquireAutoAimFacing();
+        else
+        {
+            SetSpriteRotationFromPlayerDirection(owner.GetComponent<PlayerMovement>().lastMoveDirection);
+        }
     }
 
     // automatically track a new target to launch towards
@@ -55,6 +59,16 @@ public class Projectile : WeaponEffect
         }
 
         transform.rotation = Quaternion.Euler(0f, 0f, aimAngle); // this assumes our projectile faces UP
+    }
+
+    /// <summary>
+    /// This function sets the rotation of a sprite based on a given facing vector when spawned
+    /// </summary>
+    /// <param name="fixedDirection"></param>
+    public virtual void SetSpriteRotationFromPlayerDirection(Vector3 fixedDirection, float offsetAngle = 90f)
+    {
+        float angle = Mathf.Atan2(fixedDirection.y, fixedDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle - offsetAngle);
     }
 
     protected virtual void FixedUpdate()

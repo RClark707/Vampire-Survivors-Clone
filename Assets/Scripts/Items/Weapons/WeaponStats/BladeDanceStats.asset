@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
+  m_Name: BladeDanceStats
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
+  icon: {fileID: -247890373, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  maxLevel: 1
+  evolutionData: []
+  behavior: ProjectileWeaponB
+  baseStats:
+    name: Blade Dance
+    description: Whirlwind of knives
+    projectilePrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 3
+    damage: 10
+    damageVariance: 2
+    area: 1
+    speed: 25
+    cooldown: 1
+    projectileInterval: 1.5
+    knockback: 0.5
+    number: 4
+    piercing: 1
+    maxInstances: 100
+  linearGrowth: []
+  randomGrowth: []

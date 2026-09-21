@@ -1,40 +1,40 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    InventoryController inv;
-    RewardsController rew;
-
-    void Start()
-    {
-        inv = FindAnyObjectByType<InventoryController>();
-        rew = FindAnyObjectByType<RewardsController>();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Open();
-            Destroy(gameObject);
+            PlayerInventoryController p = collision.GetComponent<PlayerInventoryController>();
+            if (p)
+            {
+                Open(p);
+                Destroy(gameObject);
+            }
         }
     }
 
-    public void Open()
+    public void Open(PlayerInventoryController inventory, bool isHigherTier = false)
     {
-        Debug.Log("Chest Opened!");
+        Debug.Log("Chest opened!");
 
-        // roll a random amount of rewards to give, based on player luck
+        // roll a random amount of rewards to give, based on player luck and tier
 
         // check to see if the player has possible evolutions, if so, fill one of the rewards with that
-        List<WeaponController> possibleEvolutions = inv.GetPossibleEvolutions();
-        if (possibleEvolutions.Count > 0)
+        foreach (PlayerInventoryController.Slot s in inventory.weaponSlots)
         {
-            // select a random evolution to evolve
-            WeaponController weaponToEvolve = possibleEvolutions[Random.Range(0, possibleEvolutions.Count)];
-            int slotIndex = inv.weaponSlots.IndexOf(weaponToEvolve);
-            inv.LevelUpWeapon(slotIndex);
+            WeaponB w = s.item as WeaponB;
+            if (w.statsData.evolutionData == null) continue;
+
+            foreach (ItemStatsB.Evolution e in w.statsData.evolutionData)
+            {
+                if (e.evoReq == ItemStatsB.Evolution.EvolutionRequirements.TreasureChest)
+                {
+                    bool attempt = w.AttemptEvolution(e, 0);
+                    if (attempt) return;
+                }
+            }
         }
 
         // populate all remaining rewards with items the player already has

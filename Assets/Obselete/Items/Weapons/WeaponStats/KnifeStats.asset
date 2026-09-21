@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6efc25ee93de24d9d5cfc1e26a4c5e, type: 3}
+  m_Name: KnifeStats
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
+  name: Knife
+  icon: {fileID: -1494385616, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Throws a knife in front of you
+  level: 1
+  upgrades:
+  - description: Increase Damage by 1
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 1
+      multiplier: 100
+  weaponBehavior: {fileID: 8739154804731534065, guid: f082a8aa157d1a948a513c2115015f62, type: 3}
+  catalystPassive: {fileID: 11400000, guid: 3e9327155c4b88f48a24441ba8bbed6d, type: 2}
+  evolvedWeaponController: {fileID: 9081550670044908651, guid: 15e9798dac1a21742a34b2065ed10d8d, type: 3}
+  damage: 1
+  projectileSpeed: 10
+  cooldown: 2
+  pierceCount: 1

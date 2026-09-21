@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6efc25ee93de24d9d5cfc1e26a4c5e, type: 3}
+  m_Name: GarlicStats
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
+  name: Garlic
+  icon: {fileID: -155655292, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  summary: Creates a damaging aura around you
+  level: 1
+  upgrades:
+  - description: Increase Damage by 5%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 1
+      multiplier: 5
+  - description: Increase Damage by 10%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 1
+      multiplier: 10
+  - description: Decrease Cooldown by 10%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 2
+      multiplier: 10
+  - description: Decrease Cooldown by 15%
+    statUpgrades:
+    - playerStatUpgrade: 0
+      weaponStatUpgrade: 2
+      multiplier: 15
+  weaponBehavior: {fileID: 9161930105638311388, guid: 86e8566399b9c9d4286fd9c7001ba6c9, type: 3}
+  catalyst: {fileID: 0}
+  evolvedWeaponController: {fileID: 0}
+  damage: 5
+  projectileSpeed: 10
+  cooldown: 3
+  pierceCount: 0

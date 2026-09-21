@@ -9,38 +9,79 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6efc25ee93de24d9d5cfc1e26a4c5e, type: 3}
+  m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
   m_Name: GarlicStats
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
-  name: Garlic
-  icon: {fileID: -155655292, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
-  summary: Creates a damaging aura around you
-  level: 1
-  upgrades:
-  - description: Increase Damage by 5%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 1
-      multiplier: 5
-  - description: Increase Damage by 10%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 1
-      multiplier: 10
-  - description: Decrease Cooldown by 10%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 2
-      multiplier: 10
-  - description: Decrease Cooldown by 15%
-    statUpgrades:
-    - playerStatUpgrade: 0
-      weaponStatUpgrade: 2
-      multiplier: 15
-  weaponBehavior: {fileID: 9161930105638311388, guid: 86e8566399b9c9d4286fd9c7001ba6c9, type: 3}
-  catalyst: {fileID: 0}
-  evolvedWeaponController: {fileID: 0}
-  damage: 5
-  projectileSpeed: 10
-  cooldown: 3
-  pierceCount: 0
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
+  icon: {fileID: 773899887, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  maxLevel: 3
+  evolutionData: []
+  behavior: AuraWeaponB
+  baseStats:
+    name: Garlic
+    description: Creates a damaging aura
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 2508457564223889941, guid: 377a06224de73f34c98214400c00db37, type: 3}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 5
+    damageVariance: 1
+    area: 2
+    speed: 0
+    cooldown: 1.3
+    projectileInterval: 0
+    knockback: 1
+    number: 1
+    piercing: 0
+    maxInstances: 50
+  linearGrowth:
+  - name: Level 2
+    description: Increase Area by 1
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 1
+    speed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    number: 0
+    piercing: 0
+    maxInstances: 0
+  - name: Level 3
+    description: Increase Area by 0.5
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 0.5
+    speed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    number: 0
+    piercing: 0
+    maxInstances: 0
+  randomGrowth: []
