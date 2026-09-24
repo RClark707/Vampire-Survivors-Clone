@@ -318,18 +318,16 @@ public class PlayerInventoryController : MonoBehaviour
 
                         if (w != null && w.statsData == chosenWeaponUpgrade)
                         {
-                            if (w.currentLevel >= chosenWeaponUpgrade.maxLevel) // are we already at max level?
+                            if (w.currentLevel < chosenWeaponUpgrade.maxLevel) // are we below max level?
                             {
-                                //DisableUpgradeUI(upgradeOption); // who knows why this is commented out
-                                isLevelUp = false;
-                                break;
+                                Debug.Log($"Your {w.name} is level {w.currentLevel}, the max level is {w.maxLevel}");
+                                upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
+                                WeaponB.Stats nextLevel = chosenWeaponUpgrade.GetLevelData(w.currentLevel + 1);
+                                upgradeOption.upgradeNameDisplay.text = nextLevel.name;
+                                upgradeOption.upgradeDescriptionDisplay.text = nextLevel.description;
+                                upgradeOption.upgradeIcon.sprite = chosenWeaponUpgrade.icon;
                             }
 
-                            upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
-                            WeaponB.Stats nextLevel = chosenWeaponUpgrade.GetLevelData(w.currentLevel + 1);
-                            upgradeOption.upgradeNameDisplay.text = nextLevel.name;
-                            upgradeOption.upgradeDescriptionDisplay.text = nextLevel.description;
-                            upgradeOption.upgradeIcon.sprite = chosenWeaponUpgrade.icon;
                             isLevelUp = true;
                             break;
                         }
@@ -359,18 +357,16 @@ public class PlayerInventoryController : MonoBehaviour
 
                         if (p != null && p.statsData == chosenPassiveUpgrade)
                         {
-                            if (p.currentLevel >= chosenPassiveUpgrade.maxLevel) // are we already at max level?
+                            if (p.currentLevel < chosenPassiveUpgrade.maxLevel) // are we below max level?
                             {
-                                //DisableUpgradeUI(upgradeOption); // who knows why this is commented out
-                                isLevelUp = false;
-                                break;
-                            }
+                                Debug.Log($"Your {p.name} is level {p.currentLevel}, the max level is {p.maxLevel}");
+                                upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
+                                PassiveB.Modifier nextLevel = chosenPassiveUpgrade.GetLevelData(p.currentLevel + 1);
+                                upgradeOption.upgradeNameDisplay.text = nextLevel.name;
+                                upgradeOption.upgradeDescriptionDisplay.text = nextLevel.description;
+                                upgradeOption.upgradeIcon.sprite = chosenPassiveUpgrade.icon;
+                            } // if we are at max level, we don't want to show anything!
 
-                            upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
-                            PassiveB.Modifier nextLevel = chosenPassiveUpgrade.GetLevelData(p.currentLevel + 1);
-                            upgradeOption.upgradeNameDisplay.text = nextLevel.name;
-                            upgradeOption.upgradeDescriptionDisplay.text = nextLevel.description;
-                            upgradeOption.upgradeIcon.sprite = chosenPassiveUpgrade.icon;
                             isLevelUp = true;
                             break;
                         }

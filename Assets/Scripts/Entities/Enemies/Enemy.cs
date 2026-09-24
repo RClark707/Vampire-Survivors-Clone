@@ -59,7 +59,7 @@ public class Enemy : Entity
 
     public override void Kill()
     {
-        Debug.Log($"The {name} has been killed.");
+        // Debug.Log($"The {name} has been killed.");
         StartCoroutine(KillFade());
         // base.Kill();
     }

@@ -227,11 +227,6 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     PlayerInventoryController inv;
     public int openWeaponIndex;
     public int openPassiveIndex;
-    public Transform weaponsParent;
-    public Transform passivesParent;
-    // For testing purposes only
-    // public GameObject secondWeapon;
-    // public GameObject firstPassive, secondPassive;
 
     [Header("Experience & Leveling")]
     public List<XPRequirement> xpRequirements;
@@ -322,7 +317,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         GameController.Instance.luckDisplay.text = "Luck: " + Luck;
         GameController.Instance.AssignCharacterUI(characterData.Icon, characterData.name);
         GameController.Instance.AssignLevelUI(Level);
-        // GameController.Instance.AssignItemsUI(inv.weaponUISlots, inv.passiveUISlots); // this is no longer necessary
+        GameController.Instance.AssignItemsUI(inv.weaponSlots, inv.passiveSlots);
         GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
         GameController.Instance.AssignHealthBarUI(Health / MaxHealth);
         #endregion
@@ -346,7 +341,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     {
         Health += amount;
 
-        Debug.Log($"After healing, you have {Health} health left!");
+        // Debug.Log($"After healing, you have {Health} health left!");
     }
 
     public void Recover()
@@ -359,7 +354,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         if (isInvincible) return;
 
         Health -= amount;
-        Debug.Log($"{name} has {Health} health left after taking {amount} damage!");
+        // Debug.Log($"{name} has {Health} health left after taking {amount} damage!");
 
         if (damageEffect) Destroy(Instantiate(damageEffect, transform.position, Quaternion.identity), 5f);
 
@@ -372,6 +367,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         if (!GameController.Instance.isGameOver) // we only want to call this method once!
         {
             GameController.Instance.GameOver();
+            // GameController.Instance.AssignItemsUI(inv.weaponSlots, inv.passiveSlots);
         }
     }
 

@@ -25,6 +25,7 @@ public class AuraWeaponB : WeaponB
             currentAura = Instantiate(currentStats.auraPrefab, transform);
             currentAura.weapon = this;
             currentAura.owner = owner;
+            currentAura.transform.localScale = new Vector3(currentStats.area, currentStats.area, currentStats.area); // set area
         }
     }
 

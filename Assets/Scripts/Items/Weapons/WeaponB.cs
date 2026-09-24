@@ -104,6 +104,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
     }
 
     // this method is meant to be overriden, but called from base
+    // TODO: Make all weapons scale with area
     protected virtual bool Attack(int attackAmount)
     {
         if (CanAttack())

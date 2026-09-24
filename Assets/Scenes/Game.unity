@@ -2641,37 +2641,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594319179}
   m_CullTransparentMesh: 1
---- !u!1 &614452631
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 614452632}
-  m_Layer: 0
-  m_Name: Passives
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &614452632
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 614452631}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1392034374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -5386,37 +5355,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366406182}
   m_CullTransparentMesh: 1
---- !u!1 &1371195168
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1371195169}
-  m_Layer: 0
-  m_Name: Weapons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1371195169
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371195168}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1392034374}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384600613
 GameObject:
   m_ObjectHideFlags: 0
@@ -5586,8 +5524,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 862792722}
-  - {fileID: 1371195169}
-  - {fileID: 614452632}
   - {fileID: 1757051582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5740,8 +5676,6 @@ MonoBehaviour:
     luck: 0
   openWeaponIndex: 0
   openPassiveIndex: 0
-  weaponsParent: {fileID: 1371195169}
-  passivesParent: {fileID: 614452632}
   xpRequirements:
   - minLevel: 3
     nextLevelXPRequirement: 20
@@ -5792,6 +5726,7 @@ MonoBehaviour:
   availableWeapons:
   - {fileID: 11400000, guid: 170fbbe172ae3394b95bb19a3c03f401, type: 2}
   - {fileID: 11400000, guid: 8ea4c331282915245be054482439ac21, type: 2}
+  - {fileID: 11400000, guid: db5f12dc114296448863d5da28e44ba8, type: 2}
   availablePassives:
   - {fileID: 11400000, guid: ac44fb628f9ca7045a4f5ba68568f869, type: 2}
   - {fileID: 11400000, guid: 9fec34d1ebd7e3645ba942b86db0847b, type: 2}

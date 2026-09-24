@@ -20,6 +20,7 @@ MonoBehaviour:
     name: Blade Dance
     description: Whirlwind of knives
     projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2

@@ -34,7 +34,7 @@ public class Entity : MonoBehaviour
     public virtual void TakeDamage(float amount, Vector3 source)
     {
         health = Mathf.Max(health - amount, 0f);
-        Debug.Log($"The {name} has {health} health left after taking {amount} damage!");
+        // Debug.Log($"The {name} has {health} health left after taking {amount} damage!");
         if (damageDisplay != null)
         {
             StartCoroutine(ShowDamagePopup(amount));
@@ -54,10 +54,13 @@ public class Entity : MonoBehaviour
         sr.color = originalColor;
     }
 
+    // TODO: Improve this script!
     protected IEnumerator ShowDamagePopup(float amount, bool criticalHit = false)
     {
+        // Debug.Log($"{amount} damage was recorded by {gameObject.name}");
+
         TextMeshProUGUI popup = Instantiate(damageDisplay, transform.position, Quaternion.identity);
-        popup.text = amount.ToString();
+        popup.text = Mathf.RoundToInt(amount).ToString();
         popup.transform.SetParent(damageCanvas.transform);
         popup.transform.position = transform.position + new Vector3(1.2f, 0.4f, 0f);
         // modify other properties of the text here
@@ -71,10 +74,11 @@ public class Entity : MonoBehaviour
         WaitForEndOfFrame w = new WaitForEndOfFrame();
         float t = 0f;
 
+        Destroy(popup.gameObject, damageFlashDuration);
+
         while (t < damageFlashDuration)
         {
-            yield return w;
-            t += Time.deltaTime;
+            if (popup.gameObject == null) break;
 
             popup.color = new Color(popup.color.r, popup.color.g, popup.color.b, 1 - t / damageFlashDuration); // linear interpolate the alpha
 
@@ -86,9 +90,10 @@ public class Entity : MonoBehaviour
                     popup.transform.position.z
                     ),
                 1f);
-        }
 
-        Destroy(popup.gameObject);
+            yield return w;
+            t += Time.deltaTime;
+        }
     }
 
     public virtual void Kill()

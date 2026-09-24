@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3996698446005920299}
   - component: {fileID: 574215311939005980}
   - component: {fileID: 2508457564223889941}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GarlicAura
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,11 +79,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1179934253
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 184984253, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  m_Sprite: {fileID: 478430353, guid: 73813b22b3c555347966e640bf6b8d98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

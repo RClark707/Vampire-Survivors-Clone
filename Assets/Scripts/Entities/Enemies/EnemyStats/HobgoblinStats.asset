@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Hobgoblin
   icon: {fileID: 0}
   movementSpeed: 2
-  maxHealth: 30
+  maxHealth: 2
   damage: 5

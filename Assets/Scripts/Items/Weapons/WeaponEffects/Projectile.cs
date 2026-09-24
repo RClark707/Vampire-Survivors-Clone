@@ -94,6 +94,8 @@ public class Projectile : WeaponEffect
 
             e.TakeDamage(GetDamage(), source);
 
+            // Debug.Log($"The {name} just hit {e.name} for {GetDamage()} damage.");
+
             WeaponB.Stats stats = weapon.GetStats();
             piercing--;
             if (stats.hitEffect)
