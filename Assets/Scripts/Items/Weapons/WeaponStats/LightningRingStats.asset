@@ -10,28 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
-  m_Name: GarlicStats
+  m_Name: LightningRingStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
-  icon: {fileID: 773899887, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  icon: {fileID: -1296916032, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 3
-  evolutionData:
-  - name: Soul Eater
-    evoReq: 1
-    consumes: 2
-    evolutionLevel: 3
-    catalysts:
-    - itemType: {fileID: 11400000, guid: ac44fb628f9ca7045a4f5ba68568f869, type: 2}
-      level: 1
-    outcome:
-      itemType: {fileID: 11400000, guid: 382abfc79ee7a0247b077bd091cd129b, type: 2}
-      level: 1
-  behavior: AuraWeaponB
+  evolutionData: []
+  behavior: LightningRingWeapon
   baseStats:
-    name: Garlic
-    description: Creates a damaging aura
+    name: Lightning Ring
+    description: Strikes random areas
     projectilePrefab: {fileID: 0}
-    auraPrefab: {fileID: 2508457564223889941, guid: 377a06224de73f34c98214400c00db37, type: 3}
-    hitEffect: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 7979419475600916991, guid: ce60c9ff743ff96459a50ab18f902844, type: 3}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -39,22 +29,22 @@ MonoBehaviour:
       width: 0
       height: 0
     lifespan: 0
-    damage: 5
-    damageVariance: 1
-    area: 2
+    damage: 15
+    damageVariance: 2
+    area: 1
     speed: 0
-    cooldown: 1.3
-    projectileInterval: 0
+    cooldown: 4.5
+    projectileInterval: 0.05
     knockback: 1
-    number: 1
+    number: 2
     piercing: 0
-    maxInstances: 50
+    maxInstances: 100
   linearGrowth:
   - name: Level 2
-    description: Increase Area by 1
+    description: Decrease Cooldown by 0.2
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
-    hitEffect: {fileID: 0}
+    hitEffect: {fileID: 7979419475600916991, guid: ce60c9ff743ff96459a50ab18f902844, type: 3}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -64,19 +54,19 @@ MonoBehaviour:
     lifespan: 0
     damage: 0
     damageVariance: 0
-    area: 1
+    area: 0
     speed: 0
-    cooldown: 0
+    cooldown: -0.2
     projectileInterval: 0
     knockback: 0
     number: 0
     piercing: 0
     maxInstances: 0
   - name: Level 3
-    description: Increase Area by 0.5
+    description: Increase Number by 1
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
-    hitEffect: {fileID: 0}
+    hitEffect: {fileID: 7979419475600916991, guid: ce60c9ff743ff96459a50ab18f902844, type: 3}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -86,12 +76,12 @@ MonoBehaviour:
     lifespan: 0
     damage: 0
     damageVariance: 0
-    area: 0.5
+    area: 0
     speed: 0
     cooldown: 0
     projectileInterval: 0
     knockback: 0
-    number: 0
+    number: 1
     piercing: 0
     maxInstances: 0
   randomGrowth: []

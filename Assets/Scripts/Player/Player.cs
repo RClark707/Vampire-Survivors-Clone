@@ -10,21 +10,6 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     GameObject weapon;
 
-    #region Current Stats
-    public float MaxHealth
-    {
-        get { return actualStats.maxHealth; }
-        set
-        {
-            if (actualStats.maxHealth != value)
-            {
-                actualStats.maxHealth = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(actualStats.maxHealth);
-            }
-        }
-    }
-
     private float _health;
     public float Health
     {
@@ -33,12 +18,12 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         {
             if (_health != value)
             {
-                _health = Mathf.Clamp(value, 0f, MaxHealth);
+                _health = Mathf.Clamp(value, 0f, actualStats.maxHealth);
                 // put additional logic each time the value changes here
                 if (GameController.Instance != null)
                 {
                     GameController.Instance.curHealthDisplay.text = "Health: " + Mathf.RoundToInt(_health);
-                    GameController.Instance.AssignHealthBarUI(_health / MaxHealth);
+                    GameController.Instance.AssignHealthBarUI(_health / actualStats.maxHealth);
                 }
 
                 if (_health <= 0f)
@@ -49,179 +34,194 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    public float CurrentMoveSpeed
-    {
-        get { return MoveSpeed; }
-        set { MoveSpeed = value; }
-    }
-    public float MoveSpeed
-    {
-        get { return actualStats.moveSpeed; }
-        set
-        {
-            if (actualStats.moveSpeed != value)
-            {
-                actualStats.moveSpeed = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.speedDisplay.text = "Move Speed: " + actualStats.moveSpeed;
-            }
-        }
-    }
+    //#region Current Stats
+    //public float MaxHealth
+    //{
+    //    get { return actualStats.maxHealth; }
+    //    set
+    //    {
+    //        if (actualStats.maxHealth != value)
+    //        {
+    //            actualStats.maxHealth = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.maxHealthDisplay.text = "Maximum Health: " + Mathf.RoundToInt(actualStats.maxHealth);
+    //        }
+    //    }
+    //}
 
-    public float CurrentRecovery
-    {
-        get { return Recovery; }
-        set { Recovery = value; }
-    }
-    public float Recovery
-    {
-        get { return actualStats.recovery; }
-        set
-        {
-            if (actualStats.recovery != value)
-            {
-                actualStats.recovery = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.recoveryDisplay.text = "Recovery: " + actualStats.recovery;
-            }
-        }
-    }
+    //public float CurrentMoveSpeed
+    //{
+    //    get { return MoveSpeed; }
+    //    set { MoveSpeed = value; }
+    //}
+    //public float MoveSpeed
+    //{
+    //    get { return actualStats.moveSpeed; }
+    //    set
+    //    {
+    //        if (actualStats.moveSpeed != value)
+    //        {
+    //            actualStats.moveSpeed = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.speedDisplay.text = "Move Speed: " + actualStats.moveSpeed;
+    //        }
+    //    }
+    //}
 
-    public float CurrentArmor
-    {
-        get { return Armor; }
-        set { Armor = value; }
+    //public float CurrentRecovery
+    //{
+    //    get { return Recovery; }
+    //    set { Recovery = value; }
+    //}
+    //public float Recovery
+    //{
+    //    get { return actualStats.recovery; }
+    //    set
+    //    {
+    //        if (actualStats.recovery != value)
+    //        {
+    //            actualStats.recovery = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.recoveryDisplay.text = "Recovery: " + actualStats.recovery;
+    //        }
+    //    }
+    //}
 
-    }
-    public float Armor
-    {
-        get { return actualStats.armor; }
-        set
-        {
-            if (actualStats.armor != value)
-            {
-                actualStats.armor = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.armorDisplay.text = "Armor: " + actualStats.armor;
-            }
-        }
-    }
+    //public float CurrentArmor
+    //{
+    //    get { return Armor; }
+    //    set { Armor = value; }
 
-    public float CurrentMight
-    {
-        get { return Might; }
-        set { Might = value; }
-    }
-    public float Might
-    {
-        get { return actualStats.might; }
-        set
-        {
-            if (actualStats.might != value)
-            {
-                actualStats.might = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.mightDisplay.text = "Might: " + actualStats.might;
-            }
-        }
-    }
+    //}
+    //public float Armor
+    //{
+    //    get { return actualStats.armor; }
+    //    set
+    //    {
+    //        if (actualStats.armor != value)
+    //        {
+    //            actualStats.armor = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.armorDisplay.text = "Armor: " + actualStats.armor;
+    //        }
+    //    }
+    //}
 
-    public float CurrentProjectileSpeed
-    {
-        get { return ProjectileSpeed; }
-        set { ProjectileSpeed = value; }
-    }
-    public float ProjectileSpeed
-    {
-        get { return actualStats.projectileSpeed; }
-        set
-        {
-            if (actualStats.projectileSpeed != value)
-            {
-                actualStats.projectileSpeed = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.projSpeedDisplay.text = "Projectile Speed: " + actualStats.projectileSpeed;
-            }
-        }
-    }
+    //public float CurrentMight
+    //{
+    //    get { return Might; }
+    //    set { Might = value; }
+    //}
+    //public float Might
+    //{
+    //    get { return actualStats.might; }
+    //    set
+    //    {
+    //        if (actualStats.might != value)
+    //        {
+    //            actualStats.might = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.mightDisplay.text = "Might: " + actualStats.might;
+    //        }
+    //    }
+    //}
 
-    public float CurrentArea
-    {
-        get { return Area; }
-        set { Area = value; }
+    //public float CurrentProjectileSpeed
+    //{
+    //    get { return ProjectileSpeed; }
+    //    set { ProjectileSpeed = value; }
+    //}
+    //public float ProjectileSpeed
+    //{
+    //    get { return actualStats.projectileSpeed; }
+    //    set
+    //    {
+    //        if (actualStats.projectileSpeed != value)
+    //        {
+    //            actualStats.projectileSpeed = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.projSpeedDisplay.text = "Projectile Speed: " + actualStats.projectileSpeed;
+    //        }
+    //    }
+    //}
 
-    }
-    public float Area
-    {
-        get { return actualStats.area; }
-        set
-        {
-            if (actualStats.area != value)
-            {
-                actualStats.area = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.areaDisplay.text = "Area: " + actualStats.area;
-            }
-        }
-    }
+    //public float CurrentArea
+    //{
+    //    get { return Area; }
+    //    set { Area = value; }
 
-    public float CurrentMagnet
-    {
-        get { return Magnet; }
-        set { Magnet = value; }
-    }
-    public float Magnet
-    {
-        get { return actualStats.magnet; }
-        set
-        {
-            if (actualStats.magnet != value)
-            {
-                actualStats.magnet = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.magnetDisplay.text = "Magnet: " + actualStats.magnet;
-            }
-        }
-    }
+    //}
+    //public float Area
+    //{
+    //    get { return actualStats.area; }
+    //    set
+    //    {
+    //        if (actualStats.area != value)
+    //        {
+    //            actualStats.area = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.areaDisplay.text = "Area: " + actualStats.area;
+    //        }
+    //    }
+    //}
 
-    public float CurrentGrowth
-    {
-        get { return Growth; }
-        set { Growth = value; }
-    }
-    public float Growth
-    {
-        get { return actualStats.growth; }
-        set
-        {
-            if (actualStats.growth != value)
-            {
-                actualStats.growth = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.growthDisplay.text = "Growth: " + actualStats.growth;
-            }
-        }
-    }
+    //public float CurrentMagnet
+    //{
+    //    get { return Magnet; }
+    //    set { Magnet = value; }
+    //}
+    //public float Magnet
+    //{
+    //    get { return actualStats.magnet; }
+    //    set
+    //    {
+    //        if (actualStats.magnet != value)
+    //        {
+    //            actualStats.magnet = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.magnetDisplay.text = "Magnet: " + actualStats.magnet;
+    //        }
+    //    }
+    //}
 
-    private float CurrentLuck
-    {
-        get { return Luck; }
-        set { Luck = value; }
-    }
-    public float Luck
-    {
-        get { return actualStats.luck; }
-        set
-        {
-            if (actualStats.luck != value)
-            {
-                actualStats.luck = value;
-                // put additional logic each time the value changes here
-                if (GameController.Instance != null) GameController.Instance.luckDisplay.text = "Luck: " + actualStats.luck;
-            }
-        }
-    }
-    #endregion
+    //public float CurrentGrowth
+    //{
+    //    get { return Growth; }
+    //    set { Growth = value; }
+    //}
+    //public float Growth
+    //{
+    //    get { return actualStats.growth; }
+    //    set
+    //    {
+    //        if (actualStats.growth != value)
+    //        {
+    //            actualStats.growth = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.growthDisplay.text = "Growth: " + actualStats.growth;
+    //        }
+    //    }
+    //}
+
+    //private float CurrentLuck
+    //{
+    //    get { return Luck; }
+    //    set { Luck = value; }
+    //}
+    //public float Luck
+    //{
+    //    get { return actualStats.luck; }
+    //    set
+    //    {
+    //        if (actualStats.luck != value)
+    //        {
+    //            actualStats.luck = value;
+    //            // put additional logic each time the value changes here
+    //            if (GameController.Instance != null) GameController.Instance.luckDisplay.text = "Luck: " + actualStats.luck;
+    //        }
+    //    }
+    //}
+    //#endregion
 
     [Header("Inventory")]
     PlayerInventoryController inv;

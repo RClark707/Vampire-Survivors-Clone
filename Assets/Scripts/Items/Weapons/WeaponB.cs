@@ -10,7 +10,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
         [Header("Visuals")]
         public Projectile projectilePrefab;
         public Aura auraPrefab;
-        public ParticleSystem hitEffect;
+        public ParticleSystem hitEffect, procEffect; // hit effects are played on the enemy, procs are played on the player
         public Rect spawnVariance;
 
         [Header("Values")]

@@ -25,6 +25,12 @@ public class Aura : WeaponEffect
                     WeaponB.Stats stats = weapon.GetStats();
                     affectedTargets[pair.Key] = stats.cooldown;
                     pair.Key.TakeDamage(GetDamage(), transform.position); // also add a stats.knockback argument?
+                    // player a hit effect if it is assigned
+
+                    if (stats.hitEffect != null)
+                    {
+                        Destroy(Instantiate(stats.hitEffect, pair.Key.transform.position, Quaternion.identity), 5f);
+                    }
                 }
             }
         }

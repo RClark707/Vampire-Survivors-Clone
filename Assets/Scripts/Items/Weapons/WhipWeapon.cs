@@ -22,6 +22,12 @@ public class WhipWeapon : ProjectileWeaponB
             currentSpawnYOffset = 0f;
         }
 
+        // if there is a proc effect, play it on the player
+        if (currentStats.procEffect)
+        {
+            Destroy(Instantiate(currentStats.procEffect, owner.transform), 5f);
+        }
+
         float spawnDir = Mathf.Sign(pm.lastMoveDirection.x) * (currentSpawnCount % 2 != 0 ? -1 : 1); // face left or right?
         Vector2 spawnOffset = new Vector2(
             spawnDir * Random.Range(currentStats.spawnVariance.xMin, currentStats.spawnVariance.xMax),

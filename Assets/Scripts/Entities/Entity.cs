@@ -78,7 +78,7 @@ public class Entity : MonoBehaviour
 
         while (t < damageFlashDuration)
         {
-            if (popup.gameObject == null) break;
+            if (popup == null) break;
 
             popup.color = new Color(popup.color.r, popup.color.g, popup.color.b, 1 - t / damageFlashDuration); // linear interpolate the alpha
 

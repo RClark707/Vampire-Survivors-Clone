@@ -25,8 +25,7 @@ public class Chest : MonoBehaviour
         foreach (PlayerInventoryController.Slot s in inventory.weaponSlots)
         {
             WeaponB w = s.item as WeaponB;
-            Debug.Log($"{w.name}");
-            if (w.statsData.evolutionData == null) continue;
+            if (!w || w.statsData.evolutionData == null) continue;
 
             foreach (ItemStatsB.Evolution e in w.statsData.evolutionData)
             {

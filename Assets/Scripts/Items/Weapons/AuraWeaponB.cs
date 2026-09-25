@@ -10,10 +10,8 @@ public class AuraWeaponB : WeaponB
     {
         if (!base.LevelUp()) return false;
 
-        if (currentAura)
-        {
-            currentAura.transform.localScale = new Vector3(currentStats.area, currentStats.area, currentStats.area); // this should be updated in the update function instead
-        }
+        OnEquip(); // this replaces setting the transform scale
+
         return true;
     }
 

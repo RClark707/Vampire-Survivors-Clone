@@ -320,7 +320,7 @@ public class PlayerInventoryController : MonoBehaviour
                         {
                             if (w.currentLevel < chosenWeaponUpgrade.maxLevel) // are we below max level?
                             {
-                                Debug.Log($"Your {w.name} is level {w.currentLevel}, the max level is {w.maxLevel}");
+                                // Debug.Log($"Your {w.name} is level {w.currentLevel}, the max level is {w.maxLevel}");
                                 upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
                                 WeaponB.Stats nextLevel = chosenWeaponUpgrade.GetLevelData(w.currentLevel + 1);
                                 upgradeOption.upgradeNameDisplay.text = nextLevel.name;
@@ -359,7 +359,7 @@ public class PlayerInventoryController : MonoBehaviour
                         {
                             if (p.currentLevel < chosenPassiveUpgrade.maxLevel) // are we below max level?
                             {
-                                Debug.Log($"Your {p.name} is level {p.currentLevel}, the max level is {p.maxLevel}");
+                                // Debug.Log($"Your {p.name} is level {p.currentLevel}, the max level is {p.maxLevel}");
                                 upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
                                 PassiveB.Modifier nextLevel = chosenPassiveUpgrade.GetLevelData(p.currentLevel + 1);
                                 upgradeOption.upgradeNameDisplay.text = nextLevel.name;

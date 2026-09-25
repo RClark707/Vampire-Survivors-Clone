@@ -2678,7 +2678,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000153ab65d8dccad2d4d69a102d3a1abb9dd47b9bac5983a5727d09b11e1f7eabe
+  m_ApplyToSortingLayers: 00000000153ab65d8dccad2d4d69a102d3a1abb9dd47b9bac5983a5727d09b11e1f7eabe4fd22f21
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -5497,7 +5497,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 44132685
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7950320164446702114, guid: 8c086848334a1c94992cb877807f787c, type: 3}
@@ -5727,6 +5727,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 170fbbe172ae3394b95bb19a3c03f401, type: 2}
   - {fileID: 11400000, guid: 8ea4c331282915245be054482439ac21, type: 2}
   - {fileID: 11400000, guid: db5f12dc114296448863d5da28e44ba8, type: 2}
+  - {fileID: 11400000, guid: 53b09fc395a4d5943880701234b33b3a, type: 2}
+  - {fileID: 11400000, guid: 4b9fb00deaf6e3c4abd7890293229066, type: 2}
   availablePassives:
   - {fileID: 11400000, guid: ac44fb628f9ca7045a4f5ba68568f869, type: 2}
   - {fileID: 11400000, guid: 9fec34d1ebd7e3645ba942b86db0847b, type: 2}

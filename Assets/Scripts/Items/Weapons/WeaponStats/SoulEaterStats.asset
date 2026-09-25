@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
-  m_Name: BladeDanceStats
+  m_Name: SoulEaterStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
-  icon: {fileID: -247890373, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  icon: {fileID: 1711685785, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 1
   evolutionData: []
-  behavior: ProjectileWeaponB
+  behavior: AuraWeaponB
   baseStats:
-    name: Blade Dance
-    description: Whirlwind of knives
-    projectilePrefab: {fileID: 4690620951986469503, guid: 3bdbf9e638c3f8d448cb25ebeb684324, type: 3}
-    auraPrefab: {fileID: 0}
+    name: Soul Eater
+    description: Siphons life from surrounding foes
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 7459447701655900694, guid: e7c2b6daf52da36438ca53b3c96683f2, type: 3}
     hitEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
@@ -28,16 +28,16 @@ MonoBehaviour:
       y: 0
       width: 0
       height: 0
-    lifespan: 3
-    damage: 10
-    damageVariance: 2
-    area: 1
-    speed: 25
+    lifespan: 0
+    damage: 20
+    damageVariance: 5
+    area: 10
+    speed: 0
     cooldown: 1
-    projectileInterval: 1.5
-    knockback: 0.5
-    number: 4
-    piercing: 1
-    maxInstances: 100
+    projectileInterval: 0
+    knockback: 0
+    number: 0
+    piercing: 0
+    maxInstances: 99
   linearGrowth: []
   randomGrowth: []

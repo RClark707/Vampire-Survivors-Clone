@@ -15,8 +15,8 @@ MonoBehaviour:
   icon: {fileID: -1494385616, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 3
   evolutionData:
-  - name: Knife + Wings
-    evoReq: 0
+  - name: BladeDance
+    evoReq: 1
     consumes: 2
     evolutionLevel: 3
     catalysts:
@@ -24,7 +24,7 @@ MonoBehaviour:
       level: 1
     outcome:
       itemType: {fileID: 11400000, guid: a51f8d117097d19409dea81ba46c64c2, type: 2}
-      level: 0
+      level: 1
   behavior: ProjectileWeaponB
   baseStats:
     name: Knife

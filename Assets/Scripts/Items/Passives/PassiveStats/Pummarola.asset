@@ -14,6 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStatsB
   icon: {fileID: 93517873, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 3
+  evolutionData:
+  - name: SoulEater
+    evoReq: 1
+    consumes: 2
+    evolutionLevel: 1
+    catalysts:
+    - itemType: {fileID: 11400000, guid: 8ea4c331282915245be054482439ac21, type: 2}
+      level: 3
+    outcome:
+      itemType: {fileID: 11400000, guid: 382abfc79ee7a0247b077bd091cd129b, type: 2}
+      level: 1
   baseStats:
     name: Pummarola
     description: Increase Recovery by 0.1

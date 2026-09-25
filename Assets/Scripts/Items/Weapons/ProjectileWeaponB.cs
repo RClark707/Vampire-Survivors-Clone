@@ -34,6 +34,12 @@ public class ProjectileWeaponB : WeaponB
 
         if (!CanAttack()) return false;
 
+        // if there is a proc effect, play it on the player
+        if (currentStats.procEffect)
+        {
+            Destroy(Instantiate(currentStats.procEffect, owner.transform), 5f);
+        }
+
         float spawnAngle = GetSpawnAngle();
 
         Projectile prefab = Instantiate(
