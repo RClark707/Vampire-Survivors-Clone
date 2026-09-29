@@ -9,6 +9,13 @@ public abstract class ItemB : MonoBehaviour // this class must be subclassed in 
     protected PlayerInventoryController inventory;
 
     protected Player owner;
+    public Player Owner { get { return owner; } }
+
+    [System.Serializable]
+    public class LevelData
+    {
+        public string name, description;
+    }
 
     public virtual void Initialize(ItemStatsB stats)
     {

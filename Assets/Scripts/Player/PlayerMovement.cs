@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public const float DEFAULT_MOVESPEED = 5f;
+
     Player player;
     Rigidbody2D rb;
 
@@ -61,6 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        rb.linearVelocity = new Vector2(movementDirection.x * player.MoveSpeed, movementDirection.y * player.MoveSpeed);
+        rb.linearVelocity = movementDirection * DEFAULT_MOVESPEED * player.Stats.moveSpeed;
     }
 }

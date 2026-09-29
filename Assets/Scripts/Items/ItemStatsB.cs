@@ -28,4 +28,6 @@ public abstract class ItemStatsB : ScriptableObject
     }
 
     public Evolution[] evolutionData; // this allows the item to evolve multiple times!
+
+    public abstract ItemB.LevelData GetLevelData(int level);
 }

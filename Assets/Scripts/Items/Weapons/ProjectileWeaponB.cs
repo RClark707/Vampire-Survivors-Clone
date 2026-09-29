@@ -28,7 +28,7 @@ public class ProjectileWeaponB : WeaponB
         if (!currentStats.projectilePrefab)
         {
             Debug.LogError($"Projectile prefab has not yet been set for the {name}.");
-            currentCooldown = statsData.baseStats.cooldown;
+            ActivateCooldown();
             return false;
         }
 
@@ -51,10 +51,7 @@ public class ProjectileWeaponB : WeaponB
         prefab.weapon = this;
         prefab.owner = owner;
 
-        if (currentCooldown <= 0) // did our cooldown run out?
-        {
-            currentCooldown += currentStats.cooldown;
-        }
+        ActivateCooldown();
 
         if (attackAmount > 0) // should we make another attack?
         {
@@ -67,7 +64,7 @@ public class ProjectileWeaponB : WeaponB
 
     protected virtual float GetSpawnAngle()
     {
-        return Mathf.Atan2(pm.lastMoveDirection.y, pm.lastMoveDirection.x) * Mathf.Rad2Deg;
+        return Mathf.Atan2(playerMovement.lastMoveDirection.y, playerMovement.lastMoveDirection.x) * Mathf.Rad2Deg;
     }
 
     protected virtual Vector2 GetSpawnOffset(float spawnAngle = 0f)

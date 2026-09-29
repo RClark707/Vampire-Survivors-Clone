@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class AxeWeapon : ProjectileWeaponB
 {
+    //TODO: Fix the Axe implementation, the spawn angle is off and the rotation speed is too slow
+
     protected override float GetSpawnAngle()
     {
         int offset = currentAttackCount > 0 ? currentStats.number - currentAttackCount : 0;
-        return 90f - Mathf.Sign(pm.lastMoveDirection.x) * (5 * offset); // offset each axe by 5 degrees from the original 90 degrees
+        return 90f - Mathf.Sign(playerMovement.lastMoveDirection.x) * (5 * offset); // offset each axe by 5 degrees from the original 90 degrees
         // this is bugged out, when facing left it works mostly OK (if we were facing right)
 
     }

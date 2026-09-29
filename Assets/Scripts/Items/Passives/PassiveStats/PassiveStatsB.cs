@@ -6,8 +6,10 @@ public class PassiveStatsB : ItemStatsB
     public PassiveB.Modifier baseStats;
     public PassiveB.Modifier[] growth;
 
-    public PassiveB.Modifier GetLevelData(int level)
+    public override ItemB.LevelData GetLevelData(int level)
     {
+        if (level <= 1) return baseStats;
+
         if (level - 2 < growth.Length)
         {
             return growth[level - 2];

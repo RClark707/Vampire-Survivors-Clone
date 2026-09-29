@@ -27,35 +27,6 @@ public class CharacterStatsB : ScriptableObject
         public float magnet;
         public int revival;
 
-        //public Stats(
-        //    float maxHealth = 100f, float recovery = 0f, float armor = 0f,
-        //    float moveSpeed = 1f, float might = 1f, float area = 30f,
-        //    float projectileSpeed = 1f, float duration = 1f,
-        //    int amount = 0,
-        //    float cooldown = 1f,
-        //    float luck = 1f, float growth = 1f, float greed = 1f, float curse = 1f,
-        //    float magnet = 30f,
-        //    int revival = 1
-        //    )
-        //{
-        //    this.maxHealth = maxHealth;
-        //    this.recovery = recovery;
-        //    this.armor = armor;
-        //    this.moveSpeed = moveSpeed;
-        //    this.might = might;
-        //    this.area = area;
-        //    this.projectileSpeed = projectileSpeed;
-        //    this.duration = duration;
-        //    this.amount = amount;
-        //    this.cooldown = cooldown;
-        //    this.luck = luck;
-        //    this.growth = growth;
-        //    this.greed = greed;
-        //    this.curse = curse;
-        //    this.magnet = magnet;
-        //    this.revival = revival;
-        //}
-
         public static Stats operator +(Stats s1, Stats s2) // important to recognize this functionality, since all many stats are used as percentages
         {
             s1.maxHealth += s2.maxHealth;
@@ -81,7 +52,7 @@ public class CharacterStatsB : ScriptableObject
     public Stats stats = new Stats
     {
         maxHealth = 100f,
-        moveSpeed = 5f,
+        moveSpeed = 1f,
         might = 1f,
         area = 10f,
         projectileSpeed = 1f,
@@ -90,6 +61,6 @@ public class CharacterStatsB : ScriptableObject
         luck = 1f,
         growth = 1f,
         greed = 1f,
-        curse = 1f,
+        curse = 1f
     };
 }

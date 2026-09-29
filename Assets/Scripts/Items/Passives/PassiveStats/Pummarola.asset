@@ -31,38 +31,56 @@ MonoBehaviour:
     boosts:
       maxHealth: 0
       recovery: 0.1
+      armor: 0
       moveSpeed: 0
       might: 0
-      projectileSpeed: 0
-      magnet: 0
       area: 0
-      armor: 0
-      growth: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
       luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0
   growth:
   - name: Level 2
     description: Increase Recovery by 0.1
     boosts:
       maxHealth: 0
       recovery: 0.1
+      armor: 0
       moveSpeed: 0
       might: 0
-      projectileSpeed: 0
-      magnet: 0
       area: 0
-      armor: 0
-      growth: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
       luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0
   - name: Level 3
     description: Increase Recovery by 0.1
     boosts:
       maxHealth: 0
       recovery: 0.1
+      armor: 0
       moveSpeed: 0
       might: 0
-      projectileSpeed: 0
-      magnet: 0
       area: 0
-      armor: 0
-      growth: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
       luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0

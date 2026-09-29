@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     public GameObject playerInventoryController;
 
     [Header("General UI")]
-    public GameObject displayScreen;
+    public GameObject pauseScreen;
     public GameObject levelUpScreen;
 
     [Header("Health Bar UI")]
@@ -41,18 +41,19 @@ public class GameController : MonoBehaviour
     public GameObject mainMenuButton;
 
     [Header("Stats UI")]
+    public GameObject statsDisplay;
     public TextMeshProUGUI levelDisplay;
-    public TextMeshProUGUI maxHealthDisplay;
-    public TextMeshProUGUI curHealthDisplay;
-    public TextMeshProUGUI recoveryDisplay;
-    public TextMeshProUGUI armorDisplay;
-    public TextMeshProUGUI speedDisplay;
-    public TextMeshProUGUI projSpeedDisplay;
-    public TextMeshProUGUI mightDisplay;
-    public TextMeshProUGUI areaDisplay;
-    public TextMeshProUGUI magnetDisplay;
-    public TextMeshProUGUI growthDisplay;
-    public TextMeshProUGUI luckDisplay;
+    //public TextMeshProUGUI maxHealthDisplay;
+    //public TextMeshProUGUI curHealthDisplay;
+    //public TextMeshProUGUI recoveryDisplay;
+    //public TextMeshProUGUI armorDisplay;
+    //public TextMeshProUGUI speedDisplay;
+    //public TextMeshProUGUI projSpeedDisplay;
+    //public TextMeshProUGUI mightDisplay;
+    //public TextMeshProUGUI areaDisplay;
+    //public TextMeshProUGUI magnetDisplay;
+    //public TextMeshProUGUI growthDisplay;
+    //public TextMeshProUGUI luckDisplay;
 
     [Header("Character UI")]
     public TextMeshProUGUI characterName;
@@ -186,6 +187,7 @@ public class GameController : MonoBehaviour
     }
 
     #region Assign UI Elements
+    // TODO: Redo this to work with the new stats display
     public void ToggleDisplays()
     {
         bool toggleOn = false;
@@ -198,14 +200,14 @@ public class GameController : MonoBehaviour
                 break;
             case GameState.Pause:
                 toggleOn = true;
-                displayScreen.GetComponent<Image>().color = pauseColor;
+                pauseScreen.GetComponent<Image>().color = pauseColor;
                 titleDisplay.text = "Game Paused";
                 break;
             case GameState.LevelUp:
                 break;
             case GameState.GameOver:
                 toggleOn = true;
-                displayScreen.GetComponent<Image>().color = gameOverColor;
+                pauseScreen.GetComponent<Image>().color = gameOverColor;
                 titleDisplay.text = "Final Results";
                 break;
             default:
@@ -219,7 +221,8 @@ public class GameController : MonoBehaviour
 
         inGameTimeDisplay.gameObject.SetActive(isPlay);
         experienceBarHolder.gameObject.SetActive(isPlay);
-        displayScreen.SetActive(toggleOn);
+        pauseScreen.SetActive(toggleOn);
+        statsDisplay.SetActive(toggleOn);
         levelUpScreen.SetActive(choosingUpgrades); // this is only ever true when Level Up is the Game State
     }
 

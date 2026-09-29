@@ -1,108 +1,109 @@
-using System;
-using UnityEngine;
-[Obsolete("This class has been overwritten by PassiveB")]
-public class Passive : MonoBehaviour, IItem
-{
-    [Header("Passive Stats")]
-    public PassiveStats stats;
-    // [SerializeField]
-    protected int level;
-    [HideInInspector]
-    public int Level { get => level; set => level = value; }
-    protected Player player;
+//using System;
+//using UnityEngine;
 
-    public bool IsUpgradeable()
-    {
-        // Debug.Log($"So, can we upgrade? {level - 1 < stats.upgrades.Count}");
-        return level - 1 < stats.upgrades.Count;
-    }
+//[Obsolete("This class has been overwritten by PassiveB")]
+//public class Passive : MonoBehaviour, IItem
+//{
+//    [Header("Passive Stats")]
+//    public PassiveStats stats;
+//    // [SerializeField]
+//    protected int level;
+//    [HideInInspector]
+//    public int Level { get => level; set => level = value; }
+//    protected Player player;
 
-    public void UpgradeItem()
-    {
-        Debug.Log($"The {name} is currently level {level}.");
+//    public bool IsUpgradeable()
+//    {
+//        // Debug.Log($"So, can we upgrade? {level - 1 < stats.upgrades.Count}");
+//        return level - 1 < stats.upgrades.Count;
+//    }
 
-        if (!IsUpgradeable())
-        {
-            Debug.Log($"Your {name} item is already at its maximum level of {level}!");
-            // Debug.Log($"The {name} has {stats.upgrades.Count} total upgrades available.");
-            return;
-        }
+//    public void UpgradeItem()
+//    {
+//        Debug.Log($"The {name} is currently level {level}.");
 
-        if (player == null)
-        {
-            Debug.Log("No player reference!");
-            return;
-        }
+//        if (!IsUpgradeable())
+//        {
+//            Debug.Log($"Your {name} item is already at its maximum level of {level}!");
+//            // Debug.Log($"The {name} has {stats.upgrades.Count} total upgrades available.");
+//            return;
+//        }
 
-        ItemStats.LevelUpUpgrades levelUp = stats.upgrades[level - 1]; // if item is level 1 (all items start at level 1), we get the first upgrade in the list
+//        if (player == null)
+//        {
+//            Debug.Log("No player reference!");
+//            return;
+//        }
 
-        foreach (ItemStats.LevelUpUpgrades.Upgrade upgrade in levelUp.statUpgrades)
-        {
-            // the functionality of this code allows you to apply the same modifier to both a player & weapon stat at a single time!
-            ApplyPlayerStatModifier(upgrade.playerStatUpgrade, upgrade.multiplier);
-            // ApplyWeaponStatModifier(upgrade.weaponStatUpgrade, upgrade.multiplier);
-        }
+//        ItemStats.LevelUpUpgrades levelUp = stats.upgrades[level - 1]; // if item is level 1 (all items start at level 1), we get the first upgrade in the list
 
-        level++;
-        Debug.Log($"The {name} is now level {level}.");
-    }
+//        foreach (ItemStats.LevelUpUpgrades.Upgrade upgrade in levelUp.statUpgrades)
+//        {
+//            // the functionality of this code allows you to apply the same modifier to both a player & weapon stat at a single time!
+//            ApplyPlayerStatModifier(upgrade.playerStatUpgrade, upgrade.multiplier);
+//            // ApplyWeaponStatModifier(upgrade.weaponStatUpgrade, upgrade.multiplier);
+//        }
 
-    private void Awake()
-    {
-        name = stats.name;
-        level = stats.Level;
-        player = FindAnyObjectByType<Player>();
-    }
+//        level++;
+//        Debug.Log($"The {name} is now level {level}.");
+//    }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        ApplyPlayerStatModifier(stats.Stat, stats.Multiplier);
-    }
+//    private void Awake()
+//    {
+//        name = stats.name;
+//        level = stats.Level;
+//        player = FindAnyObjectByType<Player>();
+//    }
 
-    /// <summary>
-    /// This function applies a percentage multiplier to a single specific stat. 
-    /// The multiplier is given as a percentage increase and then converted to an actual multiplier. 
-    /// Example: entering 50 as the multiplier, it is covnerted to 1 + 50/100 = 1.5 for the actual multiplier used in calculations.
-    /// </summary>
-    /// <param name="stat"></param>
-    /// <param name="multiplier"></param>
-    protected void ApplyPlayerStatModifier(ItemStats.PlayerUpgradeStats stat, float multiplier)
-    {
-        Debug.Log($"Applying a {multiplier}% modifier to your {stat}");
+//    // Start is called once before the first execution of Update after the MonoBehaviour is created
+//    void Start()
+//    {
+//        ApplyPlayerStatModifier(stats.Stat, stats.Multiplier);
+//    }
 
-        switch (stat)
-        {
-            case ItemStats.PlayerUpgradeStats.Armor:
-                player.Armor *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Area:
-                player.Area *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Growth:
-                player.Growth *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Health:
-                player.MaxHealth *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Luck:
-                player.Luck *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Magnet:
-                player.Magnet *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Might:
-                player.Might *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.ProjectileSpeed:
-                player.ProjectileSpeed *= 1 + multiplier / 100f;
-                break;
-            case ItemStats.PlayerUpgradeStats.Speed:
-                player.MoveSpeed *= 1 + multiplier / 100f;
-                break;
-            default:
-                Debug.Log($"No modifier to apply to player stat type of {stat}");
-                break;
-        }
-    }
-}
+//    /// <summary>
+//    /// This function applies a percentage multiplier to a single specific stat. 
+//    /// The multiplier is given as a percentage increase and then converted to an actual multiplier. 
+//    /// Example: entering 50 as the multiplier, it is covnerted to 1 + 50/100 = 1.5 for the actual multiplier used in calculations.
+//    /// </summary>
+//    /// <param name="stat"></param>
+//    /// <param name="multiplier"></param>
+//    protected void ApplyPlayerStatModifier(ItemStats.PlayerUpgradeStats stat, float multiplier)
+//    {
+//        Debug.Log($"Applying a {multiplier}% modifier to your {stat}");
+
+//        switch (stat)
+//        {
+//            case ItemStats.PlayerUpgradeStats.Armor:
+//                player.Armor *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Area:
+//                player.Area *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Growth:
+//                player.Growth *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Health:
+//                player.MaxHealth *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Luck:
+//                player.Luck *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Magnet:
+//                player.Magnet *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Might:
+//                player.Might *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.ProjectileSpeed:
+//                player.ProjectileSpeed *= 1 + multiplier / 100f;
+//                break;
+//            case ItemStats.PlayerUpgradeStats.Speed:
+//                player.MoveSpeed *= 1 + multiplier / 100f;
+//                break;
+//            default:
+//                Debug.Log($"No modifier to apply to player stat type of {stat}");
+//                break;
+//        }
+//    }
+//}

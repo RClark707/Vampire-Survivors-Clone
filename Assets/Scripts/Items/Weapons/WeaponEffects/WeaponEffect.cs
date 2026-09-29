@@ -8,6 +8,8 @@ public abstract class WeaponEffect : MonoBehaviour // this class is meant to be 
     [HideInInspector] public Player owner;
     [HideInInspector] public WeaponB weapon;
 
+    public Player Owner { get { return owner; } }
+
     public float GetDamage()
     {
         return weapon.GetDamage();

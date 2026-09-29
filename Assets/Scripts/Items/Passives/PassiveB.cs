@@ -7,9 +7,8 @@ public class PassiveB : ItemB
     [SerializeField] CharacterStatsB.Stats currentBoosts;
 
     [Serializable]
-    public struct Modifier
+    public class Modifier : LevelData
     {
-        public string name, description;
         public CharacterStatsB.Stats boosts;
     }
 
@@ -35,7 +34,7 @@ public class PassiveB : ItemB
             return false;
         }
 
-        currentBoosts += statsData.GetLevelData(++currentLevel).boosts;
+        currentBoosts += ((Modifier)statsData.GetLevelData(++currentLevel)).boosts;
         return true;
     }
 }

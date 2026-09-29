@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class WhipWeapon : ProjectileWeaponB
 {
+    // TODO: I may have cause a horrible error in my implementation of this weapon. It spawns far too many projectiles.
+
     int currentSpawnCount;
     float currentSpawnYOffset;
 
@@ -10,7 +12,7 @@ public class WhipWeapon : ProjectileWeaponB
         if (!currentStats.projectilePrefab)
         {
             Debug.LogError($"Projectile prefab is missing for {name}");
-            currentCooldown = statsData.baseStats.cooldown;
+            ActivateCooldown();
             return false;
         }
 
@@ -28,7 +30,7 @@ public class WhipWeapon : ProjectileWeaponB
             Destroy(Instantiate(currentStats.procEffect, owner.transform), 5f);
         }
 
-        float spawnDir = Mathf.Sign(pm.lastMoveDirection.x) * (currentSpawnCount % 2 != 0 ? -1 : 1); // face left or right?
+        float spawnDir = Mathf.Sign(playerMovement.lastMoveDirection.x) * (currentSpawnCount % 2 != 0 ? -1 : 1); // face left or right?
         Vector2 spawnOffset = new Vector2(
             spawnDir * Random.Range(currentStats.spawnVariance.xMin, currentStats.spawnVariance.xMax),
             currentSpawnYOffset
@@ -41,7 +43,7 @@ public class WhipWeapon : ProjectileWeaponB
             );
         prefab.owner = owner;
 
-        if (spawnDir < 0)
+        if (spawnDir < 0) // TODO: scale the whip with current area
         {
             prefab.transform.localScale = new Vector3(
                 -Mathf.Abs(prefab.transform.localScale.x), // flip on the x-axis
@@ -53,7 +55,7 @@ public class WhipWeapon : ProjectileWeaponB
         }
 
         prefab.weapon = this;
-        currentCooldown = statsData.baseStats.cooldown;
+        ActivateCooldown();
         attackAmount--;
 
         // determine where to spawn the projectile

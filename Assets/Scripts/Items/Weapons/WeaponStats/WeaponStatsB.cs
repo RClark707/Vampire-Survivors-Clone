@@ -9,8 +9,10 @@ public class WeaponStatsB : ItemStatsB
     public WeaponB.Stats[] linearGrowth; // for level ups
     public WeaponB.Stats[] randomGrowth; // for endless play
 
-    public WeaponB.Stats GetLevelData(int level)
+    public override ItemB.LevelData GetLevelData(int level)
     {
+        if (level <= 1) return baseStats;
+
         // do we have a level defined here?
         if (level - 2 < linearGrowth.Length)
         {

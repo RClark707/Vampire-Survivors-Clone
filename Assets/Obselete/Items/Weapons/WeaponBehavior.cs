@@ -1,56 +1,56 @@
-using UnityEngine;
+//using UnityEngine;
 
-public class WeaponBehavior : MonoBehaviour
-{
-    [Header("Weapon Stats")] // these stats are modified and set by the Weapon Controller when the weapon projectile* is instanced
-    public float weaponDuration;
-    public float knockbackAmount;
-    [HideInInspector]
-    public float damage;
-    [HideInInspector]
-    public float projectileSpeed;
-    [HideInInspector]
-    public float cooldown; // this value is never used
-    [HideInInspector]
-    public int pierceCount;
+//public class WeaponBehavior : MonoBehaviour
+//{
+//    [Header("Weapon Stats")] // these stats are modified and set by the Weapon Controller when the weapon projectile* is instanced
+//    public float weaponDuration;
+//    public float knockbackAmount;
+//    [HideInInspector]
+//    public float damage;
+//    [HideInInspector]
+//    public float projectileSpeed;
+//    [HideInInspector]
+//    public float cooldown; // this value is never used
+//    [HideInInspector]
+//    public int pierceCount;
 
-    [Header("Player Reference")]
-    protected Player player;
+//    [Header("Player Reference")]
+//    protected Player player;
 
-    protected virtual void Awake()
-    {
-        player = FindAnyObjectByType<Player>();
-    }
+//    protected virtual void Awake()
+//    {
+//        player = FindAnyObjectByType<Player>();
+//    }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected virtual void Start()
-    {
-        // Set the projectile's lifespan
-        Destroy(gameObject, weaponDuration);
-    }
+//    // Start is called once before the first execution of Update after the MonoBehaviour is created
+//    protected virtual void Start()
+//    {
+//        // Set the projectile's lifespan
+//        Destroy(gameObject, weaponDuration);
+//    }
 
-    public float GetCurrentDamage()
-    {
-        return damage * player.Might;
-    }
+//    public float GetCurrentDamage()
+//    {
+//        return damage * player.Stats.might;
+//    }
 
-    public float GetCurrentProjectileSpeed()
-    {
-        return projectileSpeed * player.ProjectileSpeed;
-    }
+//    public float GetCurrentProjectileSpeed()
+//    {
+//        return projectileSpeed * player.Stats.projectileSpeed;
+//    }
 
-    // We make these virtual in case we need to override them later
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out Entity e))
-        {
-            // Debug.Log($"A {name} just hit an {e.name}");
-            e.TakeDamage(GetCurrentDamage(), collision.transform.position);
-            if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))
-            {
-                // Debug.Log("Applying Knockback after a Projectile collided with an Enemy");
-                enemy.ApplyKnockback(player.transform.position, knockbackAmount);
-            }
-        }
-    }
-}
+//    // We make these virtual in case we need to override them later
+//    protected virtual void OnTriggerEnter2D(Collider2D collision)
+//    {
+//        if (collision.TryGetComponent(out Entity e))
+//        {
+//            // Debug.Log($"A {name} just hit an {e.name}");
+//            e.TakeDamage(GetCurrentDamage(), collision.transform.position);
+//            if (collision.CompareTag("Enemy") && collision.TryGetComponent(out Enemy enemy))
+//            {
+//                // Debug.Log("Applying Knockback after a Projectile collided with an Enemy");
+//                enemy.ApplyKnockback(player.transform.position, knockbackAmount);
+//            }
+//        }
+//    }
+//}

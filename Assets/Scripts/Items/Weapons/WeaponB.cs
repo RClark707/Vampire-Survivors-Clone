@@ -3,10 +3,8 @@ using UnityEngine;
 public abstract class WeaponB : ItemB // because this is an abstract class, we need to subclass it in order to attach to GOs
 {
     [System.Serializable]
-    public struct Stats
+    public class Stats : LevelData
     {
-        public string name, description;
-
         [Header("Visuals")]
         public Projectile projectilePrefab;
         public Aura auraPrefab;
@@ -50,7 +48,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
         }
     }
 
-    protected PlayerMovement pm;
+    protected PlayerMovement playerMovement;
     protected Stats currentStats;
     public WeaponStatsB statsData;
     protected float currentCooldown;
@@ -58,22 +56,13 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
     // some weapons need to be initialized
     public virtual void Initialize(WeaponStatsB stats)
     {
+        Debug.Log($"{name} has been initialized.");
         base.Initialize(stats);
-        pm = owner.GetComponent<PlayerMovement>();
+        playerMovement = owner.GetComponent<PlayerMovement>();
 
         this.statsData = stats;
         currentStats = stats.baseStats;
-        currentCooldown = currentStats.cooldown;
-    }
-
-    protected virtual void Awake()
-    {
-        if (statsData) currentStats = statsData.baseStats;
-    }
-
-    protected virtual void Start()
-    {
-        if (statsData) Initialize(statsData);
+        ActivateCooldown();
     }
 
     protected virtual void Update()
@@ -81,7 +70,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
         currentCooldown -= Time.deltaTime;
         if (currentCooldown <= 0)
         {
-            Attack(currentStats.number);
+            Attack(currentStats.number + Owner.Stats.amount);
         }
     }
 
@@ -94,7 +83,9 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
             return false;
         }
 
-        currentStats += statsData.GetLevelData(++currentLevel);
+        // worth telling the game to ActivateCooldown(); here
+
+        currentStats += (Stats)statsData.GetLevelData(++currentLevel);
         return true;
     }
 
@@ -104,12 +95,11 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
     }
 
     // this method is meant to be overriden, but called from base
-    // TODO: Make all weapons scale with area
     protected virtual bool Attack(int attackAmount)
     {
         if (CanAttack())
         {
-            currentCooldown += currentStats.cooldown;
+            ActivateCooldown();
             return true;
         }
         return false;
@@ -118,11 +108,24 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
     // this gets the amount of damage for the weapon, factoring in damage variance and might
     public virtual float GetDamage()
     {
-        return currentStats.GetDamage() * owner.Might;
+        return currentStats.GetDamage() * Owner.Stats.might;
+    }
+
+    public virtual float GetArea()
+    {
+        return currentStats.area + Owner.Stats.area;
     }
 
     public virtual Stats GetStats()
     {
         return currentStats;
+    }
+
+    public virtual bool ActivateCooldown(bool strict = false)
+    {
+        if (strict && currentCooldown > 0) return false;
+        float actualCooldown = currentStats.cooldown * Owner.Stats.cooldown; // this will make the cooldown longer if our cooldown is above 1
+        currentCooldown = Mathf.Min(actualCooldown, currentCooldown + actualCooldown);
+        return true;
     }
 }
