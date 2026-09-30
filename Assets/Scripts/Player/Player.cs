@@ -119,7 +119,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         #region Assign UI with GameController
         GameController.Instance.AssignCharacterUI(characterData.Icon, characterData.name);
         GameController.Instance.AssignLevelUI(Level);
-        GameController.Instance.AssignItemsUI(inv.weaponSlots, inv.passiveSlots);
+        // GameController.Instance.AssignItemsUI(inv.weaponSlots, inv.passiveSlots);
         GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);
         GameController.Instance.AssignHealthBarUI(Health / _actualStats.maxHealth);
         #endregion
@@ -188,16 +188,16 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
         // Debug.Log($"You gained {amount * growth} XP.");
 
-        CheckXP();
+        CheckXP(); // this only gets checked once per instance of xp gain
     }
 
     void CheckXP()
     {
-        if (XP >= nextLevelXPRequirement)
+        while (XP >= nextLevelXPRequirement) // just change this to a while loop?
         {
             XP -= nextLevelXPRequirement;
             Level++;
-            Debug.Log($"You are now level {Level}.");
+            // Debug.Log($"You are now level {Level}.");
             GameController.Instance.StartPlayerLevelUp();
 
             foreach (XPRequirement xpr in xpRequirements) // reassign nextLevelXPRequirement

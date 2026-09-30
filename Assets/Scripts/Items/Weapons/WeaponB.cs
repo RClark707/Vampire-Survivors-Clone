@@ -50,7 +50,6 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
 
     protected PlayerMovement playerMovement;
     protected Stats currentStats;
-    public WeaponStatsB statsData;
     protected float currentCooldown;
 
     // some weapons need to be initialized

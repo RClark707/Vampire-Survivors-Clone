@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerInventoryController : MonoBehaviour
 {
     [Serializable]
     public class Slot
     {
-        [HideInInspector] public ItemB item;
-        public Image image;
+        public ItemB item;
+        //public Image image;
 
         public void Assign(ItemB assignedItem)
         {
@@ -17,14 +16,14 @@ public class PlayerInventoryController : MonoBehaviour
             if (item is WeaponB)
             {
                 WeaponB w = item as WeaponB;
-                image.enabled = true;
-                image.sprite = w.statsData.icon;
+                //image.enabled = true;
+                //image.sprite = w.statsData.icon;
             }
             else
             {
                 PassiveB p = item as PassiveB;
-                image.enabled = true;
-                image.sprite = p.statsData.icon;
+                //image.enabled = true;
+                //image.sprite = p.statsData.icon;
             }
             Debug.Log($"Assigned {item.name} to player's inventory.");
         }
@@ -32,8 +31,8 @@ public class PlayerInventoryController : MonoBehaviour
         public void Clear()
         {
             item = null;
-            image.enabled = false;
-            image.sprite = null;
+            //image.enabled = false;
+            //image.sprite = null;
         }
 
         public bool IsEmpty()
@@ -43,8 +42,12 @@ public class PlayerInventoryController : MonoBehaviour
     }
 
     [Header("Inventory Slots UI")]
+    public UIInventoryIconDisplay weaponsDisplay;
+    public UIInventoryIconDisplay passivesDisplay;
     public List<Slot> weaponSlots = new List<Slot>(6);
     public List<Slot> passiveSlots = new List<Slot>(6);
+
+
 
     //[Serializable]
     //public class UpgradeUI
@@ -121,6 +124,7 @@ public class PlayerInventoryController : MonoBehaviour
             if (w.statsData == stats)
             {
                 weaponSlots[i].Clear();
+                weaponsDisplay.Refresh();
                 w.OnUnequip();
                 Destroy(w.gameObject);
                 return true;
@@ -140,6 +144,7 @@ public class PlayerInventoryController : MonoBehaviour
             if (p.statsData == stats)
             {
                 passiveSlots[i].Clear();
+                weaponsDisplay.Refresh();
                 p.OnUnequip();
                 Destroy(p.gameObject);
                 return true;
@@ -184,6 +189,7 @@ public class PlayerInventoryController : MonoBehaviour
             spawnedWeapon.OnEquip();
 
             weaponSlots[slotNum].Assign(spawnedWeapon);
+            weaponsDisplay.Refresh();
 
             if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
             {
@@ -224,6 +230,7 @@ public class PlayerInventoryController : MonoBehaviour
         // spawnedPassive.OnEquip(); // apparently this isn't necessary to call?
 
         passiveSlots[slotNum].Assign(spawnedPassive);
+        passivesDisplay.Refresh();
 
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {
@@ -248,6 +255,9 @@ public class PlayerInventoryController : MonoBehaviour
             Debug.LogError($"Failed to level up {item.name}");
             return false;
         }
+
+        weaponsDisplay.Refresh();
+        passivesDisplay.Refresh();
 
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {

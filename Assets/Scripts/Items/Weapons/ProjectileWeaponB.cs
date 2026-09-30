@@ -56,7 +56,7 @@ public class ProjectileWeaponB : WeaponB
         if (attackAmount > 0) // should we make another attack?
         {
             currentAttackCount = attackAmount;
-            currentAttackInterval = statsData.baseStats.projectileInterval;
+            currentAttackInterval = ((WeaponStatsB)statsData).baseStats.projectileInterval;
         }
 
         return true;

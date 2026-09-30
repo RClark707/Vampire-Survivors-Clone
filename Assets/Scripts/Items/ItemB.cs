@@ -4,10 +4,10 @@ using UnityEngine;
 public abstract class ItemB : MonoBehaviour // this class must be subclassed in order to be used on a GO
 {
     public int currentLevel = 1, maxLevel = 1;
-
+    [HideInInspector]
+    public ItemStatsB statsData;
     protected ItemStatsB.Evolution[] evolutions;
     protected PlayerInventoryController inventory;
-
     protected Player owner;
     public Player Owner { get { return owner; } }
 

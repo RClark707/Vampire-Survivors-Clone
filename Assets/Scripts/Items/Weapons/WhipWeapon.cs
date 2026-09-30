@@ -68,7 +68,7 @@ public class WhipWeapon : ProjectileWeaponB
         if (attackAmount > 0)
         {
             currentAttackCount = attackAmount; // this determines if CanAttack() evals to true
-            currentAttackInterval = statsData.baseStats.projectileInterval;
+            currentAttackInterval = ((WeaponStatsB)statsData).baseStats.projectileInterval;
         }
 
         return true;

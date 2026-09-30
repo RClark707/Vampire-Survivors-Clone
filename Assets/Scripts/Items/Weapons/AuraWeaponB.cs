@@ -19,7 +19,7 @@ public class AuraWeaponB : WeaponB
     {
         if (currentStats.auraPrefab)
         {
-            if (currentAura) Destroy(currentAura);
+            if (currentAura) Destroy(currentAura.gameObject);
             currentAura = Instantiate(currentStats.auraPrefab, transform);
             currentAura.weapon = this;
             currentAura.owner = owner;

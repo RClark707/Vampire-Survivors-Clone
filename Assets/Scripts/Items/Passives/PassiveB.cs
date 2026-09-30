@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PassiveB : ItemB
 {
-    public PassiveStatsB statsData;
     [SerializeField] CharacterStatsB.Stats currentBoosts;
 
     [Serializable]

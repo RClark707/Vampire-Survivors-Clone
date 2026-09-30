@@ -7,11 +7,20 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public enum GameState { Play, LevelUp, Pause, GameOver };
+
+    [Header("State Control")]
+    [HideInInspector]
     public GameState currentState;
-    // [HideInInspector]
+    [HideInInspector]
     public GameState previousState;
-    public bool isGameOver = false;
-    public bool choosingUpgrades = false;
+    public bool isGameOver
+    {
+        get { return currentState == GameState.GameOver; }
+    }
+    public bool choosingUpgrades
+    {
+        get { return currentState == GameState.LevelUp; }
+    }
     public GameObject playerInventoryController;
 
     [Header("General UI")]
@@ -43,23 +52,13 @@ public class GameController : MonoBehaviour
     [Header("Stats UI")]
     public GameObject statsDisplay;
     public TextMeshProUGUI levelDisplay;
-    //public TextMeshProUGUI maxHealthDisplay;
-    //public TextMeshProUGUI curHealthDisplay;
-    //public TextMeshProUGUI recoveryDisplay;
-    //public TextMeshProUGUI armorDisplay;
-    //public TextMeshProUGUI speedDisplay;
-    //public TextMeshProUGUI projSpeedDisplay;
-    //public TextMeshProUGUI mightDisplay;
-    //public TextMeshProUGUI areaDisplay;
-    //public TextMeshProUGUI magnetDisplay;
-    //public TextMeshProUGUI growthDisplay;
-    //public TextMeshProUGUI luckDisplay;
+    int sequentialLevelUps = 0;
 
     [Header("Character UI")]
     public TextMeshProUGUI characterName;
     public Image characterImage;
-    public List<Image> weaponsUI = new List<Image>(6);
-    public List<Image> passivesUI = new List<Image>(6);
+    //public List<Image> weaponsUI = new List<Image>(6);
+    //public List<Image> passivesUI = new List<Image>(6);
 
     private void Awake()
     {
@@ -88,32 +87,30 @@ public class GameController : MonoBehaviour
                 CheckForPauseAndResume();
                 break;
             case GameState.LevelUp:
-                if (!choosingUpgrades)
-                {
-                    choosingUpgrades = true;
-                    Time.timeScale = 0f;
-                    ToggleDisplays();
-                    Debug.Log("Level Up Screen Entered");
-                }
+                //if (!choosingUpgrades)
+                //{
+                //    Time.timeScale = 0f;
+                //    ToggleDisplays();
+                //    Debug.Log("Level Up Screen Entered");
+                //}
                 break;
             case GameState.GameOver:
-                if (!isGameOver)
-                {
-                    isGameOver = true;
-                    Time.timeScale = 0f;
-                    Debug.Log("Game Over");
-                    ToggleDisplays();
-                }
+                //if (!isGameOver)
+                //{
+                //    Time.timeScale = 0f;
+                //    Debug.Log("Game Over");
+                //    ToggleDisplays();
+                //}
                 break;
             default:
-                Debug.Log($"No case for the given Game State {currentState}");
-                // when to log a warning vs. an error?
+                Debug.LogError($"No case for the given Game State {currentState}");
                 break;
         }
     }
 
     public void ChangeState(GameState newState)
     {
+        previousState = currentState;
         currentState = newState;
     }
 
@@ -121,11 +118,10 @@ public class GameController : MonoBehaviour
     {
         if (currentState != GameState.Pause)
         {
-            previousState = currentState;
             ChangeState(GameState.Pause);
             Time.timeScale = 0f; // this stops the game
             ToggleDisplays();
-            Debug.Log("The game has been paused.");
+            // Debug.Log("The game has been paused.");
         }
     }
 
@@ -136,7 +132,7 @@ public class GameController : MonoBehaviour
             ChangeState(previousState);
             Time.timeScale = 1f; // this starts the game again
             ToggleDisplays();
-            Debug.Log("The game has been resumed.");
+            // Debug.Log("The game has been resumed.");
         }
     }
 
@@ -158,7 +154,9 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         ChangeState(GameState.GameOver);
-        Debug.Log("The game is now over.");
+        Time.timeScale = 0f;
+        ToggleDisplays();
+        // Debug.Log("The game is now over.");
     }
 
     void UpdateTimer()
@@ -175,15 +173,30 @@ public class GameController : MonoBehaviour
     public void StartPlayerLevelUp()
     {
         ChangeState(GameState.LevelUp);
-        playerInventoryController.SendMessage("ClearAndSetUpgrades");
+
+        if (levelUpScreen.activeSelf) sequentialLevelUps++; // are we calling this function multiple times in a row?
+        else
+        {
+            Time.timeScale = 0f;
+            ToggleDisplays();
+            // Debug.Log("Level Up Screen Entered");
+            playerInventoryController.SendMessage("ClearAndSetUpgrades");
+        }
     }
 
     public void EndPlayerLevelUp()
     {
-        choosingUpgrades = false;
         Time.timeScale = 1f;
         ChangeState(GameState.Play);
         ToggleDisplays();
+
+        if (sequentialLevelUps > 0) // if we have multiple level ups in a single frame, then StartPlayerLevelUp was called a whole bunch
+                                    // after we've picked our level up option, then it can re-try to give us a level up
+                                    // if it succeeds, then we get to pick a new level up option
+        {
+            sequentialLevelUps--;
+            StartPlayerLevelUp();
+        }
     }
 
     #region Assign UI Elements
@@ -231,7 +244,7 @@ public class GameController : MonoBehaviour
         int minutes = Mathf.FloorToInt(timer / 60);
         int seconds = Mathf.RoundToInt(timer % 60);
 
-        timeDisplay.text = string.Format("Run Duration {0:00}:{1:00}", minutes, seconds);
+        timeDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         inGameTimeDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
@@ -248,7 +261,7 @@ public class GameController : MonoBehaviour
 
     public void AssignLevelUI(int level)
     {
-        levelDisplay.text = "Level: " + level;
+        levelDisplay.text = level.ToString();
         inGameLevelDisplay.text = "Level: " + level;
     }
 
@@ -257,46 +270,41 @@ public class GameController : MonoBehaviour
         experienceBar.fillAmount = barFillAmount;
     }
 
-    public void AssignTimeUI(int minutes, int seconds)
-    {
-        timeDisplay.text = "Run Duration: " + Mathf.RoundToInt(minutes) + ":" + Mathf.RoundToInt(seconds);
-    }
-
     public void AssignItemsUI(List<PlayerInventoryController.Slot> weapons, List<PlayerInventoryController.Slot> passives)
     {
-        if (weapons.Count != weaponsUI.Count || passives.Count != passivesUI.Count)
-        {
-            Debug.LogError("Item arrays have different length!");
-            return;
-        }
+        //if (weapons.Count != weaponsUI.Count || passives.Count != passivesUI.Count)
+        //{
+        //    Debug.LogError("Item arrays have different length!");
+        //    return;
+        //}
 
-        // assign weapons UI
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            if (weapons[i].image.sprite)
-            {
-                weaponsUI[i].enabled = true;
-                weaponsUI[i].sprite = weapons[i].image.sprite;
-            }
-            else
-            {
-                weaponsUI[i].enabled = false;
-            }
-        }
+        //// assign weapons UI
+        //for (int i = 0; i < weapons.Count; i++)
+        //{
+        //    if (weapons[i].image.sprite)
+        //    {
+        //        weaponsUI[i].enabled = true;
+        //        weaponsUI[i].sprite = weapons[i].image.sprite;
+        //    }
+        //    else
+        //    {
+        //        weaponsUI[i].enabled = false;
+        //    }
+        //}
 
-        // assign passives UI
-        for (int i = 0; i < passives.Count; i++)
-        {
-            if (passives[i].image.sprite)
-            {
-                passivesUI[i].enabled = true;
-                passivesUI[i].sprite = passives[i].image.sprite;
-            }
-            else
-            {
-                passivesUI[i].enabled = false;
-            }
-        }
+        //// assign passives UI
+        //for (int i = 0; i < passives.Count; i++)
+        //{
+        //    if (passives[i].image.sprite)
+        //    {
+        //        passivesUI[i].enabled = true;
+        //        passivesUI[i].sprite = passives[i].image.sprite;
+        //    }
+        //    else
+        //    {
+        //        passivesUI[i].enabled = false;
+        //    }
+        //}
     }
     #endregion
 }

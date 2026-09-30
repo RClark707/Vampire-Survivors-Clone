@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlueXPGemStats
   m_EditorClassIdentifier: Assembly-CSharp::PickupStats
   name: Blue XP Gem
+  icon: {fileID: 0}
   movementSpeed: 10
   maxHealth: 0
   pickupType: 2
