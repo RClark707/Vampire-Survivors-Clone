@@ -37,7 +37,7 @@ public class UIStatsDisplay : MonoBehaviour
             names.AppendLine(ObjectNames.NicifyVariableName(field.Name));
 
             // get the stat values
-            object val = field.GetValue(player.Stats);
+            object val = field.GetValue(player.ActualStats);
             float fval = val is int ? (int)val : (float)val;
 
             PropertyAttribute attribute = (PropertyAttribute)PropertyAttribute.GetCustomAttribute(field, typeof(PropertyAttribute));

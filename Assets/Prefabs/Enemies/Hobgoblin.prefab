@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 5279094140573793855}
   - component: {fileID: 30642601282510823}
   - component: {fileID: 4972962875109540666}
-  - component: {fileID: 8249497672468638947}
-  - component: {fileID: 3664645716334694577}
+  - component: {fileID: 2987555257915567884}
+  - component: {fileID: 9160760871287988248}
   - component: {fileID: 1106628092959421700}
   - component: {fileID: -5488348723025432586}
+  - component: {fileID: 3664645716334694577}
   m_Layer: 13
   m_Name: Hobgoblin
   m_TagString: Enemy
@@ -119,8 +120,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &8249497672468638947
-BoxCollider2D:
+--- !u!50 &2987555257915567884
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157134861049469560}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &9160760871287988248
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,36 +177,12 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &3664645716334694577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3157134861049469560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5de7a43851feac34a9018920ea42e3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  knockedBack: 0
-  knockback: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!114 &1106628092959421700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,12 +195,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99286f8b54eba564b87bb60c80c90547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  baseStats:
+    maxHealth: 10
+    moveSpeed: 5
+    damage: 3
+    knockbackMultiplier: 1
+    resistances:
+      freeze: 0
+      kill: 0
+      debuff: 0
   damagedColor: {r: 1, g: 0, b: 0, a: 1}
   damageFlashDuration: 0.2
-  deathFadeTime: 0.6
+  deathFadeTime: 0.3
   damageCanvas: {fileID: 8499694111103141112}
   damageDisplay: {fileID: 9106673356233323592, guid: 4989a7eca0ea8f84ebe8a8de7ba35fcd, type: 3}
-  stats: {fileID: 11400000, guid: 94eec0c1828439947b749bca4ee36f52, type: 2}
 --- !u!114 &-5488348723025432586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +228,20 @@ MonoBehaviour:
     dropChance: 25
   - itemPrefab: {fileID: 8283244143240161301, guid: 2851dc89a4556da4bb909aaf301959ed, type: 3}
     dropChance: 10
+--- !u!114 &3664645716334694577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157134861049469560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de7a43851feac34a9018920ea42e3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  knockbackBehavior: 1
+  outOfFrameAction: 1
 --- !u!1 &5899534583812343378
 GameObject:
   m_ObjectHideFlags: 0

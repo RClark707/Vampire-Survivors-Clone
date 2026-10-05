@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6361848634423512283
+--- !u!1001 &3684795130543139417
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,44 +9,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 30642601282510823, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_Color.a
-      value: 1
+      propertyPath: m_SortingLayer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 30642601282510823, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5424528
-      objectReference: {fileID: 0}
-    - target: {fileID: 30642601282510823, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_Color.g
-      value: 0.5465749
-      objectReference: {fileID: 0}
-    - target: {fileID: 30642601282510823, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: m_SortingLayerID
+      value: 1463457989
       objectReference: {fileID: 0}
     - target: {fileID: 1106628092959421700, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
       propertyPath: stats
       value: 
-      objectReference: {fileID: 11400000, guid: 94eec0c1828439947b749bca4ee36f52, type: 2}
+      objectReference: {fileID: 11400000, guid: 2355e2bd8b5857940aa4ba28a3303748, type: 2}
     - target: {fileID: 1106628092959421700, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: baseStats.damage
+      propertyPath: baseStats.moveSpeed
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1106628092959421700, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: baseStats.maxHealth
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1106628092959421700, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: baseStats.knockbackMultiplier
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
       propertyPath: m_Name
-      value: RedHobgoblin
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664645716334694577, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      value: HobgoblinCharger
       objectReference: {fileID: 0}
     - target: {fileID: 5279094140573793855, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -88,8 +68,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3664645716334694577, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5452034850540443632}
   m_SourcePrefab: {fileID: 100100000, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
+--- !u!1 &1797887089279758369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3157134861049469560, guid: 30f0da519ac61b54297363500e3c33b0, type: 3}
+  m_PrefabInstance: {fileID: 3684795130543139417}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5452034850540443632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797887089279758369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d25b61c894ba974ea2dbbf8e64b2e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovementCharger
+  knockbackBehavior: 2
+  outOfFrameAction: 2

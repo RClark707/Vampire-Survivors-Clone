@@ -6,8 +6,8 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     [Header("Character Stats")]
     [SerializeField] CharacterStatsB characterData;
     [HideInInspector] public CharacterStatsB.Stats baseStats;
-    [SerializeField] CharacterStatsB.Stats _actualStats;
-    public CharacterStatsB.Stats Stats
+    CharacterStatsB.Stats _actualStats;
+    public CharacterStatsB.Stats ActualStats // there is a consideration to avoid making this setter public, but it already is, so cry about it
     {
         get { return _actualStats; }
         set
@@ -37,10 +37,9 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
 
     [Header("Inventory")]
     PlayerInventoryController inv;
-    public int openWeaponIndex;
-    public int openPassiveIndex;
 
     [Header("Experience & Leveling")]
+    PlayerCollector collector;
     public List<XPRequirement> xpRequirements;
 
     float _xp = 0;
@@ -62,7 +61,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     float totalXP = 0;
     float nextLevelXPRequirement;
     int _level = 1;
-    int Level
+    public int Level
     {
         get { return _level; }
         set
@@ -103,6 +102,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
 
         inv = GetComponent<PlayerInventoryController>();
+        collector = GetComponentInChildren<PlayerCollector>();
 
         // Assign variables
 
@@ -226,5 +226,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
                 _actualStats += p.GetBoosts();
             }
         }
+
+        collector.SetRadius(_actualStats.magnet);
     }
 }

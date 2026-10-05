@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemySpawner.Wave;
 
+[System.Obsolete("Replaced with the SpawnController")]
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnTimer(EnemyGroup eg, int amount = 1)
+    IEnumerator SpawnTimer(Wave.EnemyGroup eg, int amount = 1)
     {
         WaitForSeconds delay = new WaitForSeconds(waves[currentWaveIndex].spawnInterval);
 
@@ -89,7 +89,7 @@ public class EnemySpawner : MonoBehaviour
             foreach (Wave wave in waves)
             {
                 wave.spawnCount = 0;
-                foreach (EnemyGroup eg in wave.enemyGroups)
+                foreach (Wave.EnemyGroup eg in wave.enemyGroups)
                 {
                     eg.spawnCount = 0;
                 }
@@ -107,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (waves[currentWaveIndex].spawnCount < waves[currentWaveIndex].totalEnemies && canSpawn)
         {
-            foreach (EnemyGroup eg in waves[currentWaveIndex].enemyGroups)
+            foreach (Wave.EnemyGroup eg in waves[currentWaveIndex].enemyGroups)
             {
                 if (eg.spawnCount < eg.totalEnemies) // ENEMIES ARE STILL SPAWNING?
                 {
@@ -134,7 +134,7 @@ public class EnemySpawner : MonoBehaviour
         int total = 0;
         Wave currentWave = waves[currentWaveIndex];
 
-        foreach (EnemyGroup group in currentWave.enemyGroups)
+        foreach (Wave.EnemyGroup group in currentWave.enemyGroups)
         {
             total += group.totalEnemies;
         }
@@ -143,7 +143,7 @@ public class EnemySpawner : MonoBehaviour
         // Debug.Log($"The total enemies for this wave is {total}");
     }
 
-    void SpawnEnemy(EnemyGroup eg, Vector2 spawnPos, bool isElite = false)
+    void SpawnEnemy(Wave.EnemyGroup eg, Vector2 spawnPos, bool isElite = false)
     {
         if (!canSpawn && !isElite) return; // don't spawn if we are over our limit and it isn't an elite enemy
 
@@ -169,7 +169,7 @@ public class EnemySpawner : MonoBehaviour
         return spawnPosition + (Vector2)player.transform.position;
     }
 
-    void SpawnEnemies(EnemyGroup eg, int amount)
+    void SpawnEnemies(Wave.EnemyGroup eg, int amount)
     {
         // Debug.Log($"About to spawn {amount} {eg.enemyPrefab.name}.");
         for (int i = 0; i < amount; i++)

@@ -63,6 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        rb.linearVelocity = movementDirection * DEFAULT_MOVESPEED * player.Stats.moveSpeed;
+        rb.linearVelocity = movementDirection * DEFAULT_MOVESPEED * player.ActualStats.moveSpeed;
     }
 }

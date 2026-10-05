@@ -458,7 +458,7 @@ public class PlayerInventoryController : MonoBehaviour
         int availableUpgradeCount = availableUpgrades.Count;
         if (availableUpgradeCount > 0)
         {
-            bool getExtraItem = 1f - 1f / player.Stats.luck > UnityEngine.Random.value;
+            bool getExtraItem = 1f - 1f / player.ActualStats.luck > UnityEngine.Random.value;
             if (getExtraItem || availableUpgradeCount < 4) upgradeWindow.SetUpgrades(this, availableUpgrades, 4); // why does this check for less than 4?
             else upgradeWindow.SetUpgrades(this, availableUpgrades, 3, "Increase your Luck stat for a chance to get 4 items!");
         }

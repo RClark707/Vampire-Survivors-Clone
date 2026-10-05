@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Enemy Stats", menuName = "Stats/Enemy Stats")]
+[Obsolete("We have replaced Enemy stats with structs in the base class.")]
 public class EnemyStats : EntityStats
 {
     [SerializeField]

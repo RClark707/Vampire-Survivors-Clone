@@ -21,7 +21,33 @@ public class GameController : MonoBehaviour
     {
         get { return currentState == GameState.LevelUp; }
     }
-    public GameObject playerInventoryController;
+    Player[] players;
+    public static float GetCumulativeCurse()
+    {
+        if (!Instance) return 1f;
+
+        float totalCurse = 0f;
+
+        foreach (Player p in Instance.players)
+        {
+            totalCurse += p.ActualStats.curse;
+        }
+
+        return Mathf.Max(1, 1 + totalCurse); // in case curse is negative
+    }
+    public static int GetCumulativeLevels()
+    {
+        if (!Instance) return 1;
+
+        int totalLevel = 0;
+
+        foreach (Player p in Instance.players)
+        {
+            totalLevel += p.Level;
+        }
+
+        return Mathf.Max(1, totalLevel);
+    }
 
     [Header("General UI")]
     public GameObject pauseScreen;
@@ -39,6 +65,11 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI timeDisplay;
     public float timeLimit;
     float timer;
+
+    public float GetElapsedTime()
+    {
+        return timer;
+    }
     public TextMeshProUGUI inGameTimeDisplay;
 
     [Header("Rotating UI")]
@@ -57,14 +88,13 @@ public class GameController : MonoBehaviour
     [Header("Character UI")]
     public TextMeshProUGUI characterName;
     public Image characterImage;
-    //public List<Image> weaponsUI = new List<Image>(6);
-    //public List<Image> passivesUI = new List<Image>(6);
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            players = FindObjectsByType<Player>(FindObjectsSortMode.None);
         }
         else
         {
@@ -166,7 +196,7 @@ public class GameController : MonoBehaviour
 
         if (timer >= timeLimit)
         {
-            GameOver();
+            GameOver(); // this could send a message to kill the players if we want
         }
     }
 
@@ -180,7 +210,10 @@ public class GameController : MonoBehaviour
             Time.timeScale = 0f;
             ToggleDisplays();
             // Debug.Log("Level Up Screen Entered");
-            playerInventoryController.SendMessage("ClearAndSetUpgrades");
+            foreach (Player p in players)
+            {
+                p.GetComponent<PlayerInventoryController>().SendMessage("ClearAndSetUpgrades");
+            }
         }
     }
 

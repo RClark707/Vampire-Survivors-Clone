@@ -19,7 +19,7 @@ public class Projectile : WeaponEffect
         if (rb.bodyType == RigidbodyType2D.Dynamic)
         {
             rb.angularVelocity = rotationSpeed.z;
-            rb.linearVelocity = transform.right * stats.speed * weapon.Owner.Stats.projectileSpeed;
+            rb.linearVelocity = transform.right * stats.speed * weapon.Owner.ActualStats.projectileSpeed;
         }
 
         float area = weapon.GetArea();
@@ -77,7 +77,7 @@ public class Projectile : WeaponEffect
         if (rb.bodyType == RigidbodyType2D.Kinematic)
         {
             WeaponB.Stats stats = weapon.GetStats();
-            transform.position += transform.right * weapon.Owner.Stats.projectileSpeed * Time.fixedDeltaTime;
+            transform.position += transform.right * weapon.Owner.ActualStats.projectileSpeed * Time.fixedDeltaTime;
             rb.MovePosition(transform.position);
             transform.Rotate(rotationSpeed * Time.fixedDeltaTime);
         }
@@ -93,7 +93,7 @@ public class Projectile : WeaponEffect
             // should we use projectile knockback or owner knockback?
             Vector3 source = knockbackSource == KnockbackSource.Owner && owner ? owner.transform.position : transform.position;
 
-            e.TakeDamage(GetDamage(), source);
+            e.TakeDamage(GetDamage(), source, weapon.GetStats().knockback);
 
             // Debug.Log($"The {name} just hit {e.name} for {GetDamage()} damage.");
 
@@ -106,7 +106,7 @@ public class Projectile : WeaponEffect
         }
         else if (dp)
         {
-            dp.TakeDamage(GetDamage(), new Vector3(0, 0, 0)); // this source isn't real, get rid of it!
+            dp.TakeDamage(GetDamage()); // this source isn't real, get rid of it!
             piercing--;
 
             WeaponB.Stats stats = weapon.GetStats();

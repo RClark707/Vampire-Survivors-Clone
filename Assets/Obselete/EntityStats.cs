@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete("We no longer use Scriptable Objects for Enemies or Props")]
 public class EntityStats : ScriptableObject
 {
     // Stats Common Among All Enemies & Player Characters

@@ -31,7 +31,7 @@ public class Entity : MonoBehaviour
         originalColor = sr.color;
     }
 
-    public virtual void TakeDamage(float amount, Vector3 source)
+    public virtual void TakeDamage(float amount)
     {
         health = Mathf.Max(health - amount, 0f);
         // Debug.Log($"The {name} has {health} health left after taking {amount} damage!");

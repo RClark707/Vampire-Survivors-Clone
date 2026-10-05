@@ -81,10 +81,18 @@ public class LightningRingWeapon : ProjectileWeaponB
         foreach (Collider2D c in targets)
         {
             Enemy e = c.GetComponent<Enemy>();
-            if (e) { e.TakeDamage(damage, transform.position); continue; }
+            if (e)
+            {
+                e.TakeDamage(damage, owner.transform.position, GetStats().knockback);
+                continue;
+            }
             // if we didn't see an enemy, is there a prop we can damage?
             DestructibleProp dp = c.GetComponent<DestructibleProp>();
-            if (dp) { dp.TakeDamage(damage, transform.position); continue; }
+            if (dp)
+            {
+                dp.TakeDamage(damage);
+                continue;
+            }
         }
     }
 }

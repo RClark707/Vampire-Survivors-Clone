@@ -69,7 +69,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
         currentCooldown -= Time.deltaTime;
         if (currentCooldown <= 0)
         {
-            Attack(currentStats.number + Owner.Stats.amount);
+            Attack(currentStats.number + Owner.ActualStats.amount);
         }
     }
 
@@ -107,12 +107,12 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
     // this gets the amount of damage for the weapon, factoring in damage variance and might
     public virtual float GetDamage()
     {
-        return currentStats.GetDamage() * Owner.Stats.might;
+        return currentStats.GetDamage() * Owner.ActualStats.might;
     }
 
     public virtual float GetArea()
     {
-        return currentStats.area + Owner.Stats.area;
+        return currentStats.area + Owner.ActualStats.area;
     }
 
     public virtual Stats GetStats()
@@ -123,7 +123,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
     public virtual bool ActivateCooldown(bool strict = false)
     {
         if (strict && currentCooldown > 0) return false;
-        float actualCooldown = currentStats.cooldown * Owner.Stats.cooldown; // this will make the cooldown longer if our cooldown is above 1
+        float actualCooldown = currentStats.cooldown * Owner.ActualStats.cooldown; // this will make the cooldown longer if our cooldown is above 1
         currentCooldown = Mathf.Min(actualCooldown, currentCooldown + actualCooldown);
         return true;
     }

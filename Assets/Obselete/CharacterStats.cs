@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Obsolete("These will be replaced by CharactersStatsB")]
-[CreateAssetMenu(fileName = "New Character Stats", menuName = "Stats/Character Stats")]
+//[CreateAssetMenu(fileName = "New Character Stats", menuName = "Stats/Character Stats")]
 public class CharacterStats : EntityStats
 {
     [SerializeField]

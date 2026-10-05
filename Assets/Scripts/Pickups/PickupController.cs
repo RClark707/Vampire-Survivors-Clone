@@ -21,7 +21,7 @@ public class PickupController : MonoBehaviour
     {
         Drop pickup = null;
 
-        float chance = UnityEngine.Random.Range(0f, 1f);
+        float chance = Random.Range(0f, 1f);
 
         for (int i = 0; i < pickups.Count; i++)
         {
@@ -49,7 +49,7 @@ public class PickupController : MonoBehaviour
 
         foreach (Drop p in pickups)
         {
-            sum += p.dropChance * player.Stats.luck;
+            sum += p.dropChance * player.ActualStats.luck;
         }
 
         float cumulative = 0f;
@@ -61,7 +61,7 @@ public class PickupController : MonoBehaviour
 
         for (int i = 0; i <= index + 1; i++)
         {
-            cumulative += pickups[i].dropChance * player.Stats.luck;
+            cumulative += pickups[i].dropChance * player.ActualStats.luck;
         }
 
         return cumulative / sum;

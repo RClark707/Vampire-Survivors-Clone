@@ -11,9 +11,9 @@ public class PlayerCollector : MonoBehaviour
         collector = GetComponent<CircleCollider2D>();
     }
 
-    private void Update()
+    public void SetRadius(float area)
     {
-        collector.radius = player.Stats.magnet;
+        collector.radius = area;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
