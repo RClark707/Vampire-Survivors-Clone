@@ -3731,7 +3731,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4571,6 +4571,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54ff15f3da52d3f4c95522dd9bb99335, type: 2}
   referenceCamera: {fileID: 519420031}
   maximumEnemyCount: 300
+  boostedbyCurse: 1
 --- !u!114 &780351904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7857,6 +7858,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54844dfd07019da449f9e261e6b0500b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  sortingActive: 1
+  minimumDistance: 0.2
   movementDirection: {x: 0, y: 0}
   prevMoveX: 0
   prevMoveY: 0
@@ -8992,7 +8995,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 5
+    OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -14060,9 +14063,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 2110854511}
   - {fileID: 519420032}
+  - {fileID: 1552432064}
   - {fileID: 619394802}
   - {fileID: 1392034374}
-  - {fileID: 1552432064}
   - {fileID: 1875948575}
   - {fileID: 1736207406}
   - {fileID: 786859340}

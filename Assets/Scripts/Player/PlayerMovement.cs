@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Sortable
 {
     public const float DEFAULT_MOVESPEED = 5f;
 
@@ -17,8 +17,9 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 lastMoveDirection;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         lastMoveDirection = new Vector2(1, 0f);
         player = FindAnyObjectByType<Player>();

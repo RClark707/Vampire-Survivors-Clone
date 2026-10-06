@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour, IPickup
+public class Pickup : Sortable, IPickup
 {
     public PickupStats pickupStats;
     protected float strength;

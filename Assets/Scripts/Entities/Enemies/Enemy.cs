@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
             if ((boostable & Boostable.health) != 0) s1.maxHealth *= factor;
             if ((boostable & Boostable.moveSpeed) != 0) s1.moveSpeed *= factor;
             if ((boostable & Boostable.damage) != 0) s1.damage *= factor;
-            if ((boostable & Boostable.knockbackMultiplier) != 0) s1.knockbackMultiplier *= factor;
+            if ((boostable & Boostable.knockbackMultiplier) != 0) s1.knockbackMultiplier /= factor;
             if ((boostable & Boostable.resistances) != 0) s1.resistances *= factor;
             return s1;
         }

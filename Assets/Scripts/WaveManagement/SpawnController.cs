@@ -12,6 +12,8 @@ public class SpawnController : MonoBehaviour
     public int maximumEnemyCount = 300;
     float spawnTimer;
     float currentWaveDuration = 0f;
+    [Tooltip("Determines if we should modify the spawned enemy's stats by the player's curse.")]
+    public bool boostedbyCurse = true;
 
     public static SpawnController Instance;
 
@@ -49,7 +51,7 @@ public class SpawnController : MonoBehaviour
 
             if (!CanSpawn()) // if we cannot spawn new enemies at all
             {
-                spawnTimer += waveData[currentWaveIndex].GetSpawnInterval(); // resets the spawn timer
+                ResetSpawnTimer();
                 return;
             }
 
@@ -64,8 +66,14 @@ public class SpawnController : MonoBehaviour
                 currentWaveSpawnCount++;
             }
 
-            spawnTimer += waveData[currentWaveIndex].GetSpawnInterval(); // resets the spawn timer
+            ResetSpawnTimer();
         }
+    }
+
+    public void ResetSpawnTimer()
+    {
+        float curseBoost = boostedbyCurse ? GameController.GetCumulativeCurse() : 1f;
+        spawnTimer += waveData[currentWaveIndex].GetSpawnInterval() / curseBoost;
     }
 
     void Reset()

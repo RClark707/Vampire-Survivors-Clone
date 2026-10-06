@@ -1,12 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
-public class EnemyMovement : MonoBehaviour // we can subclass this script to make enemies that move differently!
+public class EnemyMovement : Sortable
 {
     protected Enemy enemy;
     protected Player player;
     Rigidbody2D rb;
-
 
     protected bool knockedBack;
     protected Vector2 knockbackDirection;
@@ -22,8 +21,10 @@ public class EnemyMovement : MonoBehaviour // we can subclass this script to mak
 
     protected bool spawnedOutOfFrame = false;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
+
         spawnedOutOfFrame = !SpawnController.IsWithinBoundaries(transform);
         enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
@@ -50,11 +51,15 @@ public class EnemyMovement : MonoBehaviour // we can subclass this script to mak
     {
         if (rb)
         {
-            rb.MovePosition(Vector2.MoveTowards(
+            Vector2 position = Vector2.MoveTowards( // this is intended for use with kinematic bodies
                 rb.position,
                 player.transform.position,
                 enemy.ActualStats.moveSpeed * Time.deltaTime
-                ));
+                );
+            rb.MovePosition(position);
+            Vector3 adjustedPos = transform.position;
+            adjustedPos.z = 0f;
+            transform.position = adjustedPos;
         }
         else // no rigidbody
         {
