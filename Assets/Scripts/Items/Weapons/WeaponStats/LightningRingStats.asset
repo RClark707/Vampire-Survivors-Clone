@@ -22,6 +22,7 @@ MonoBehaviour:
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 7979419475600916991, guid: ce60c9ff743ff96459a50ab18f902844, type: 3}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -39,12 +40,14 @@ MonoBehaviour:
     number: 2
     piercing: 0
     maxInstances: 100
+    appliedBuffs: []
   linearGrowth:
   - name: Level 2
     description: Decrease Cooldown by 0.2
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 7979419475600916991, guid: ce60c9ff743ff96459a50ab18f902844, type: 3}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -62,11 +65,13 @@ MonoBehaviour:
     number: 0
     piercing: 0
     maxInstances: 0
+    appliedBuffs: []
   - name: Level 3
     description: Increase Number by 1
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 7979419475600916991, guid: ce60c9ff743ff96459a50ab18f902844, type: 3}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -84,4 +89,5 @@ MonoBehaviour:
     number: 1
     piercing: 0
     maxInstances: 0
+    appliedBuffs: []
   randomGrowth: []

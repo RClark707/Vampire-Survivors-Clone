@@ -22,6 +22,7 @@ MonoBehaviour:
     projectilePrefab: {fileID: 6963808102643740350, guid: 91db01d9cc6706044be00ade1d1c55f1, type: 3}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 1.1
@@ -39,12 +40,14 @@ MonoBehaviour:
     number: 1
     piercing: 99
     maxInstances: 99
+    appliedBuffs: []
   linearGrowth:
   - name: Level 2
     description: Increase Area by 1
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -62,11 +65,13 @@ MonoBehaviour:
     number: 0
     piercing: 0
     maxInstances: 0
+    appliedBuffs: []
   - name: Level 3
     description: Increase Damage by 2
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -84,4 +89,5 @@ MonoBehaviour:
     number: 0
     piercing: 0
     maxInstances: 0
+    appliedBuffs: []
   randomGrowth: []

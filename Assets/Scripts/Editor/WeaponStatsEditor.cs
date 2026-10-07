@@ -20,7 +20,7 @@ public class WeaponStatsEditor : Editor
             .Where(p => baseType.IsAssignableFrom(p) && p != baseType)
             .ToList();
 
-        List<string> subTypeString = subTypes.Select(t => ObjectNames.NicifyVariableName(t.Name)).ToList();
+        List<string> subTypeString = subTypes.Select(t => t.Name).ToList();
         subTypeString.Insert(0, "None");
         weaponSubtypes = subTypeString.ToArray();
 

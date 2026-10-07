@@ -16,6 +16,8 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
         public float damage, damageVariance, area, speed, cooldown, projectileInterval, knockback;
         public int number, piercing, maxInstances;
 
+        public EntityB.BuffInfo[] appliedBuffs;
+
         // define addition between two Stats - this is Abstract Algebra!
         public static Stats operator +(Stats s1, Stats s2)
         {
@@ -36,7 +38,8 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
                 number = s1.number + s2.number,
                 piercing = s1.piercing + s2.piercing,
                 projectileInterval = s1.projectileInterval + s2.projectileInterval,
-                knockback = s1.knockback + s2.knockback
+                knockback = s1.knockback + s2.knockback,
+                appliedBuffs = s2.appliedBuffs == null || s2.appliedBuffs.Length <= 0 ? s1.appliedBuffs : s2.appliedBuffs
             };
 
             return result;
@@ -90,6 +93,7 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
 
     public virtual bool CanAttack()
     {
+        if (Mathf.Approximately(0f, owner.ActualStats.might)) return false; // this is a preference thing, maybe
         return currentCooldown <= 0;
     }
 
@@ -126,5 +130,13 @@ public abstract class WeaponB : ItemB // because this is an abstract class, we n
         float actualCooldown = currentStats.cooldown * Owner.ActualStats.cooldown; // this will make the cooldown longer if our cooldown is above 1
         currentCooldown = Mathf.Min(actualCooldown, currentCooldown + actualCooldown);
         return true;
+    }
+
+    public void ApplyBuffs(EntityB e)
+    {
+        foreach (EntityB.BuffInfo b in GetStats().appliedBuffs)
+        {
+            e.ApplyBuff(b, owner.ActualStats.duration);
+        }
     }
 }

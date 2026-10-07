@@ -22,6 +22,7 @@ MonoBehaviour:
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 7459447701655900694, guid: e7c2b6daf52da36438ca53b3c96683f2, type: 3}
     hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
     spawnVariance:
       serializedVersion: 2
       x: 0
@@ -39,5 +40,6 @@ MonoBehaviour:
     number: 0
     piercing: 0
     maxInstances: 99
+    appliedBuffs: []
   linearGrowth: []
   randomGrowth: []

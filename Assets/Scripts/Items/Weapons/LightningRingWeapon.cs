@@ -83,7 +83,8 @@ public class LightningRingWeapon : ProjectileWeaponB
             Enemy e = c.GetComponent<Enemy>();
             if (e)
             {
-                e.TakeDamage(damage, owner.transform.position, GetStats().knockback);
+                e.TakeDamage(damage, owner.transform.position);
+                ApplyBuffs(e);
                 continue;
             }
             // if we didn't see an enemy, is there a prop we can damage?

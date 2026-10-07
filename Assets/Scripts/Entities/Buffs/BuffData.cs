@@ -22,7 +22,7 @@ public class BuffData : ScriptableObject
         [Tooltip("Effect that is attached to the Game Object with the buff.")]
         public ParticleSystem effect;
         [Tooltip("The tint color of sprites affected by this buff.")]
-        public Color tint = new Color(0, 0, 0, 1);
+        public Color tint = new Color(0, 0, 0, 0);
         [Tooltip("Whether this buff slows down or speeds up the animation of the affected Game Object.")]
         [Min(0f)] public float animationSpeed = 1f;
 

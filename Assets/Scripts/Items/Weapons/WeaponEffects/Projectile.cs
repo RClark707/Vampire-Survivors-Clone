@@ -93,16 +93,17 @@ public class Projectile : WeaponEffect
             // should we use projectile knockback or owner knockback?
             Vector3 source = knockbackSource == KnockbackSource.Owner && owner ? owner.transform.position : transform.position;
 
-            e.TakeDamage(GetDamage(), source, weapon.GetStats().knockback);
-
-            // Debug.Log($"The {name} just hit {e.name} for {GetDamage()} damage.");
+            e.TakeDamage(GetDamage(), source); // this means projectiles don't apply their own knockback!
+            weapon.ApplyBuffs(e);
+            piercing--;
 
             WeaponB.Stats stats = weapon.GetStats();
-            piercing--;
             if (stats.hitEffect)
             {
                 Destroy(Instantiate(stats.hitEffect, transform.position, Quaternion.identity), 5f); // this is a static hit effect lifespan
             }
+
+            // Debug.Log($"The {name} just hit {e.name} for {GetDamage()} damage.");
         }
         else if (dp)
         {

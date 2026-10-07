@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour // this is explicitly NOT an Entity
+public class Player : EntityB // this is explicitly NOT an Entity
 {
     [Header("Character Stats")]
     [SerializeField] CharacterStatsB characterData;
@@ -16,18 +16,17 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         }
     }
 
-    private float _health;
     public float Health
     {
-        get { return _health; }
+        get { return health; }
         set
         {
-            if (_health != value)
+            if (health != value)
             {
-                _health = Mathf.Clamp(value, 0f, _actualStats.maxHealth);
+                health = Mathf.Clamp(value, 0f, _actualStats.maxHealth);
                 // Update the Health Bar
-                GameController.Instance.AssignHealthBarUI(_health / _actualStats.maxHealth);
-                if (_health <= 0f)
+                GameController.Instance.AssignHealthBarUI(health / _actualStats.maxHealth);
+                if (health <= 0f)
                 {
                     Kill();
                 }
@@ -93,7 +92,7 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
     public ParticleSystem damageEffect;
     public ParticleSystem blockedEffect;
 
-    private void Awake()
+    void Awake()
     {
         if (CharacterSelector.Instance)
         {
@@ -107,11 +106,13 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         // Assign variables
 
         baseStats = _actualStats = characterData.stats;
-        _health = _actualStats.maxHealth;
+        health = _actualStats.maxHealth;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         inv.Add(characterData.StartingWeapon);
 
         nextLevelXPRequirement = xpRequirements[0].nextLevelXPRequirement;
@@ -125,8 +126,10 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         #endregion
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (invincibilityTimer > 0)
         {
             invincibilityTimer -= Time.deltaTime;
@@ -139,19 +142,12 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         Recover();
     }
 
-    public void RestoreHealth(float amount)
-    {
-        Health += amount;
-
-        // Debug.Log($"After healing, you have {Health} health left!");
-    }
-
     public void Recover()
     {
         Health += _actualStats.recovery * Time.deltaTime;
     }
 
-    public void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         if (isInvincible) return;
 
@@ -172,13 +168,71 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
         isInvincible = true;
     }
 
-    public void Kill()
+    public override void RestoreHealth(float amount)
+    {
+        Health += amount;
+
+        // Debug.Log($"After healing, you have {Health} health left!");
+    }
+
+    public override void Kill()
     {
         if (!GameController.Instance.isGameOver) // we only want to call this method once!
         {
             GameController.Instance.GameOver();
             // GameController.Instance.AssignItemsUI(inv.weaponSlots, inv.passiveSlots);
         }
+    }
+
+    public override void RecalculateStats() // this is called in the Update Function
+    {
+        _actualStats = baseStats;
+        foreach (PlayerInventoryController.Slot s in inv.passiveSlots)
+        {
+            PassiveB p = s.item as PassiveB;
+            if (p)
+            {
+                _actualStats += p.GetBoosts();
+            }
+        }
+
+        CharacterStatsB.Stats multiplier = new CharacterStatsB.Stats
+        {
+            maxHealth = 1f,
+            recovery = 1f,
+            armor = 1f,
+            moveSpeed = 1f,
+            might = 1f,
+            area = 1f,
+            projectileSpeed = 1f,
+            duration = 1f,
+            amount = 1,
+            cooldown = 1f,
+            luck = 1f,
+            growth = 1f,
+            greed = 1f,
+            curse = 1f,
+            magnet = 1f,
+            revival = 1
+        };
+
+        foreach (Buff b in activeBuffs)
+        {
+            BuffData.Stats bd = b.GetData();
+            switch (bd.modifierType)
+            {
+                case BuffData.ModifierType.Additive:
+                    _actualStats += bd.playerModifier;
+                    break;
+                case BuffData.ModifierType.Multiplicative:
+                    multiplier *= bd.playerModifier;
+                    break;
+            }
+        }
+
+        _actualStats *= multiplier;
+
+        collector.SetRadius(_actualStats.magnet);
     }
 
     public void GainXP(float amount)
@@ -213,20 +267,5 @@ public class Player : MonoBehaviour // this is explicitly NOT an Entity
                 }
             }
         }
-    }
-
-    public void RecalculateStats()
-    {
-        _actualStats = baseStats;
-        foreach (PlayerInventoryController.Slot s in inv.passiveSlots)
-        {
-            PassiveB p = s.item as PassiveB;
-            if (p)
-            {
-                _actualStats += p.GetBoosts();
-            }
-        }
-
-        collector.SetRadius(_actualStats.magnet);
     }
 }

@@ -40,6 +40,7 @@ MonoBehaviour:
     number: 1
     piercing: 1
     maxInstances: 99
+    appliedBuffs: []
   linearGrowth:
   - name: Level 2
     description: Increase Damage by 2
@@ -64,6 +65,7 @@ MonoBehaviour:
     number: 0
     piercing: 0
     maxInstances: 0
+    appliedBuffs: []
   - name: Level 3
     description: Increase Area by 2
     projectilePrefab: {fileID: 0}
@@ -87,4 +89,5 @@ MonoBehaviour:
     number: 0
     piercing: 0
     maxInstances: 0
+    appliedBuffs: []
   randomGrowth: []
