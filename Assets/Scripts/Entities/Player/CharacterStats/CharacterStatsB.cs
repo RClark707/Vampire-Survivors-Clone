@@ -10,6 +10,12 @@ public class CharacterStatsB : ScriptableObject
     [SerializeField]
     new string name;
     public string Name { get => name; set => name = value; }
+    [SerializeField]
+    string fullName;
+    public string FullName { get => fullName; set => fullName = value; }
+    [SerializeField]
+    string description;
+    public string Description { get => description; set => description = value; }
 
     [SerializeField]
     WeaponStatsB startingWeapon;

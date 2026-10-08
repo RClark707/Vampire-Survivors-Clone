@@ -94,17 +94,12 @@ public class Player : EntityB // this is explicitly NOT an Entity
 
     void Awake()
     {
-        if (CharacterSelector.Instance)
-        {
-            characterData = CharacterSelector.GetCharacterStats();
-            CharacterSelector.Instance.DestroySingleton();
-        }
+        characterData = UICharacterSelector.GetData();
 
         inv = GetComponent<PlayerInventoryController>();
         collector = GetComponentInChildren<PlayerCollector>();
 
         // Assign variables
-
         baseStats = _actualStats = characterData.stats;
         health = _actualStats.maxHealth;
     }

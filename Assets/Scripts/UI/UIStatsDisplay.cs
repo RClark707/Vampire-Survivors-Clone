@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIStatsDisplay : MonoBehaviour
 {
     public Player player;
+    public CharacterStatsB character;
     public bool updateInEditor = false;
     TextMeshProUGUI statNamesDisplay, statValuesDisplay;
 
@@ -20,9 +21,17 @@ public class UIStatsDisplay : MonoBehaviour
         if (updateInEditor) UpdateStatDisplay();
     }
 
+    public CharacterStatsB.Stats GetDisplayedStats()
+    {
+        if (player) return player.ActualStats;
+        else if (character) return character.stats;
+        return new CharacterStatsB.Stats();
+    }
+
+    // TODO: Make the Stats & Values on a single line!
     public void UpdateStatDisplay()
     {
-        if (!player) return;
+        if (!player && !character) return;
 
         if (!statNamesDisplay) statNamesDisplay = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         if (!statValuesDisplay) statValuesDisplay = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -37,7 +46,7 @@ public class UIStatsDisplay : MonoBehaviour
             names.AppendLine(ObjectNames.NicifyVariableName(field.Name));
 
             // get the stat values
-            object val = field.GetValue(player.ActualStats);
+            object val = field.GetValue(GetDisplayedStats());
             float fval = val is int ? (int)val : (float)val;
 
             PropertyAttribute attribute = (PropertyAttribute)PropertyAttribute.GetCustomAttribute(field, typeof(PropertyAttribute));

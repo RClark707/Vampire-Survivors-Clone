@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStatsB
   icon: {fileID: 7903562892379627633, guid: 8c086848334a1c94992cb877807f787c, type: 3}
   name: Sebastian
+  fullName: Sebastian Delicorpus
+  description: Permanent +25% area (all weapons).
   startingWeapon: {fileID: 11400000, guid: 8ea4c331282915245be054482439ac21, type: 2}
   stats:
     maxHealth: 80
@@ -21,7 +23,7 @@ MonoBehaviour:
     armor: 0
     moveSpeed: 1
     might: 1
-    area: 1
+    area: 1.25
     projectileSpeed: 1
     duration: 1
     amount: 0
