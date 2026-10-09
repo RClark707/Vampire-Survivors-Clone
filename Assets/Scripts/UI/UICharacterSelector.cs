@@ -66,7 +66,7 @@ public class UICharacterSelector : MonoBehaviour
     public void Select(CharacterStatsB character)
     {
         selectedCharacter = statsUI.character = character;
-        statsUI.UpdateStatDisplay();
+        statsUI.UpdateFields();
 
         characterFullName.text = character.FullName;
         characterDescription.text = character.Description;

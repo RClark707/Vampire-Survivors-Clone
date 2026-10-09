@@ -123,6 +123,11 @@ public class Enemy : EntityB
     {
         base.Start();
 
+        if (UILevelSelector.globalBuff && UILevelSelector.globalBuffAffectsEnemies)
+        {
+            ApplyBuff(UILevelSelector.globalBuff);
+        }
+
         if (TryGetComponent(out PickupController component))
         {
             pc = component;

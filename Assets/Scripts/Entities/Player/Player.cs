@@ -108,12 +108,17 @@ public class Player : EntityB // this is explicitly NOT an Entity
     {
         base.Start();
 
+        if (UILevelSelector.globalBuff && !UILevelSelector.globalBuffAffectsPlayer)
+        {
+            ApplyBuff(UILevelSelector.globalBuff);
+        }
+
         inv.Add(characterData.StartingWeapon);
 
         nextLevelXPRequirement = xpRequirements[0].nextLevelXPRequirement;
 
         #region Assign UI with GameController
-        GameController.Instance.AssignCharacterUI(characterData.Icon, characterData.name);
+        GameController.Instance.AssignCharacterUI(characterData.Icon, characterData.FullName);
         GameController.Instance.AssignLevelUI(Level);
         // GameController.Instance.AssignItemsUI(inv.weaponSlots, inv.passiveSlots);
         GameController.Instance.AssignExperienceBarUI(XP / nextLevelXPRequirement);

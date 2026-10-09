@@ -29,7 +29,7 @@ MonoBehaviour:
     amount: 1
     cooldown: 1
     luck: 1
-    growth: 3
+    growth: 1
     greed: 1
     curse: 1
     magnet: 10

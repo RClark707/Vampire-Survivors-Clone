@@ -1,27 +1,15 @@
 using System.Reflection;
 using System.Text;
 using TMPro;
-using UnityEditor;
-using UnityEngine;
 
-public class UIStatsDisplay : MonoBehaviour
+public class UIStatsDisplay : UIPropertyDisplay
 {
     public Player player;
     public CharacterStatsB character;
-    public bool updateInEditor = false;
-    TextMeshProUGUI statNamesDisplay, statValuesDisplay;
+    public bool displayCurrentHealth = false;
 
-    void OnEnable()
-    {
-        UpdateStatDisplay();
-    }
 
-    private void OnDrawGizmosSelected()
-    {
-        if (updateInEditor) UpdateStatDisplay();
-    }
-
-    public CharacterStatsB.Stats GetDisplayedStats()
+    public override object GetReadObject()
     {
         if (player) return player.ActualStats;
         else if (character) return character.stats;
@@ -29,59 +17,25 @@ public class UIStatsDisplay : MonoBehaviour
     }
 
     // TODO: Make the Stats & Values on a single line!
-    public void UpdateStatDisplay()
+    public override void UpdateFields()
     {
         if (!player && !character) return;
 
-        if (!statNamesDisplay) statNamesDisplay = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        if (!statValuesDisplay) statValuesDisplay = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        StringBuilder[] allStats = GetProperties(BindingFlags.Public | BindingFlags.Instance, "CharacterStatsB+Stats");
 
-        // StringBuilder makes the manipulation run quicker
-        StringBuilder names = new StringBuilder();
-        StringBuilder values = new StringBuilder();
-        FieldInfo[] fields = typeof(CharacterStatsB.Stats).GetFields(BindingFlags.Public | BindingFlags.Instance);
-        foreach (FieldInfo field in fields)
+        if (!propertyNames) propertyNames = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (!propertyValues) propertyValues = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        if (displayCurrentHealth)
         {
-            // render the stat names
-            names.AppendLine(ObjectNames.NicifyVariableName(field.Name));
-
-            // get the stat values
-            object val = field.GetValue(GetDisplayedStats());
-            float fval = val is int ? (int)val : (float)val;
-
-            PropertyAttribute attribute = (PropertyAttribute)PropertyAttribute.GetCustomAttribute(field, typeof(PropertyAttribute));
-            if (attribute != null && field.FieldType == typeof(float))
-            {
-                float percentage = Mathf.Round(fval * 100f - 100f);
-
-                if (Mathf.Approximately(percentage, 0f))
-                {
-                    values.Append('-').Append('\n');
-                }
-                else
-                {
-                    if (percentage > 0f)
-                    {
-                        values.Append('+');
-                    }
-                    values.Append(percentage).Append('%').Append('\n');
-                }
-            }
-            else
-            {
-                if (Mathf.Approximately(fval, 0f))
-                {
-                    values.Append('-').Append('\n');
-                }
-                else
-                {
-                    values.Append(fval).Append('\n');
-                }
-            }
-
-            statNamesDisplay.text = names.ToString();
-            statValuesDisplay.text = values.ToString();
+            allStats[0].Insert(0, "Health\n");
+            allStats[1].Insert(0, player.Health + "\n");
         }
+
+        if (propertyNames) propertyNames.text = allStats[0].ToString();
+        if (propertyValues) propertyValues.text = allStats[1].ToString();
+
+        propertyValues.fontSize = propertyNames.fontSize;
     }
 
     void Reset()

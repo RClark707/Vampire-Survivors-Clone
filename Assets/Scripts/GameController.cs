@@ -61,10 +61,15 @@ public class GameController : MonoBehaviour
     public Image experienceBar;
     public TextMeshProUGUI inGameLevelDisplay;
 
+    [Header("Coins UI")]
+    public GameObject coinsHolder;
+
     [Header("Run Timer UI")]
     public TextMeshProUGUI timeDisplay;
-    public float timeLimit;
+    float timeLimit;
     float timer;
+    bool levelEnded = false;
+    public GameObject reaperPrefab;
 
     public float GetElapsedTime()
     {
@@ -95,13 +100,13 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+            timeLimit = UILevelSelector.currentLevel.timeLimit;
+            ToggleDisplays();
         }
         else
         {
             Destroy(gameObject);
         }
-
-        ToggleDisplays();
     }
 
     private void Update()
@@ -189,14 +194,30 @@ public class GameController : MonoBehaviour
         // Debug.Log("The game is now over.");
     }
 
+    public Vector2 GetRandomPlayerLocation()
+    {
+        int chosenPlayer = Random.Range(0, players.Length);
+        return new Vector2(players[chosenPlayer].transform.position.x, players[chosenPlayer].transform.position.y);
+    }
+
     void UpdateTimer()
     {
-        timer += Time.deltaTime;
+        timer += Time.deltaTime * UILevelSelector.currentLevel.clockSpeed;
         AssignTimerUI();
 
-        if (timer >= timeLimit)
+        if (timer >= timeLimit && !levelEnded)
         {
-            GameOver(); // this could send a message to kill the players if we want
+            levelEnded = true;
+
+            FindAnyObjectByType<SpawnController>().gameObject.SetActive(false);
+            foreach (Enemy e in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+            {
+                Destroy(e.gameObject); // could also send a message to kill them
+            }
+
+            Vector2 reaperOffset = Random.insideUnitCircle * 50f;
+            Vector2 spawnPosition = GetRandomPlayerLocation() + reaperOffset;
+            Instantiate(reaperPrefab, spawnPosition, Quaternion.identity);
         }
     }
 
@@ -267,9 +288,15 @@ public class GameController : MonoBehaviour
 
         inGameTimeDisplay.gameObject.SetActive(isPlay);
         experienceBarHolder.gameObject.SetActive(isPlay);
+        coinsHolder.gameObject.SetActive(isPlay);
         pauseScreen.SetActive(toggleOn);
         statsDisplay.SetActive(toggleOn);
         levelUpScreen.SetActive(choosingUpgrades); // this is only ever true when Level Up is the Game State
+    }
+
+    void AssignCoinsUI()
+    {
+        return;
     }
 
     void AssignTimerUI()
