@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4b2155214c0934d95ae8cfe3d9513c, type: 3}
+  m_Name: SingleRewardStats
+  m_EditorClassIdentifier: Assembly-CSharp::ChestStats
+  profileName: Single Item
+  luckScaling: 1
+  baseDropChance: 40
+  animationDuration: 7.25
+  hasFireworks: 0
+  fireworksDelay: 1
+  numberOfItems: 1
+  beamColors:
+  - {r: 0, g: 0, b: 1, a: 0.6}
+  itemDelay: 0
+  delayedBeams: 0
+  hasCurvedBeams: 0
+  curveBeamsSpawnTime: 0
+  minCoins: 100
+  maxCoins: 500
+  openingSound: {fileID: 0}

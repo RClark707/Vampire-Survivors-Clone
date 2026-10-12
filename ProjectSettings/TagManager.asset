@@ -75,5 +75,8 @@ TagManager:
   - name: HealthBar
     uniqueID: 3203069921
     locked: 0
+  - name: Canvas
+    uniqueID: 4087699923
+    locked: 0
   m_RenderingLayers:
   - Default

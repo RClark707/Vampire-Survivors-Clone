@@ -14,6 +14,8 @@ public class PropsRandomizer : MonoBehaviour
 
     void SpawnProps()
     {
+        if (propPrefabs.Count <= 0) return;
+
         foreach (GameObject spawnLocation in propSpawnLocations)
         {
             // This is where we can randomly decide what to spawn, change from terrain to interactable objects too

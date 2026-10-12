@@ -100,7 +100,14 @@ public class GameController : MonoBehaviour
         {
             Instance = this;
             players = FindObjectsByType<Player>(FindObjectsSortMode.None);
-            timeLimit = UILevelSelector.currentLevel.timeLimit;
+            if (UILevelSelector.currentLevel != null)
+            {
+                timeLimit = UILevelSelector.currentLevel.timeLimit;
+            }
+            else
+            {
+                timeLimit = 3600f;
+            }
             ToggleDisplays();
         }
         else
@@ -122,20 +129,8 @@ public class GameController : MonoBehaviour
                 CheckForPauseAndResume();
                 break;
             case GameState.LevelUp:
-                //if (!choosingUpgrades)
-                //{
-                //    Time.timeScale = 0f;
-                //    ToggleDisplays();
-                //    Debug.Log("Level Up Screen Entered");
-                //}
                 break;
             case GameState.GameOver:
-                //if (!isGameOver)
-                //{
-                //    Time.timeScale = 0f;
-                //    Debug.Log("Game Over");
-                //    ToggleDisplays();
-                //}
                 break;
             default:
                 Debug.LogError($"No case for the given Game State {currentState}");
@@ -202,7 +197,15 @@ public class GameController : MonoBehaviour
 
     void UpdateTimer()
     {
-        timer += Time.deltaTime * UILevelSelector.currentLevel.clockSpeed;
+        if (UILevelSelector.currentLevel != null)
+        {
+            timer += Time.deltaTime * UILevelSelector.currentLevel.clockSpeed;
+        }
+        else
+        {
+            timer += Time.deltaTime;
+        }
+
         AssignTimerUI();
 
         if (timer >= timeLimit && !levelEnded)
@@ -289,6 +292,7 @@ public class GameController : MonoBehaviour
         inGameTimeDisplay.gameObject.SetActive(isPlay);
         experienceBarHolder.gameObject.SetActive(isPlay);
         coinsHolder.gameObject.SetActive(isPlay);
+
         pauseScreen.SetActive(toggleOn);
         statsDisplay.SetActive(toggleOn);
         levelUpScreen.SetActive(choosingUpgrades); // this is only ever true when Level Up is the Game State
