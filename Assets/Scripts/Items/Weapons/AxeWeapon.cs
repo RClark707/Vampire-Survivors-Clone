@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AxeWeapon : ProjectileWeaponB
+public class AxeWeapon : ProjectileWeapon
 {
     //TODO: Fix the Axe implementation, the spawn angle is off and the rotation speed is too slow
 

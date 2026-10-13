@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 
-[CustomEditor(typeof(WeaponStatsB))]
+[CustomEditor(typeof(WeaponStats))]
 public class WeaponStatsEditor : Editor
 {
-    WeaponStatsB weaponStats;
+    WeaponStats weaponStats;
     string[] weaponSubtypes;
     int selectedWeaponSubtype;
 
     void OnEnable()
     {
-        weaponStats = (WeaponStatsB)target;
+        weaponStats = (WeaponStats)target;
 
-        System.Type baseType = typeof(WeaponB);
+        System.Type baseType = typeof(Weapon);
         List<System.Type> subTypes = System.AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
             .Where(p => baseType.IsAssignableFrom(p) && p != baseType)

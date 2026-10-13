@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class Enemy : EntityB
+public class Enemy : Entity
 {
     public static int count; // this is used by the SpawnController to track spawn counts
     PickupController pc;

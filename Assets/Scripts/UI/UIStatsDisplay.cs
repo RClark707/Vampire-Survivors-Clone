@@ -5,7 +5,7 @@ using TMPro;
 public class UIStatsDisplay : UIPropertyDisplay
 {
     public Player player;
-    public CharacterStatsB character;
+    public CharacterStats character;
     public bool displayCurrentHealth = false;
 
 
@@ -13,7 +13,7 @@ public class UIStatsDisplay : UIPropertyDisplay
     {
         if (player) return player.ActualStats;
         else if (character) return character.stats;
-        return new CharacterStatsB.Stats();
+        return new CharacterStats.Stats();
     }
 
     // TODO: Make the Stats & Values on a single line!
@@ -21,7 +21,7 @@ public class UIStatsDisplay : UIPropertyDisplay
     {
         if (!player && !character) return;
 
-        StringBuilder[] allStats = GetProperties(BindingFlags.Public | BindingFlags.Instance, "CharacterStatsB+Stats");
+        StringBuilder[] allStats = GetProperties(BindingFlags.Public | BindingFlags.Instance, "CharacterStats+Stats");
 
         if (!propertyNames) propertyNames = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         if (!propertyValues) propertyValues = transform.GetChild(1).GetComponent<TextMeshProUGUI>();

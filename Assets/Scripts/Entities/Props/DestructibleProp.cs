@@ -1,14 +1,6 @@
 using UnityEngine;
 
-public class DestructibleProp : Entity
+public class DestructibleProp : MonoBehaviour
 {
-    [Header("Prop Stats")]
-    public PropStats stats;
 
-    public override void Awake()
-    {
-        name = stats.name;
-        health = stats.MaxHealth;
-        base.Awake();
-    }
 }

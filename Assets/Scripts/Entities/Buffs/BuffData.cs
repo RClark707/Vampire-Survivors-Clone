@@ -44,7 +44,7 @@ public class BuffData : ScriptableObject
             tickInterval = 0.25f;
         }
 
-        public CharacterStatsB.Stats playerModifier; // need a default for these that sets them all to 1
+        public CharacterStats.Stats playerModifier; // need a default for these that sets them all to 1
         public Enemy.Stats enemyModifier;
     }
 

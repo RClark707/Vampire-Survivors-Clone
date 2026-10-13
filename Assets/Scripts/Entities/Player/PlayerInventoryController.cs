@@ -7,21 +7,21 @@ public class PlayerInventoryController : MonoBehaviour
     [Serializable]
     public class Slot
     {
-        public ItemB item;
+        public Item item;
         //public Image image;
 
-        public void Assign(ItemB assignedItem)
+        public void Assign(Item assignedItem)
         {
             item = assignedItem;
-            if (item is WeaponB)
+            if (item is Weapon)
             {
-                WeaponB w = item as WeaponB;
+                Weapon w = item as Weapon;
                 //image.enabled = true;
                 //image.sprite = w.statsData.icon;
             }
             else
             {
-                PassiveB p = item as PassiveB;
+                Passive p = item as Passive;
                 //image.enabled = true;
                 //image.sprite = p.statsData.icon;
             }
@@ -59,8 +59,8 @@ public class PlayerInventoryController : MonoBehaviour
     //}
 
     [Header("All Available Items")]
-    public List<WeaponStatsB> availableWeapons = new List<WeaponStatsB>();
-    public List<PassiveStatsB> availablePassives = new List<PassiveStatsB>();
+    public List<WeaponStats> availableWeapons = new List<WeaponStats>();
+    public List<PassiveStats> availablePassives = new List<PassiveStats>();
 
     [Header("Level Up UI")]
     public UIUpgradeWindow upgradeWindow;
@@ -72,20 +72,20 @@ public class PlayerInventoryController : MonoBehaviour
         player = GetComponent<Player>();
     }
 
-    public bool Has(ItemStatsB type) { return Get(type); }
+    public bool Has(ItemStats type) { return Get(type); }
 
-    public ItemB Get(ItemStatsB type) // This function sends you to a different function based on type
+    public Item Get(ItemStats type) // This function sends you to a different function based on type
     {
-        if (type is WeaponStatsB) return Get(type as WeaponStatsB);
-        else if (type is PassiveStatsB) return Get(type as PassiveStatsB);
+        if (type is WeaponStats) return Get(type as WeaponStats);
+        else if (type is PassiveStats) return Get(type as PassiveStats);
         return null;
     }
 
-    public PassiveB Get(PassiveStatsB type)
+    public Passive Get(PassiveStats type)
     {
         foreach (Slot S in passiveSlots)
         {
-            PassiveB p = S.item as PassiveB;
+            Passive p = S.item as Passive;
             if (p && p.statsData == type)
             {
                 return p;
@@ -94,11 +94,11 @@ public class PlayerInventoryController : MonoBehaviour
         return null;
     }
 
-    public WeaponB Get(WeaponStatsB type)
+    public Weapon Get(WeaponStats type)
     {
         foreach (Slot s in weaponSlots)
         {
-            WeaponB w = s.item as WeaponB;
+            Weapon w = s.item as Weapon;
             if (w && w.statsData == type)
             {
                 return w;
@@ -107,20 +107,20 @@ public class PlayerInventoryController : MonoBehaviour
         return null;
     }
 
-    public bool Remove(ItemStatsB stats, bool removeUpgradeAvailability = false)
+    public bool Remove(ItemStats stats, bool removeUpgradeAvailability = false)
     {
-        if (stats is WeaponStatsB) return Remove(stats as WeaponStatsB, removeUpgradeAvailability);
-        else if (stats is PassiveStatsB) return Remove(stats as PassiveStatsB, removeUpgradeAvailability);
+        if (stats is WeaponStats) return Remove(stats as WeaponStats, removeUpgradeAvailability);
+        else if (stats is PassiveStats) return Remove(stats as PassiveStats, removeUpgradeAvailability);
         return false;
     }
 
-    public bool Remove(WeaponStatsB stats, bool removeUpgradeAvailability = false)
+    public bool Remove(WeaponStats stats, bool removeUpgradeAvailability = false)
     {
         if (removeUpgradeAvailability) availableWeapons.Remove(stats);
 
         for (int i = 0; i < weaponSlots.Count; i++)
         {
-            WeaponB w = weaponSlots[i].item as WeaponB;
+            Weapon w = weaponSlots[i].item as Weapon;
             if (w.statsData == stats)
             {
                 weaponSlots[i].Clear();
@@ -134,13 +134,13 @@ public class PlayerInventoryController : MonoBehaviour
         return false;
     }
 
-    public bool Remove(PassiveStatsB stats, bool removeUpgradeAvailability = false)
+    public bool Remove(PassiveStats stats, bool removeUpgradeAvailability = false)
     {
         if (removeUpgradeAvailability) availablePassives.Remove(stats);
 
         for (int i = 0; i < passiveSlots.Count; i++)
         {
-            PassiveB p = passiveSlots[i].item as PassiveB;
+            Passive p = passiveSlots[i].item as Passive;
             if (p.statsData == stats)
             {
                 passiveSlots[i].Clear();
@@ -154,14 +154,14 @@ public class PlayerInventoryController : MonoBehaviour
         return false;
     }
 
-    public int Add(ItemStatsB stats)
+    public int Add(ItemStats stats)
     {
-        if (stats is WeaponStatsB) return Add(stats as WeaponStatsB);
-        else if (stats is PassiveStatsB) return Add(stats as PassiveStatsB);
+        if (stats is WeaponStats) return Add(stats as WeaponStats);
+        else if (stats is PassiveStats) return Add(stats as PassiveStats);
         return -1;
     }
 
-    public int Add(WeaponStatsB stats)
+    public int Add(WeaponStats stats)
     {
         int slotNum = -1;
 
@@ -182,7 +182,7 @@ public class PlayerInventoryController : MonoBehaviour
         {
             // instantiate the weapon
             GameObject go = new GameObject(stats.baseStats.name + " Controller");
-            WeaponB spawnedWeapon = (WeaponB)go.AddComponent(weaponType);
+            Weapon spawnedWeapon = (Weapon)go.AddComponent(weaponType);
             spawnedWeapon.transform.SetParent(transform); // change this to whatever parent you want
             spawnedWeapon.transform.localPosition = Vector2.zero;
             spawnedWeapon.Initialize(stats);
@@ -206,7 +206,7 @@ public class PlayerInventoryController : MonoBehaviour
         return -1;
     }
 
-    public int Add(PassiveStatsB stats)
+    public int Add(PassiveStats stats)
     {
         int slotNum = -1;
 
@@ -223,7 +223,7 @@ public class PlayerInventoryController : MonoBehaviour
 
 
         GameObject go = new GameObject(stats.baseStats.name + " Passive");
-        PassiveB spawnedPassive = go.AddComponent<PassiveB>();
+        Passive spawnedPassive = go.AddComponent<Passive>();
         spawnedPassive.Initialize(stats);
         spawnedPassive.transform.SetParent(transform); // change this to whatever parent you want
         spawnedPassive.transform.localPosition = Vector2.zero;
@@ -241,14 +241,14 @@ public class PlayerInventoryController : MonoBehaviour
         return slotNum;
     }
 
-    public bool LevelUpItem(ItemStatsB stats)
+    public bool LevelUpItem(ItemStats stats)
     {
-        ItemB item = Get(stats);
+        Item item = Get(stats);
         if (item) return LevelUpItem(item);
         return false;
     }
 
-    public bool LevelUpItem(ItemB item)
+    public bool LevelUpItem(Item item)
     {
         if (!item.LevelUp())
         {
@@ -264,7 +264,7 @@ public class PlayerInventoryController : MonoBehaviour
             GameController.Instance.EndPlayerLevelUp();
         }
 
-        if (item is PassiveB) player.RecalculateStats();
+        if (item is Passive) player.RecalculateStats();
 
         return true;
     }
@@ -280,169 +280,120 @@ public class PlayerInventoryController : MonoBehaviour
         return count;
     }
 
-    //public void LevelUpWeapon(int slotIndex, int upgradeIndex)
-    //{
-    //    if (weaponSlots.Count > slotIndex)
-    //    {
-    //        WeaponB w = weaponSlots[slotIndex].item as WeaponB;
+    public int GetRemainingSlots<T>() where T : Item { return GetRemainingSlots(new List<Slot>(GetSlots<T>())); }
+    public int GetRemainingSlotsFor<T>() where T : ItemStats { return GetRemainingSlots(new List<Slot>(GetSlotsFor<T>())); }
 
-    //        if (!w.LevelUp())
-    //        {
-    //            Debug.LogWarning($"Failed to level up {w.name}");
-    //            return;
-    //        }
+    public T[] GetAllItemsAvailableFor<T>() where T : ItemStats
+    {
+        switch (typeof(T).ToString())
+        {
+            case "PassiveStats":
+                return availablePassives.ToArray() as T[];
+            case "WeaponStats":
+                return availableWeapons.ToArray() as T[];
+            case "ItemStats":
+                List<ItemStats> s = new List<ItemStats>(availablePassives);
+                s.AddRange(availableWeapons);
+                return s.ToArray() as T[];
+            default:
+                Debug.LogWarning("Generic type provided to GetAllItemsAvailableFor() has no return behaviour");
+                return null;
+        }
+    }
 
-    //        if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
-    //        {
-    //            GameController.Instance.EndPlayerLevelUp();
-    //        }
-    //    }
-    //}
+    public T[] GetAllUnownedItemsFor<T>() where T : ItemStats
+    {
+        var available = GetAllItemsAvailableFor<T>();
 
-    //public void LevelUpPassive(int slotIndex, int upgradeIndex)
-    //{
-    //    if (passiveSlots.Count > slotIndex)
-    //    {
-    //        PassiveB p = passiveSlots[slotIndex].item as PassiveB;
+        if (available == null || available.Length == 0) return new T[0];
 
-    //        if (!p.LevelUp())
-    //        {
-    //            Debug.LogWarning($"Failed to level up {p.name}");
-    //            return;
-    //        }
+        List<T> unowned = new List<T>(available);
 
-    //        if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
-    //        {
-    //            GameController.Instance.EndPlayerLevelUp();
-    //        }
-    //        player.RecalculateStats(); // we aren't calling this for weapons?
-    //    }
-    //}
+        var slots = GetSlotsFor<T>();
+        if (slots != null)
+        {
+            foreach (Slot s in slots) // this will check if we own any of the available items, and remove them from the list
+            {
+                if (s?.item?.statsData != null && unowned.Contains(s.item.statsData as T))
+                {
+                    unowned.Remove(s.item.statsData as T);
+                }
+            }
+        }
 
-    //void SetUpgradeOptions()
-    //{
-    //    List<WeaponStatsB> availabeWeaponUpgrades = new List<WeaponStatsB>(availableWeapons);
-    //    List<PassiveStatsB> availabePassiveUpgrades = new List<PassiveStatsB>(availablePassives);
+        return unowned.ToArray();
+    }
 
-    //    foreach (UpgradeUI upgradeOption in upgradeUIOptions)
-    //    {
-    //        if (availabeWeaponUpgrades.Count == 0 && availabePassiveUpgrades.Count == 0)
-    //        {
-    //            return;
-    //        }
+    public T[] GetUpgradables<T>() where T : Item
+    {
+        List<T> upgradables = new List<T>();
+        foreach (Slot s in GetSlots<T>())
+        {
+            if (s.item is T t && t.CanLevelUp()) upgradables.Add(t);
+        }
+        return upgradables.ToArray();
+    }
 
-    //        int upgradeType; // randomly pick weapon or passive (0 or 1)
+    public T[] GetEvolvables<T>() where T : Item
+    {
+        List<T> evolvables = new List<T>();
+        foreach (Slot s in GetSlots<T>())
+        {
+            if (s.item is T t && t.CanEvolve().Length > 0) evolvables.Add(t);
+        }
+        return evolvables.ToArray();
+    }
 
-    //        if (availabeWeaponUpgrades.Count == 0) // there are only passives remaining
-    //        {
-    //            upgradeType = 1;
-    //        }
-    //        else if (availabePassiveUpgrades.Count == 0) // there are only weapons remaining
-    //        {
-    //            upgradeType = 0;
-    //        }
-    //        else
-    //        {
-    //            upgradeType = UnityEngine.Random.Range(0, 2); // this should be a weighted average based on the count of each list
-    //        }
+    public Slot[] GetSlots<T>() where T : Item
+    {
+        switch (typeof(T).ToString())
+        {
+            case "Passive":
+                return passiveSlots.ToArray();
+            case "Weapon":
+                return weaponSlots.ToArray();
+            case "Item":
+                List<Slot> s = new List<Slot>(passiveSlots);
+                s.AddRange(weaponSlots);
+                return s.ToArray();
+            default:
+                Debug.LogWarning("Generic type provided to GetSlots() has no return behaviour");
+                return null;
+        }
+    }
 
-    //        // PRESENT AN OPTION FOR A WEAPON UPGRADE
-    //        if (upgradeType == 0)
-    //        {
-    //            WeaponStatsB chosenWeaponUpgrade = availabeWeaponUpgrades[UnityEngine.Random.Range(0, availabeWeaponUpgrades.Count)]; // grab a random option from out list
-    //            availabeWeaponUpgrades.Remove(chosenWeaponUpgrade); // we remove this before the null check because why would we want to keep a null thing?
-
-    //            if (chosenWeaponUpgrade != null)
-    //            {
-    //                EnableUpgradeUI(upgradeOption);
-
-    //                bool isLevelUp = false;
-    //                for (int i = 0; i < weaponSlots.Count; i++)
-    //                {
-    //                    WeaponB w = weaponSlots[i].item as WeaponB;
-
-    //                    if (w != null && w.statsData == chosenWeaponUpgrade)
-    //                    {
-    //                        if (w.currentLevel < chosenWeaponUpgrade.maxLevel) // are we below max level?
-    //                        {
-    //                            // Debug.Log($"Your {w.name} is level {w.currentLevel}, the max level is {w.maxLevel}");
-    //                            upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
-    //                            WeaponB.Stats nextLevel = chosenWeaponUpgrade.GetLevelData(w.currentLevel + 1);
-    //                            upgradeOption.upgradeNameDisplay.text = nextLevel.name;
-    //                            upgradeOption.upgradeDescriptionDisplay.text = nextLevel.description;
-    //                            upgradeOption.upgradeIcon.sprite = chosenWeaponUpgrade.icon;
-    //                        }
-
-    //                        isLevelUp = true;
-    //                        break;
-    //                    }
-    //                }
-    //                if (!isLevelUp)
-    //                {
-    //                    upgradeOption.upgradeButton.onClick.AddListener(() => Add(chosenWeaponUpgrade));
-    //                    upgradeOption.upgradeNameDisplay.text = chosenWeaponUpgrade.baseStats.name;
-    //                    upgradeOption.upgradeDescriptionDisplay.text = chosenWeaponUpgrade.baseStats.description;
-    //                    upgradeOption.upgradeIcon.sprite = chosenWeaponUpgrade.icon;
-    //                }
-    //            }
-    //        }
-    //        else if (upgradeType == 1)
-    //        {
-    //            PassiveStatsB chosenPassiveUpgrade = availabePassiveUpgrades[UnityEngine.Random.Range(0, availabePassiveUpgrades.Count)]; // grab a random option from out list
-    //            availabePassiveUpgrades.Remove(chosenPassiveUpgrade); // we remove this before the null check because why would we want to keep a null thing?
-
-    //            if (chosenPassiveUpgrade != null)
-    //            {
-    //                EnableUpgradeUI(upgradeOption);
-
-    //                bool isLevelUp = false;
-    //                for (int i = 0; i < passiveSlots.Count; i++)
-    //                {
-    //                    PassiveB p = passiveSlots[i].item as PassiveB;
-
-    //                    if (p != null && p.statsData == chosenPassiveUpgrade)
-    //                    {
-    //                        if (p.currentLevel < chosenPassiveUpgrade.maxLevel) // are we below max level?
-    //                        {
-    //                            // Debug.Log($"Your {p.name} is level {p.currentLevel}, the max level is {p.maxLevel}");
-    //                            upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpWeapon(i, i));
-    //                            PassiveB.Modifier nextLevel = chosenPassiveUpgrade.GetLevelData(p.currentLevel + 1);
-    //                            upgradeOption.upgradeNameDisplay.text = nextLevel.name;
-    //                            upgradeOption.upgradeDescriptionDisplay.text = nextLevel.description;
-    //                            upgradeOption.upgradeIcon.sprite = chosenPassiveUpgrade.icon;
-    //                        } // if we are at max level, we don't want to show anything!
-
-    //                        isLevelUp = true;
-    //                        break;
-    //                    }
-    //                }
-    //                if (!isLevelUp)
-    //                {
-    //                    upgradeOption.upgradeButton.onClick.AddListener(() => Add(chosenPassiveUpgrade));
-    //                    // may need to grab the modifier here?
-    //                    upgradeOption.upgradeNameDisplay.text = chosenPassiveUpgrade.baseStats.name;
-    //                    upgradeOption.upgradeDescriptionDisplay.text = chosenPassiveUpgrade.baseStats.description;
-    //                    upgradeOption.upgradeIcon.sprite = chosenPassiveUpgrade.icon;
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
+    public Slot[] GetSlotsFor<T>() where T : ItemStats
+    {
+        switch (typeof(T).ToString())
+        {
+            case "PassiveStats":
+                return passiveSlots.ToArray();
+            case "WeaponStats":
+                return weaponSlots.ToArray();
+            case "ItemStats":
+                List<Slot> s = new List<Slot>(passiveSlots);
+                s.AddRange(weaponSlots);
+                return s.ToArray();
+            default:
+                Debug.LogWarning("Generic type provided to GetSlotsFor() has no return behaviour");
+                return null;
+        }
+    }
 
     void SetUpgradeOptions()
     {
         // make a copy of all the items available in the game, then make a list of ones we have access to choose from for upgrades
-        List<ItemStatsB> availableUpgrades = new List<ItemStatsB>();
-        List<ItemStatsB> allUpgrades = new List<ItemStatsB>(availableWeapons);
+        List<ItemStats> availableUpgrades = new List<ItemStats>();
+        List<ItemStats> allUpgrades = new List<ItemStats>(availableWeapons);
         allUpgrades.AddRange(availablePassives);
 
         int openWeaponSlots = GetRemainingSlots(weaponSlots);
         int openPassiveSlots = GetRemainingSlots(passiveSlots);
 
         // populate available upgrades based on items we have equipped and items we have space for in our open slots
-        foreach (ItemStatsB stats in allUpgrades)
+        foreach (ItemStats stats in allUpgrades)
         {
-            ItemB item = Get(stats);
+            Item item = Get(stats);
 
             if (item)
             {
@@ -450,8 +401,8 @@ public class PlayerInventoryController : MonoBehaviour
             }
             else
             {
-                if (stats is WeaponStatsB && openWeaponSlots > 0) availableUpgrades.Add(stats);
-                else if (stats is PassiveStatsB && openPassiveSlots > 0) availableUpgrades.Add(stats);
+                if (stats is WeaponStats && openWeaponSlots > 0) availableUpgrades.Add(stats);
+                else if (stats is PassiveStats && openPassiveSlots > 0) availableUpgrades.Add(stats);
             }
         }
 
@@ -466,72 +417,7 @@ public class PlayerInventoryController : MonoBehaviour
         {
             GameController.Instance.EndPlayerLevelUp();
         }
-
-        // populate upgrade UI
-        // this is where we need to decide how many upgrade options to present to the player
-        //foreach (UpgradeUI upgradeOption in upgradeUIOptions)
-        //{
-        //    if (availableUpgrades.Count <= 0) return; // implement what to do if everything is max level
-
-        //    ItemStatsB chosenUpgrade = availableUpgrades[UnityEngine.Random.Range(0, availableUpgrades.Count)];
-        //    availableUpgrades.Remove(chosenUpgrade);
-
-        //    if (chosenUpgrade != null)
-        //    {
-        //        EnableUpgradeUI(upgradeOption);
-
-        //        ItemB item = Get(chosenUpgrade); // this checks our slots to see if we have the item already
-
-        //        if (item) // is it already equipped?
-        //        {
-        //            upgradeOption.upgradeButton.onClick.AddListener(() => LevelUpItem(item)); // make the button work
-
-        //            if (item is WeaponB)
-        //            {
-        //                WeaponB.Stats nextLevelStats = ((WeaponStatsB)chosenUpgrade).GetLevelData(item.currentLevel + 1);
-        //                upgradeOption.upgradeNameDisplay.text = nextLevelStats.name;
-        //                upgradeOption.upgradeDescriptionDisplay.text = nextLevelStats.description;
-        //                upgradeOption.upgradeIcon.sprite = chosenUpgrade.icon;
-        //            }
-        //            else
-        //            {
-        //                PassiveB.Modifier nextLevelStats = ((PassiveStatsB)chosenUpgrade).GetLevelData(item.currentLevel + 1);
-        //                upgradeOption.upgradeNameDisplay.text = nextLevelStats.name;
-        //                upgradeOption.upgradeDescriptionDisplay.text = nextLevelStats.description;
-        //                upgradeOption.upgradeIcon.sprite = chosenUpgrade.icon;
-        //            }
-        //        }
-        //        else // the item is NOT equipped
-        //        {
-        //            if (chosenUpgrade is WeaponStatsB)
-        //            {
-        //                WeaponStatsB weaponStats = chosenUpgrade as WeaponStatsB;
-        //                upgradeOption.upgradeButton.onClick.AddListener(() => Add(weaponStats)); // we could use "chosenUpgrade" here instead
-        //                upgradeOption.upgradeNameDisplay.text = weaponStats.baseStats.name;
-        //                upgradeOption.upgradeDescriptionDisplay.text = weaponStats.baseStats.description;
-        //                upgradeOption.upgradeIcon.sprite = weaponStats.icon;
-        //            }
-        //            else
-        //            {
-        //                PassiveStatsB passiveStats = chosenUpgrade as PassiveStatsB;
-        //                upgradeOption.upgradeButton.onClick.AddListener(() => Add(passiveStats)); // we could use "chosenUpgrade" here instead
-        //                upgradeOption.upgradeNameDisplay.text = passiveStats.baseStats.name;
-        //                upgradeOption.upgradeDescriptionDisplay.text = passiveStats.baseStats.description;
-        //                upgradeOption.upgradeIcon.sprite = passiveStats.icon;
-        //            }
-        //        }
-        //    }
-        //}
     }
-
-    //void ClearUpgradeOptions()
-    //{
-    //    foreach (UpgradeUI upgradeOption in upgradeUIOptions)
-    //    {
-    //        upgradeOption.upgradeButton.onClick.RemoveAllListeners();
-    //        DisableUpgradeUI(upgradeOption);
-    //    }
-    //}
 
     public void ClearAndSetUpgrades()
     {
@@ -539,13 +425,4 @@ public class PlayerInventoryController : MonoBehaviour
         SetUpgradeOptions();
     }
 
-    //void DisableUpgradeUI(UpgradeUI ui)
-    //{
-    //    ui.upgradeNameDisplay.transform.parent.gameObject.SetActive(false);
-    //}
-
-    //void EnableUpgradeUI(UpgradeUI ui)
-    //{
-    //    ui.upgradeNameDisplay.transform.parent.gameObject.SetActive(true);
-    //}
 }

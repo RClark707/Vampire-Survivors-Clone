@@ -41422,6 +41422,7 @@ GameObject:
   - component: {fileID: 1115526764}
   - component: {fileID: 1115526763}
   - component: {fileID: 1115526762}
+  - component: {fileID: 1115526766}
   m_Layer: 5
   m_Name: TreasureChestCanvas
   m_TagString: Untagged
@@ -41514,6 +41515,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1115526766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115526761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabaa2d1d34210445987846751a10033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIChestController
+  closedChestSprite: {fileID: -38998524, guid: 82ba704f3da855b4ea3ac0c30bf8aa81, type: 3}
+  openedChestSprite: {fileID: 1059178513, guid: 82ba704f3da855b4ea3ac0c30bf8aa81, type: 3}
+  chestImage: {fileID: 1308429855}
+  openingVFX: {fileID: 1976722854}
+  beamVFX: {fileID: 155720491}
+  fireworks: {fileID: 0}
+  curvedBeams: {fileID: 0}
+  items: []
+  openChestButton: {fileID: 837158435}
+  doneButton: {fileID: 625995946}
+  chestPanel: {fileID: 1080897229}
+  coinsText: {fileID: 1865029459}
+  pickupSound: {fileID: 0}
 --- !u!1 &1158939719
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ public class UIInventoryIconDisplay : MonoBehaviour
                 break;
             }
 
-            ItemB item = items[i].item;
+            Item item = items[i].item;
 
             Transform iconObj = slots[i].transform.Find(iconPath);
             if (iconObj)

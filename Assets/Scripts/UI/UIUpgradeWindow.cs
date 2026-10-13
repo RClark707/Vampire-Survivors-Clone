@@ -31,7 +31,7 @@ public class UIUpgradeWindow : MonoBehaviour
 
     Vector2 lastScreen; // track the width and height of the last frame so we know when to recalculate sizes
 
-    public void SetUpgrades(PlayerInventoryController inventory, List<ItemStatsB> possibleUpgrades, int pick = 3, string tooltip = "")
+    public void SetUpgrades(PlayerInventoryController inventory, List<ItemStats> possibleUpgrades, int pick = 3, string tooltip = "")
     {
         pick = Mathf.Min(maxOptions, pick); // how many options to choose
 
@@ -56,9 +56,9 @@ public class UIUpgradeWindow : MonoBehaviour
             {
                 rt.gameObject.SetActive(true);
 
-                ItemStatsB selectedItem = possibleUpgrades[Random.Range(0, possibleUpgrades.Count)];
+                ItemStats selectedItem = possibleUpgrades[Random.Range(0, possibleUpgrades.Count)];
                 possibleUpgrades.Remove(selectedItem);
-                ItemB item = inventory.Get(selectedItem);
+                Item item = inventory.Get(selectedItem);
 
                 // insert  the name of the item
                 TextMeshProUGUI name = rt.Find(namePath).GetComponent<TextMeshProUGUI>();

@@ -41,7 +41,7 @@ public class UILevelSelector : MonoBehaviour
         public Sprite icon;
 
         [Header("Modifiers")]
-        public CharacterStatsB.Stats playerModifier;
+        public CharacterStats.Stats playerModifier;
         public Enemy.Stats enemyModifier;
         [Min(-1)] public float timeLimit = 0f, clockSpeed = 1f;
         [TextArea] public string extraNotes = "--";

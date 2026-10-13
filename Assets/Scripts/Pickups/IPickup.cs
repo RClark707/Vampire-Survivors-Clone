@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete("Subclass the abstract class pickup instead!")]
 public interface IPickup
 {
     // we can use interfaces to guarantee that you have access to specific functions

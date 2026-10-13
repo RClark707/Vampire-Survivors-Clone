@@ -40,7 +40,7 @@ public class UISceneDataDisplay : UIPropertyDisplay
             .AppendLine("XP Bonus")
             .AppendLine("Enemy Health");
 
-        Type characterStats = typeof(CharacterStatsB.Stats);
+        Type characterStats = typeof(CharacterStats.Stats);
         ProcessValue(dat.playerModifier.moveSpeed, allData[1], characterStats.GetField("moveSpeed"));
         ProcessValue(dat.playerModifier.greed, allData[1], characterStats.GetField("greed"));
         ProcessValue(dat.playerModifier.luck, allData[1], characterStats.GetField("luck"));

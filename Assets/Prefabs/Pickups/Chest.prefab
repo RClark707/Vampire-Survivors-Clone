@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 295424039
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -38998524, guid: 82ba704f3da855b4ea3ac0c30bf8aa81, type: 3}
@@ -151,3 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff56ea389a686f46abc3959dfdbfc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chest
+  sortingActive: 1
+  minimumDistance: 0.2
+  possibleReward: -1
+  rewardCountType: 1
+  chestStats:
+  - {fileID: 11400000, guid: 155ad294b0680c647af09c01577a3e6c, type: 2}

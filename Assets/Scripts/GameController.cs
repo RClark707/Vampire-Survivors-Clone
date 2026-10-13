@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance;
-    public enum GameState { Play, LevelUp, Pause, GameOver };
+    public enum GameState { Play, LevelUp, Chest, Pause, GameOver };
 
     [Header("State Control")]
     [HideInInspector]
@@ -129,6 +129,8 @@ public class GameController : MonoBehaviour
                 CheckForPauseAndResume();
                 break;
             case GameState.LevelUp:
+                break;
+            case GameState.Chest:
                 break;
             case GameState.GameOver:
                 break;

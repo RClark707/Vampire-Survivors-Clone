@@ -13,7 +13,7 @@ public class Projectile : WeaponEffect
 
     protected virtual void Start()
     {
-        WeaponB.Stats stats = weapon.GetStats();
+        Weapon.Stats stats = weapon.GetStats();
 
         rb = GetComponent<Rigidbody2D>();
         if (rb.bodyType == RigidbodyType2D.Dynamic)
@@ -76,7 +76,7 @@ public class Projectile : WeaponEffect
     {
         if (rb.bodyType == RigidbodyType2D.Kinematic)
         {
-            WeaponB.Stats stats = weapon.GetStats();
+            Weapon.Stats stats = weapon.GetStats();
             transform.position += transform.right * weapon.Owner.ActualStats.projectileSpeed * Time.fixedDeltaTime;
             rb.MovePosition(transform.position);
             transform.Rotate(rotationSpeed * Time.fixedDeltaTime);
@@ -97,7 +97,7 @@ public class Projectile : WeaponEffect
             weapon.ApplyBuffs(e);
             piercing--;
 
-            WeaponB.Stats stats = weapon.GetStats();
+            Weapon.Stats stats = weapon.GetStats();
             if (stats.hitEffect)
             {
                 Destroy(Instantiate(stats.hitEffect, transform.position, Quaternion.identity), 5f); // this is a static hit effect lifespan
@@ -107,10 +107,10 @@ public class Projectile : WeaponEffect
         }
         else if (dp)
         {
-            dp.TakeDamage(GetDamage()); // this source isn't real, get rid of it!
+            // dp.TakeDamage(GetDamage()); // this source isn't real, get rid of it!
             piercing--;
 
-            WeaponB.Stats stats = weapon.GetStats();
+            Weapon.Stats stats = weapon.GetStats();
             if (stats.hitEffect)
             {
                 Destroy(Instantiate(stats.hitEffect, transform.position, Quaternion.identity), 5f); // this is a static hit effect lifespan

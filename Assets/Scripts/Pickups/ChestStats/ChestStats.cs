@@ -20,8 +20,8 @@ public class ChestStats : ScriptableObject
     [Tooltip("You need at least as many beam colors as number of items to be rewarded.")]
     public Color[] beamColors = new Color[] { new Color(0, 0, 1, 0.6f) };
 
-    [Range(0f, 100f)] public float itemDelay = 0f;
-    public int delayedBeams = 0;
+    [Range(0f, 100f)] public float beamDelayTime = 0f;
+    public int amountOfDelayedBeams = 0;
 
     public bool hasCurvedBeams;
     public float curveBeamsSpawnTime;

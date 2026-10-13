@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class UICharacterSelector : MonoBehaviour
 {
-    public CharacterStatsB defaultCharacter;
-    public static CharacterStatsB selectedCharacter;
+    public CharacterStats defaultCharacter;
+    public static CharacterStats selectedCharacter;
     public UIStatsDisplay statsUI;
 
     [Header("Template Paths")]
@@ -28,9 +28,9 @@ public class UICharacterSelector : MonoBehaviour
         if (defaultCharacter) selectedCharacter = defaultCharacter;
     }
 
-    public static CharacterStatsB[] GetAllCharacterDataAssets()
+    public static CharacterStats[] GetAllCharacterDataAssets()
     {
-        List<CharacterStatsB> characters = new List<CharacterStatsB>();
+        List<CharacterStats> characters = new List<CharacterStats>();
 
 #if UNITY_EDITOR
         string[] allAssetPaths = AssetDatabase.GetAllAssetPaths();
@@ -38,7 +38,7 @@ public class UICharacterSelector : MonoBehaviour
         {
             if (assetPath.EndsWith(".asset"))
             {
-                CharacterStatsB characterData = AssetDatabase.LoadAssetAtPath<CharacterStatsB>(assetPath);
+                CharacterStats characterData = AssetDatabase.LoadAssetAtPath<CharacterStats>(assetPath);
                 if (characterData != null)
                 {
                     characters.Add(characterData);
@@ -52,18 +52,18 @@ public class UICharacterSelector : MonoBehaviour
         return characters.ToArray();
     }
 
-    public static CharacterStatsB GetData()
+    public static CharacterStats GetData()
     {
         if (selectedCharacter) return selectedCharacter;
         else
         {
-            CharacterStatsB[] characters = GetAllCharacterDataAssets();
+            CharacterStats[] characters = GetAllCharacterDataAssets();
             if (characters.Length > 0) return characters[Random.Range(0, characters.Length)];
         }
         return null;
     }
 
-    public void Select(CharacterStatsB character)
+    public void Select(CharacterStats character)
     {
         selectedCharacter = statsUI.character = character;
         statsUI.UpdateFields();

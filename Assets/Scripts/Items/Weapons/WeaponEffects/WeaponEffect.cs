@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class WeaponEffect : MonoBehaviour // this class is meant to be subclassed in order to be attached to GOs
 {
     [HideInInspector] public Player owner;
-    [HideInInspector] public WeaponB weapon;
+    [HideInInspector] public Weapon weapon;
 
     public Player Owner { get { return owner; } }
 

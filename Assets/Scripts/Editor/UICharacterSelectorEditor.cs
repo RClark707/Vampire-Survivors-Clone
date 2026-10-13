@@ -41,7 +41,7 @@ public class UICharacterSelectorEditor : Editor
 
         Undo.RecordObject(selector, "Updates to UICharacterSelector.");
         selector.selectableToggles.Clear();
-        CharacterStatsB[] characters = UICharacterSelector.GetAllCharacterDataAssets();
+        CharacterStats[] characters = UICharacterSelector.GetAllCharacterDataAssets();
 
         for (int i = 0; i < characters.Length; i++)
         {

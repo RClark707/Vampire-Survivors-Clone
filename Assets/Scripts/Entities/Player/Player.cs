@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : EntityB // this is explicitly NOT an Entity
+public class Player : Entity
 {
     [Header("Character Stats")]
-    [SerializeField] CharacterStatsB characterData;
-    [HideInInspector] public CharacterStatsB.Stats baseStats;
-    CharacterStatsB.Stats _actualStats;
-    public CharacterStatsB.Stats ActualStats // there is a consideration to avoid making this setter public, but it already is, so cry about it
+    [SerializeField] CharacterStats characterData;
+    [HideInInspector] public CharacterStats.Stats baseStats;
+    CharacterStats.Stats _actualStats;
+    public CharacterStats.Stats ActualStats // there is a consideration to avoid making this setter public, but it already is, so cry about it
     {
         get { return _actualStats; }
         set
@@ -189,14 +189,14 @@ public class Player : EntityB // this is explicitly NOT an Entity
         _actualStats = baseStats;
         foreach (PlayerInventoryController.Slot s in inv.passiveSlots)
         {
-            PassiveB p = s.item as PassiveB;
+            Passive p = s.item as Passive;
             if (p)
             {
                 _actualStats += p.GetBoosts();
             }
         }
 
-        CharacterStatsB.Stats multiplier = new CharacterStatsB.Stats
+        CharacterStats.Stats multiplier = new CharacterStats.Stats
         {
             maxHealth = 1f,
             recovery = 1f,

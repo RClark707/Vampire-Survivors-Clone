@@ -26,7 +26,7 @@ public class PlayerCollector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IPickup pickup))
+        if (collision.TryGetComponent(out Pickup pickup))
         {
             if (collision.TryGetComponent(out BobbingAnimation bobbingAnimation))
             {

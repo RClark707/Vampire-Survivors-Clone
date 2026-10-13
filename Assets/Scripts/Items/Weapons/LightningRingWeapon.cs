@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightningRingWeapon : ProjectileWeaponB
+public class LightningRingWeapon : ProjectileWeapon
 {
     List<Enemy> allSelectedEnemies = new List<Enemy>();
 
@@ -91,7 +91,7 @@ public class LightningRingWeapon : ProjectileWeaponB
             DestructibleProp dp = c.GetComponent<DestructibleProp>();
             if (dp)
             {
-                dp.TakeDamage(damage);
+                // dp.TakeDamage(damage);
                 continue;
             }
         }

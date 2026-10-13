@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WhipWeapon : ProjectileWeaponB
+public class WhipWeapon : ProjectileWeapon
 {
     // TODO: I may have cause a horrible error in my implementation of this weapon. It spawns far too many projectiles.
 
@@ -68,7 +68,7 @@ public class WhipWeapon : ProjectileWeaponB
         if (attackAmount > 0)
         {
             currentAttackCount = attackAmount; // this determines if CanAttack() evals to true
-            currentAttackInterval = ((WeaponStatsB)statsData).baseStats.projectileInterval;
+            currentAttackInterval = ((WeaponStats)statsData).baseStats.projectileInterval;
         }
 
         return true;
