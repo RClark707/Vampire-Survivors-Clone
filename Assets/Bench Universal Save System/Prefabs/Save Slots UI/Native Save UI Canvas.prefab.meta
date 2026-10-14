@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2029c44e5a534f945a415fafd79b1339
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 334468
+  packageName: Bench Universal Save System
+  packageVersion: 0.3.0
+  assetPath: Assets/Bench Universal Save System/Prefabs/Save Slots UI/Native Save
+    UI Canvas.prefab
+  uploadId: 997992

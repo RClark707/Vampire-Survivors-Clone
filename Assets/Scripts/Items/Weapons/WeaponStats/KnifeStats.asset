@@ -25,7 +25,7 @@ MonoBehaviour:
     outcome:
       itemType: {fileID: 11400000, guid: a51f8d117097d19409dea81ba46c64c2, type: 2}
       level: 1
-  behavior: ProjectileWeaponB
+  behavior: ProjectileWeapon
   baseStats:
     name: Knife
     description: Fires quickly in the faced direction.

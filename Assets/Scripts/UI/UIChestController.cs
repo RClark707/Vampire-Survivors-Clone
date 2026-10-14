@@ -53,6 +53,7 @@ public class UIChestController : MonoBehaviour
             Instance = this;
             audioSource = GetComponent<AudioSource>();
             gameObject.SetActive(false);
+            chestImage.sprite = closedChestSprite;
         }
         else
         {
@@ -62,21 +63,21 @@ public class UIChestController : MonoBehaviour
 
     public static void Activate(PlayerCollector collector, Chest chest)
     {
-        if (!Instance) { Debug.LogWarning("There is no UIChestController Instance!"); return; }
+        if (!Instance) { Debug.LogWarning("There is no UIChestController _instance!"); return; }
 
         Instance.collector = collector;
         Instance.currentChest = chest;
         Instance.currentChestStats = chest.GetCurrentChestStats();
 
-        Debug.Log(Instance.currentChestStats);
+        // Debug.Log(Instance.currentChestStats);
 
-        GameController.Instance.ChangeState(GameController.GameState.Chest);
+        GameController.Instance.StartChestState();
         Instance.gameObject.SetActive(true);
     }
 
     public static void NotifyItemRecieved(Sprite icon) // change this name
     {
-        if (!Instance) { Debug.LogWarning("There is no UIChestController Instance!"); return; }
+        if (!Instance) { Debug.LogWarning("There is no UIChestController _instance!"); return; }
 
         Instance.icons.Add(icon);
     }
@@ -109,7 +110,7 @@ public class UIChestController : MonoBehaviour
 
         while (elapsedTime < totalCoinReward)
         {
-            elapsedTime += Time.unscaledDeltaTime * 20f;
+            elapsedTime += Time.unscaledDeltaTime * 40f;
             coinsText.text = string.Format("{0:F2}", elapsedTime);
             yield return null;
         }
@@ -304,13 +305,17 @@ public class UIChestController : MonoBehaviour
         gameObject.SetActive(false);
         ResetDisplay();
 
-        audioSource.clip = pickupSound;
-        audioSource.time = 0f;
-        audioSource.Play();
+        if (pickupSound)
+        {
+            audioSource.clip = pickupSound;
+            audioSource.time = 0f;
+            audioSource.Play();
+        }
 
         isAnimating = false;
 
-        GameController.Instance.ChangeState(GameController.GameState.Play);
+        GameController.Instance.EndChestState();
+        currentChest.RefreshItemDisplays();
     }
 
     private void ResetDisplay()

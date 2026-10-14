@@ -45,8 +45,8 @@ public class PlayerCollector : MonoBehaviour
 
     public void SaveCoinsToStash()
     {
-        SaveController.LastLoadedGameData.coins += coins;
+        OldSaveController.LastLoadedGameData.coins += coins;
         coins = 0;
-        SaveController.Save();
+        OldSaveController.Save();
     }
 }

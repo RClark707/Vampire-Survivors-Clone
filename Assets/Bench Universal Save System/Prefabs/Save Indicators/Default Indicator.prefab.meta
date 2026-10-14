@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: eff96fc39a4e78445a52826f4d5575c4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 334468
+  packageName: Bench Universal Save System
+  packageVersion: 0.3.0
+  assetPath: Assets/Bench Universal Save System/Prefabs/Save Indicators/Default Indicator.prefab
+  uploadId: 997992

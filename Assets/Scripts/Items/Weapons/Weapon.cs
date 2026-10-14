@@ -76,9 +76,10 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
         }
     }
 
-    public override bool LevelUp()
+    public override bool LevelUp(bool updateUI = true)
     {
-        // base.LevelUp(); // this does nothing but return true
+        base.LevelUp(updateUI);
+
         if (!CanLevelUp())
         {
             Debug.LogWarning($"Cannot level up your {name} to level {currentLevel + 1}. It has already reached the max level of {maxLevel}");

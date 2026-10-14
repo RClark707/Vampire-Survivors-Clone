@@ -188,6 +188,21 @@ public class GameController : MonoBehaviour
         ChangeState(GameState.GameOver);
         Time.timeScale = 0f;
         ToggleDisplays();
+
+        // save all the coins of all players to the save file.
+        foreach (Player p in players)
+        {
+            p.GetComponentInChildren<PlayerCollector>().SaveCoinsToStash();
+        }
+
+        //foreach (Player p in players)
+        //{
+        //    if (p.TryGetComponent(out PlayerCollector c))
+        //    {
+        //        c.SaveCoinsToStash();
+        //    }
+        //}
+
         // Debug.Log("The game is now over.");
     }
 
@@ -258,8 +273,19 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void StartChestState()
+    {
+        Time.timeScale = 0f;
+        ChangeState(GameState.Chest);
+    }
+
+    public void EndChestState()
+    {
+        Time.timeScale = 1f;
+        ChangeState(GameState.Play);
+    }
+
     #region Assign UI Elements
-    // TODO: Redo this to work with the new stats display
     public void ToggleDisplays()
     {
         bool toggleOn = false;
@@ -286,6 +312,8 @@ public class GameController : MonoBehaviour
                 Debug.Log($"No case for the given Game State {currentState}");
                 break;
         }
+
+        // TODO: Show / Hide the Weapon UI displays
 
         resumeButton.SetActive(!isGameOver); // show only in pause menu
         giveUpButton.SetActive(!isGameOver); // show only in pause menu

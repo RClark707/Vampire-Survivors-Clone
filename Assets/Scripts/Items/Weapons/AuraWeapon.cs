@@ -6,9 +6,9 @@ public class AuraWeapon : Weapon
 
     protected override void Update() { }
 
-    public override bool LevelUp()
+    public override bool LevelUp(bool updateUI = true)
     {
-        if (!base.LevelUp()) return false;
+        if (!base.LevelUp(updateUI)) return false;
 
         OnEquip(); // this replaces setting the transform scale
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon Stats B", menuName = "Stats/Weapon Stats B")]
+[CreateAssetMenu(fileName = "New Weapon Stats B", menuName = "Stats/Weapon Stats")]
 public class WeaponStats : ItemStats
 {
     [HideInInspector]

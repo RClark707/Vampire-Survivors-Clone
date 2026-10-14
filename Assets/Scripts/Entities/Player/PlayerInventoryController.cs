@@ -154,14 +154,14 @@ public class PlayerInventoryController : MonoBehaviour
         return false;
     }
 
-    public int Add(ItemStats stats)
+    public int Add(ItemStats stats, bool updateUI = true)
     {
-        if (stats is WeaponStats) return Add(stats as WeaponStats);
-        else if (stats is PassiveStats) return Add(stats as PassiveStats);
+        if (stats is WeaponStats) return Add(stats as WeaponStats, updateUI);
+        else if (stats is PassiveStats) return Add(stats as PassiveStats, updateUI);
         return -1;
     }
 
-    public int Add(WeaponStats stats)
+    public int Add(WeaponStats stats, bool updateUI = true)
     {
         int slotNum = -1;
 
@@ -189,7 +189,7 @@ public class PlayerInventoryController : MonoBehaviour
             spawnedWeapon.OnEquip();
 
             weaponSlots[slotNum].Assign(spawnedWeapon);
-            weaponsDisplay.Refresh();
+            if (updateUI) weaponsDisplay.Refresh();
 
             if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
             {
@@ -206,7 +206,7 @@ public class PlayerInventoryController : MonoBehaviour
         return -1;
     }
 
-    public int Add(PassiveStats stats)
+    public int Add(PassiveStats stats, bool updateUI = true)
     {
         int slotNum = -1;
 
@@ -230,7 +230,7 @@ public class PlayerInventoryController : MonoBehaviour
         // spawnedPassive.OnEquip(); // apparently this isn't necessary to call?
 
         passiveSlots[slotNum].Assign(spawnedPassive);
-        passivesDisplay.Refresh();
+        if (updateUI) passivesDisplay.Refresh();
 
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {
@@ -241,14 +241,14 @@ public class PlayerInventoryController : MonoBehaviour
         return slotNum;
     }
 
-    public bool LevelUpItem(ItemStats stats)
+    public bool LevelUpItem(ItemStats stats, bool updateUI = true)
     {
         Item item = Get(stats);
-        if (item) return LevelUpItem(item);
+        if (item) return LevelUpItem(item, updateUI);
         return false;
     }
 
-    public bool LevelUpItem(Item item)
+    public bool LevelUpItem(Item item, bool updateUI = true) // note that updating the UI after a level up hardly matters right now
     {
         if (!item.LevelUp())
         {
@@ -256,8 +256,11 @@ public class PlayerInventoryController : MonoBehaviour
             return false;
         }
 
-        weaponsDisplay.Refresh();
-        passivesDisplay.Refresh();
+        if (updateUI)
+        {
+            weaponsDisplay.Refresh();
+            passivesDisplay.Refresh();
+        }
 
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {
@@ -339,7 +342,7 @@ public class PlayerInventoryController : MonoBehaviour
         List<T> evolvables = new List<T>();
         foreach (Slot s in GetSlots<T>())
         {
-            if (s.item is T t && t.CanEvolve().Length > 0) evolvables.Add(t);
+            if (s.item is T t && t.CanEvolve(0).Length > 0) evolvables.Add(t);
         }
         return evolvables.ToArray();
     }

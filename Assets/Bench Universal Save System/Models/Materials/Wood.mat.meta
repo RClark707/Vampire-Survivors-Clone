@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f5d9018c485125b42aa4d6dcc1c27e57
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 334468
+  packageName: Bench Universal Save System
+  packageVersion: 0.3.0
+  assetPath: Assets/Bench Universal Save System/Models/Materials/Wood.mat
+  uploadId: 997992

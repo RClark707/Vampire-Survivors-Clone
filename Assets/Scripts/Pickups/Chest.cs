@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Chest : Sortable // we aren't subclassing Pickup because Chests behave differently than most pickups
 {
+    PlayerInventoryController recipient;
+
     [System.Flags]
     public enum RewardType
     {
@@ -13,18 +15,17 @@ public class Chest : Sortable // we aren't subclassing Pickup because Chests beh
 
     public enum RewardCountType { Sequential, Random }; // do we randomly pick number of rewards, or get it in a sequence of values?
     public RewardCountType rewardCountType = RewardCountType.Sequential;
+    public static int totalRewards = 0;
+    public Sprite defaultRewardSprite; // replace this with gold
 
     public ChestStats[] chestStats;
+
     int currentStatIndex = 0;
 
     public ChestStats GetCurrentChestStats()
     {
         return chestStats[currentStatIndex];
     }
-
-    public static int totalRewards = 0;
-
-    PlayerInventoryController recipient;
 
     public ChestStats GetNextChestStats()
     {
@@ -42,6 +43,8 @@ public class Chest : Sortable // we aren't subclassing Pickup because Chests beh
                     0,
                     chestStats.Length - 1
                     );
+
+                Debug.Log($"You will be recieving {chestStats[currentStatIndex].numberOfItems} items from this chest!");
                 break;
             case RewardCountType.Random:
                 // use luck and weighted chance to determine the amount of rewards
@@ -67,6 +70,7 @@ public class Chest : Sortable // we aren't subclassing Pickup because Chests beh
                     if (r <= cumulative)
                     {
                         currentStatIndex = entry.index;
+                        Debug.Log($"You will be recieving {entry.stats.numberOfItems} items from this chest!");
                         return entry.stats;
                     }
                 }
@@ -74,6 +78,8 @@ public class Chest : Sortable // we aren't subclassing Pickup because Chests beh
             default:
                 break;
         }
+
+
 
         return GetCurrentChestStats(); // if nothing else, just get the current stats
     }
@@ -107,48 +113,58 @@ public class Chest : Sortable // we aren't subclassing Pickup because Chests beh
         }
     }
 
+    public void RefreshItemDisplays()
+    {
+        recipient.weaponsDisplay.Refresh();
+        recipient.passivesDisplay.Refresh();
+    }
+
     void Open(PlayerInventoryController inventory)
     {
         if (inventory == null) return;
 
         // go down this list until it works, the order matters!
         if (possibleReward.HasFlag(RewardType.Evolution) && TryEvolve<Weapon>(inventory)) return;
-        if (possibleReward.HasFlag(RewardType.UpgradeWeapon) && TryEvolve<Weapon>(inventory)) return;
-        if (possibleReward.HasFlag(RewardType.UpgradePassive) && TryEvolve<Passive>(inventory)) return;
+        if (possibleReward.HasFlag(RewardType.UpgradeWeapon) && TryUpgrade<Weapon>(inventory)) return;
+        if (possibleReward.HasFlag(RewardType.UpgradePassive) && TryUpgrade<Passive>(inventory)) return;
         if (possibleReward.HasFlag(RewardType.NewWeapon) && TryGive<WeaponStats>(inventory)) return;
         if (possibleReward.HasFlag(RewardType.NewPassive) && TryGive<PassiveStats>(inventory)) return;
+
+        if (defaultRewardSprite) UIChestController.NotifyItemRecieved(defaultRewardSprite); // if nothing else works
     }
 
-    T TryGive<T>(PlayerInventoryController inventory) where T : ItemStats
+    T TryGive<T>(PlayerInventoryController inventory, bool updateUI = false) where T : ItemStats
     {
+        if (inventory.GetRemainingSlotsFor<T>() <= 0) return null;
+
         T[] possibilities = inventory.GetAllUnownedItemsFor<T>();
         if (possibilities.Length == 0) return null;
         T t = possibilities[Random.Range(0, possibilities.Length)]; // grab and add a random item
-        inventory.Add(t);
+        inventory.Add(t, updateUI);
         UIChestController.NotifyItemRecieved(t.icon);
         return t;
     }
 
-    T TryUpgrade<T>(PlayerInventoryController inventory) where T : Item
+    T TryUpgrade<T>(PlayerInventoryController inventory, bool updateUI = false) where T : Item
     {
         T[] upgradables = inventory.GetUpgradables<T>();
         if (upgradables.Length == 0) return null;
         T t = upgradables[Random.Range(0, upgradables.Length)]; // grab and upgrade a random item
-        inventory.LevelUpItem(t);
+        inventory.LevelUpItem(t, updateUI);
         UIChestController.NotifyItemRecieved(t.statsData.icon);
         return t;
     }
 
 
-    T TryEvolve<T>(PlayerInventoryController inventory) where T : Item
+    T TryEvolve<T>(PlayerInventoryController inventory, bool updateUI = false) where T : Item
     {
         T[] evolvables = inventory.GetEvolvables<T>();
         foreach (Item i in evolvables)
         {
-            ItemStats.Evolution[] possibleEvolutions = i.CanEvolve();
+            ItemStats.Evolution[] possibleEvolutions = i.CanEvolve(0);
             foreach (ItemStats.Evolution e in possibleEvolutions)
             {
-                if (i.AttemptEvolution(e, 0))
+                if (i.AttemptEvolution(e, 0, updateUI))
                 {
                     UIChestController.NotifyItemRecieved(e.outcome.itemType.icon);
                     return i as T; // we only care about the first evolution we see

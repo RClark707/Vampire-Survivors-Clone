@@ -1,9 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Passive Stats", menuName = "Stats/Passive Stats B")]
+[CreateAssetMenu(fileName = "New Passive Stats", menuName = "Stats/Passive Stats")]
 public class PassiveStats : ItemStats
 {
+    [Header("Level 1 Stats")]
     public Passive.Modifier baseStats;
+
+    [Header("All Future Stats")]
     public Passive.Modifier[] growth;
 
     public override Item.LevelData GetLevelData(int level)

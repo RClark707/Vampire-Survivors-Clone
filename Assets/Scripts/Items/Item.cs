@@ -33,25 +33,25 @@ public abstract class Item : MonoBehaviour // this class must be subclassed in o
     }
 
     // this method is meant to be overridden and will provide logic for evolutions
-    public virtual bool LevelUp()
+    public virtual bool LevelUp(bool updateUI = true)
     {
         if (evolutions == null) return true;
 
         foreach (ItemStats.Evolution e in evolutions)
         {
-            if (e.evoReq == ItemStats.Evolution.EvolutionRequirements.Automatic) AttemptEvolution(e);
+            if (e.evoReq == ItemStats.Evolution.EvolutionRequirements.Automatic) AttemptEvolution(e, 1, updateUI); // be careful with this hardcoded '1' value
         }
 
         return true;
     }
 
-    public virtual ItemStats.Evolution[] CanEvolve()
+    public virtual ItemStats.Evolution[] CanEvolve(int levelUpAmount = 1)
     {
         List<ItemStats.Evolution> possibleEvolutions = new List<ItemStats.Evolution>();
 
         foreach (ItemStats.Evolution e in evolutions)
         {
-            if (CanEvolve(e)) possibleEvolutions.Add(e);
+            if (CanEvolve(e, levelUpAmount)) possibleEvolutions.Add(e);
         }
 
         return possibleEvolutions.ToArray();
@@ -61,7 +61,7 @@ public abstract class Item : MonoBehaviour // this class must be subclassed in o
     {
         if (evolution.evolutionLevel > currentLevel + levelUpAmount)
         {
-            Debug.Log($"Evolution is not possible with the current level of {currentLevel} and evolution level of {evolution.evolutionLevel}");
+            Debug.Log($"Evolution is not possible for {statsData.name} with the current level of {currentLevel} and evolution level of {evolution.evolutionLevel}");
             return false;
         }
 
@@ -70,7 +70,7 @@ public abstract class Item : MonoBehaviour // this class must be subclassed in o
             Item item = inventory.Get(c.itemType);
             if (!item || item.currentLevel < c.level)
             {
-                Debug.Log($"Cannot evolve, missing {c.itemType.name}");
+                Debug.Log($"Cannot evolve your {statsData.name} because you are missing {c.itemType.name}");
                 return false;
             }
         }
@@ -78,7 +78,7 @@ public abstract class Item : MonoBehaviour // this class must be subclassed in o
         return true;
     }
 
-    public virtual bool AttemptEvolution(ItemStats.Evolution evolution, int levelUpAmount = 1)
+    public virtual bool AttemptEvolution(ItemStats.Evolution evolution, int levelUpAmount = 1, bool updateUI = true)
     {
         if (!CanEvolve(evolution, levelUpAmount)) return false;
 
@@ -94,7 +94,7 @@ public abstract class Item : MonoBehaviour // this class must be subclassed in o
         if (this is Passive && consumePassives) inventory.Remove((this as Passive).statsData, true);
         else if (this is Weapon && consumeWeapons) inventory.Remove((this as Weapon).statsData, true);
 
-        inventory.Add(evolution.outcome.itemType);
+        inventory.Add(evolution.outcome.itemType, updateUI);
         return true;
     }
 

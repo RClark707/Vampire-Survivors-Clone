@@ -1,58 +1,189 @@
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terresquall;
 using UnityEngine;
 
-public class SaveController
+public class SaveController : PersistentObject
 {
-    public class GameData
-    {
-        public float coins;
-    }
+    static SaveController _instance;
 
-    const string SAVE_FILE_NAME = "SaveData.json";
-
-    static GameData lastLoadedGameData;
-    public static GameData LastLoadedGameData
+    public static SaveController Instance
     {
         get
         {
-            if (lastLoadedGameData == null) Load();
-            return lastLoadedGameData;
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<SaveController>();
+            }
+            return _instance;
         }
     }
 
-    public static string GetSavePath()
+    public event Action OnCoinsChanged;
+    public event Action OnPowerupsChanged;
+
+    protected SaveData savedData = new SaveData();
+
+    [System.Serializable]
+    public new class SaveData : PersistentObject.SaveData
     {
-        return string.Format("{0}/{1}", Application.persistentDataPath, SAVE_FILE_NAME);
+        public float totalCoins;
+        public List<Powerup.Stats> powerups = new List<Powerup.Stats>();
     }
 
-    public static void Save(GameData data = null)
+    void Awake()
     {
-        if (data == null)
+        if (_instance == null)
         {
-            if (lastLoadedGameData == null) Load();
-            data = lastLoadedGameData;
-        }
-        File.WriteAllText(GetSavePath(), JsonUtility.ToJson(data));
-    }
-
-    public static GameData Load(bool usePreviousLoadIfAvailable = false)
-    {
-        if (usePreviousLoadIfAvailable && lastLoadedGameData != null)
-        {
-            return lastLoadedGameData;
-        }
-
-        string path = GetSavePath();
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-            lastLoadedGameData = JsonUtility.FromJson<GameData>(json);
-            if (lastLoadedGameData == null) lastLoadedGameData = new GameData();
+            _instance = this;
+            Time.timeScale = 1f;
+            if (Bench.SlotHasSave(Bench.currentSlot))
+            {
+                Bench.LoadGame(Bench.currentSlot);
+            }
+            else
+            {
+                Bench.SaveGame(true);
+            }
         }
         else
         {
-            lastLoadedGameData = new GameData();
+            Destroy(gameObject);
         }
-        return lastLoadedGameData;
     }
+
+    void OnDestroy()
+    {
+        if (_instance == this) _instance = null;
+    }
+
+    public float GetTotalCoins() { return savedData.totalCoins; }
+
+    public void AddCoins(float amount)
+    {
+        savedData.totalCoins += amount;
+        OnCoinsChanged?.Invoke();
+    }
+
+    public bool TrySpendCoins(float amount) // why is this in the Save Controller script?
+    {
+        if (amount <= 0) return true;
+        if (savedData.totalCoins >= amount)
+        {
+            savedData.totalCoins -= amount;
+            OnCoinsChanged?.Invoke();
+            Bench.SaveGame(Bench.currentSlot, true);
+            return true;
+        }
+        return false;
+    }
+
+    public int GetLevel(PowerupStats stats)
+    {
+        Powerup.Stats powerup = Find(stats);
+        if (powerup == null) return 0;
+        return powerup.level;
+    }
+
+    public void SetLevel(PowerupStats stats, int level)
+    {
+        if (stats == null) return;
+
+        int clampedLevel = Mathf.Clamp(level, 0, stats.maxLevel);
+        Powerup.Stats existing = Find(stats);
+
+        if (clampedLevel > 0)
+        {
+            if (existing != null)
+            {
+                existing.level = clampedLevel;
+            }
+            else
+            {
+                savedData.powerups.Add(new Powerup.Stats(stats.name, clampedLevel));
+            }
+        }
+        else if (existing != null)
+        {
+            savedData.powerups.Remove(existing);
+        }
+
+        OnPowerupsChanged?.Invoke();
+    }
+
+    public Powerup.Stats Find(PowerupStats stats)
+    {
+        if (stats == null) return null;
+        return savedData.powerups.FirstOrDefault(e => e.name == stats.name && e.level > 0);
+    }
+
+    public bool LevelUp(PowerupStats stats, int amount = 1)
+    {
+        if (stats == null) return false;
+
+        int currentLevel = GetLevel(stats);
+        if (currentLevel >= stats.maxLevel) return false;
+
+        SetLevel(stats, currentLevel + amount);
+        return true;
+    }
+
+    public List<Powerup.Stats> GetAllPowerups()
+    {
+        return new List<Powerup.Stats>(savedData.powerups);
+    }
+
+    public void ClearAllPowerUps()
+    {
+        savedData.powerups.Clear();
+        OnPowerupsChanged?.Invoke();
+    }
+
+    #region Override Functions from PersistentObject
+
+    public override bool CanSave()
+    {
+        return base.CanSave();
+    }
+
+    public override PersistentObject.SaveData Save()
+    {
+        if (!CanSave())
+        {
+            Debug.LogWarning("SaveController cannot save!");
+            return null;
+        }
+
+        return savedData;
+    }
+
+    public override bool Load(PersistentObject.SaveData data)
+    {
+        if (data == null)
+        {
+            savedData = new SaveData
+            {
+                totalCoins = 0,
+                powerups = new List<Powerup.Stats>()
+            };
+            Debug.LogWarning("No save data found!");
+            return false;
+        }
+
+        savedData = data as SaveData;
+
+        if (savedData == null)
+        {
+            Debug.LogError("Failed to cast SaveData.");
+            return false;
+        }
+
+        OnCoinsChanged?.Invoke();
+        OnPowerupsChanged?.Invoke();
+
+        return true;
+    }
+
+    #endregion
 }

@@ -21,7 +21,7 @@ public class UICoinDisplay : MonoBehaviour
         }
         else
         {
-            float coins = SaveController.LastLoadedGameData.coins;
+            float coins = OldSaveController.LastLoadedGameData.coins;
             displayTarget.text = Mathf.RoundToInt(coins).ToString();
         }
     }

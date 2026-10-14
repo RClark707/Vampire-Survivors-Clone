@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 1711685785, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 1
   evolutionData: []
-  behavior: AuraWeaponB
+  behavior: AuraWeapon
   baseStats:
     name: Soul Eater
     description: Siphons life from surrounding foes
