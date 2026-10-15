@@ -11,6 +11,7 @@ public class UICoinDisplay : MonoBehaviour
         displayTarget = GetComponentInChildren<TextMeshProUGUI>();
         UpdateDisplay();
         if (collector != null) collector.onCoinCollected += UpdateDisplay;
+        if (SaveController.Instance != null) SaveController.Instance.OnCoinsChanged += UpdateDisplay;
     }
 
     public void UpdateDisplay()
@@ -19,10 +20,14 @@ public class UICoinDisplay : MonoBehaviour
         {
             displayTarget.text = Mathf.RoundToInt(collector.GetCoins()).ToString();
         }
+        else if (SaveController.Instance != null)
+        {
+            float coins = SaveController.Instance.SavedData.totalCoins;
+            displayTarget.text = Mathf.RoundToInt(coins).ToString();
+        }
         else
         {
-            float coins = OldSaveController.LastLoadedGameData.coins;
-            displayTarget.text = Mathf.RoundToInt(coins).ToString();
+            Debug.LogWarning("You have neither a Save Controller nor a Player Collector to update the display!");
         }
     }
 }

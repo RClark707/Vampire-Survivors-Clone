@@ -187,6 +187,7 @@ public class Player : Entity
     public override void RecalculateStats() // this is called in the Update Function
     {
         _actualStats = baseStats;
+
         foreach (PlayerInventoryController.Slot s in inv.passiveSlots)
         {
             Passive p = s.item as Passive;
@@ -194,6 +195,11 @@ public class Player : Entity
             {
                 _actualStats += p.GetBoosts();
             }
+        }
+
+        foreach (Powerup p in inv.powerups)
+        {
+            _actualStats += p.GetBoosts();
         }
 
         CharacterStats.Stats multiplier = new CharacterStats.Stats

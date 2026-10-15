@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4656585e05aeb404197b8c598c3b03a9, type: 3}
+  m_Name: Armor
+  m_EditorClassIdentifier: Assembly-CSharp::PowerupStats
+  icon: {fileID: -2001722941, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  maxLevel: 4
+  evolutionData: []
+  baseStats:
+    name: Armor
+    description: Permanent +1 Armor
+    boosts:
+      maxHealth: 0
+      recovery: 0
+      armor: 1
+      moveSpeed: 0
+      might: 0
+      area: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
+      luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0
+  growth:
+  - name: Level 2
+    description: Permanent +1 Armor
+    boosts:
+      maxHealth: 0
+      recovery: 0
+      armor: 1
+      moveSpeed: 0
+      might: 0
+      area: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
+      luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0
+  - name: Level 3
+    description: Permanent +1 Armor
+    boosts:
+      maxHealth: 0
+      recovery: 0
+      armor: 1
+      moveSpeed: 0
+      might: 0
+      area: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
+      luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0
+  - name: Level 4
+    description: Permanent +1 Armor
+    boosts:
+      maxHealth: 0
+      recovery: 0
+      armor: 1
+      moveSpeed: 0
+      might: 0
+      area: 0
+      projectileSpeed: 0
+      duration: 0
+      amount: 0
+      cooldown: 0
+      luck: 0
+      growth: 0
+      greed: 0
+      curse: 0
+      magnet: 0
+      revival: 0
+  baseCost: 200
+  baseFee: 20
+  feeFactor: 1.1

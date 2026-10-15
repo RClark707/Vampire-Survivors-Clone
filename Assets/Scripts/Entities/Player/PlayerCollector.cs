@@ -1,3 +1,4 @@
+using Terresquall;
 using UnityEngine;
 
 public class PlayerCollector : MonoBehaviour
@@ -39,14 +40,21 @@ public class PlayerCollector : MonoBehaviour
     public float AddCoins(float amount)
     {
         coins += amount;
-        onCoinCollected();
+        onCoinCollected?.Invoke();
         return coins;
     }
 
-    public void SaveCoinsToStash()
+    public void SaveCoinsToStash(bool async = false)
     {
-        OldSaveController.LastLoadedGameData.coins += coins;
+        // SaveController.Instance.AddCoins(coins);
+        SaveController.Instance.SavedData.totalCoins += coins;
+        if (async) Bench.SaveGameAsync();
+        else Bench.SaveGame();
+    }
+
+    public void ResetRunCoins()
+    {
         coins = 0;
-        OldSaveController.Save();
+        onCoinCollected?.Invoke();
     }
 }

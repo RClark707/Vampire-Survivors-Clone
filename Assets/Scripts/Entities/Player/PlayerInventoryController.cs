@@ -47,20 +47,13 @@ public class PlayerInventoryController : MonoBehaviour
     public List<Slot> weaponSlots = new List<Slot>(6);
     public List<Slot> passiveSlots = new List<Slot>(6);
 
-
-
-    //[Serializable]
-    //public class UpgradeUI
-    //{
-    //    public TMP_Text upgradeNameDisplay;
-    //    public TMP_Text upgradeDescriptionDisplay;
-    //    public Image upgradeIcon;
-    //    public Button upgradeButton;
-    //}
-
     [Header("All Available Items")]
     public List<WeaponStats> availableWeapons = new List<WeaponStats>();
     public List<PassiveStats> availablePassives = new List<PassiveStats>();
+
+    [Header("Powerups")]
+    public List<Powerup> powerups = new List<Powerup>();
+    public List<PowerupStats> availablePowerups = new List<PowerupStats>();
 
     [Header("Level Up UI")]
     public UIUpgradeWindow upgradeWindow;
@@ -70,6 +63,14 @@ public class PlayerInventoryController : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
+
+        if (SaveController.Instance && SaveController.Instance.SavedData.powerups.Count > 0)
+        {
+            foreach (Powerup.Stats powerup in SaveController.Instance.SavedData.powerups)
+            {
+                Add(powerup); // this might be a different list I need to be adding to!
+            }
+        }
     }
 
     public bool Has(ItemStats type) { return Get(type); }
@@ -77,12 +78,23 @@ public class PlayerInventoryController : MonoBehaviour
     public Item Get(ItemStats type) // This function sends you to a different function based on type
     {
         if (type is WeaponStats) return Get(type as WeaponStats);
+        else if (type is PowerupStats) return Get(type as PowerupStats);
         else if (type is PassiveStats) return Get(type as PassiveStats);
+        return null;
+    }
+
+    public Powerup Get(PowerupStats type)
+    {
+        foreach (Powerup p in powerups)
+        {
+            if (p.statsData == type) return p;
+        }
         return null;
     }
 
     public Passive Get(PassiveStats type)
     {
+        if (type is PowerupStats) Get(type as PowerupStats);
         foreach (Slot S in passiveSlots)
         {
             Passive p = S.item as Passive;
@@ -110,6 +122,7 @@ public class PlayerInventoryController : MonoBehaviour
     public bool Remove(ItemStats stats, bool removeUpgradeAvailability = false)
     {
         if (stats is WeaponStats) return Remove(stats as WeaponStats, removeUpgradeAvailability);
+        else if (stats is PowerupStats) return Remove(stats as PowerupStats, removeUpgradeAvailability);
         else if (stats is PassiveStats) return Remove(stats as PassiveStats, removeUpgradeAvailability);
         return false;
     }
@@ -134,8 +147,30 @@ public class PlayerInventoryController : MonoBehaviour
         return false;
     }
 
+    public bool Remove(PowerupStats stats, bool removeUpgradeAvailability = false)
+    {
+        // remove upgrade availability has no impact right now
+        if (removeUpgradeAvailability) availablePowerups.Remove(stats);
+
+        for (int i = 0; i < passiveSlots.Count; i++)
+        {
+            Powerup p = powerups[i];
+            if (p.statsData == stats)
+            {
+                powerups.Remove(p);
+                // p.OnUnequip(); // this has absolutely no effect
+                Destroy(p.gameObject);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool Remove(PassiveStats stats, bool removeUpgradeAvailability = false)
     {
+        if (stats is PowerupStats) return Remove(stats as PowerupStats, removeUpgradeAvailability);
+
         if (removeUpgradeAvailability) availablePassives.Remove(stats);
 
         for (int i = 0; i < passiveSlots.Count; i++)
@@ -144,7 +179,7 @@ public class PlayerInventoryController : MonoBehaviour
             if (p.statsData == stats)
             {
                 passiveSlots[i].Clear();
-                weaponsDisplay.Refresh();
+                passivesDisplay.Refresh();
                 p.OnUnequip();
                 Destroy(p.gameObject);
                 return true;
@@ -154,14 +189,15 @@ public class PlayerInventoryController : MonoBehaviour
         return false;
     }
 
-    public int Add(ItemStats stats, bool updateUI = true)
+    public int Add(ItemStats stats, bool updateUI = true, int startingLevel = 1)
     {
-        if (stats is WeaponStats) return Add(stats as WeaponStats, updateUI);
-        else if (stats is PassiveStats) return Add(stats as PassiveStats, updateUI);
+        if (stats is WeaponStats) return Add(stats as WeaponStats, updateUI, startingLevel);
+        else if (stats is PowerupStats) return Add(stats as PowerupStats, updateUI, startingLevel);
+        else if (stats is PassiveStats) return Add(stats as PassiveStats, updateUI, startingLevel);
         return -1;
     }
 
-    public int Add(WeaponStats stats, bool updateUI = true)
+    public int Add(WeaponStats stats, bool updateUI = true, int startingLevel = 1)
     {
         int slotNum = -1;
 
@@ -187,14 +223,16 @@ public class PlayerInventoryController : MonoBehaviour
             spawnedWeapon.transform.localPosition = Vector2.zero;
             spawnedWeapon.Initialize(stats);
             spawnedWeapon.OnEquip();
-
+            for (int i = 1; i < startingLevel; i++) spawnedWeapon.LevelUp(false);
             weaponSlots[slotNum].Assign(spawnedWeapon);
-            if (updateUI) weaponsDisplay.Refresh();
+            if (updateUI && weaponsDisplay) weaponsDisplay.Refresh();
 
             if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
             {
                 GameController.Instance.EndPlayerLevelUp();
             }
+
+            player?.RecalculateStats(); // no effect?
 
             return slotNum;
         }
@@ -206,7 +244,36 @@ public class PlayerInventoryController : MonoBehaviour
         return -1;
     }
 
-    public int Add(PassiveStats stats, bool updateUI = true)
+    public int Add(PowerupStats stats, int startingLevel = 1) // this is a bad pattern, I should add it to the other Add scripts
+    {
+        GameObject go = new GameObject(stats.baseStats.name + " Power Up");
+        Powerup p = go.AddComponent<Powerup>();
+        p.Initialize(stats);
+        p.transform.SetParent(transform); // TODO: Change this to a nested parent
+        p.transform.localPosition = Vector2.zero;
+        for (int i = 1; i < startingLevel; i++) p.LevelUp(false);
+        powerups.Add(p);
+
+        // update any UI
+
+        player?.RecalculateStats();
+        return powerups.Count;
+    }
+
+    public bool Add(Powerup.Stats stats)
+    {
+        foreach (PowerupStats powerup in availablePowerups)
+        {
+            if (powerup.name == stats.name)
+            {
+                Add(powerup, stats.level);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int Add(PassiveStats stats, bool updateUI = true, int startingLevel = 1)
     {
         int slotNum = -1;
 
@@ -228,15 +295,15 @@ public class PlayerInventoryController : MonoBehaviour
         spawnedPassive.transform.SetParent(transform); // change this to whatever parent you want
         spawnedPassive.transform.localPosition = Vector2.zero;
         // spawnedPassive.OnEquip(); // apparently this isn't necessary to call?
-
+        for (int i = 1; i < startingLevel; i++) spawnedPassive.LevelUp(false);
         passiveSlots[slotNum].Assign(spawnedPassive);
-        if (updateUI) passivesDisplay.Refresh();
+        if (updateUI && passivesDisplay) passivesDisplay.Refresh();
 
         if (GameController.Instance != null && GameController.Instance.choosingUpgrades)
         {
             GameController.Instance.EndPlayerLevelUp();
         }
-        player.RecalculateStats(); // should we call this for weapons too?
+        player?.RecalculateStats(); // should we call this for weapons too?
 
         return slotNum;
     }
@@ -252,7 +319,7 @@ public class PlayerInventoryController : MonoBehaviour
     {
         if (!item.LevelUp())
         {
-            Debug.LogError($"Failed to level up {item.name}");
+            Debug.LogError($"Failed to startingLevel up {item.name}");
             return false;
         }
 
@@ -290,6 +357,8 @@ public class PlayerInventoryController : MonoBehaviour
     {
         switch (typeof(T).ToString())
         {
+            case "PowerupStats":
+                return availablePowerups.ToArray() as T[];
             case "PassiveStats":
                 return availablePassives.ToArray() as T[];
             case "WeaponStats":
@@ -351,6 +420,8 @@ public class PlayerInventoryController : MonoBehaviour
     {
         switch (typeof(T).ToString())
         {
+            case "Powerup":
+                return null;
             case "Passive":
                 return passiveSlots.ToArray();
             case "Weapon":
@@ -369,6 +440,8 @@ public class PlayerInventoryController : MonoBehaviour
     {
         switch (typeof(T).ToString())
         {
+            case "PowerupStats":
+                return null;
             case "PassiveStats":
                 return passiveSlots.ToArray();
             case "WeaponStats":

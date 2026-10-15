@@ -24,6 +24,10 @@ public class SaveController : PersistentObject
     public event Action OnPowerupsChanged;
 
     protected SaveData savedData = new SaveData();
+    public SaveData SavedData
+    {
+        get { return savedData; }
+    }
 
     [System.Serializable]
     public new class SaveData : PersistentObject.SaveData
@@ -58,7 +62,7 @@ public class SaveController : PersistentObject
         if (_instance == this) _instance = null;
     }
 
-    public float GetTotalCoins() { return savedData.totalCoins; }
+    public float GetTotalCoins() { return savedData.totalCoins; } // why do we have this function if we never use it
 
     public void AddCoins(float amount)
     {

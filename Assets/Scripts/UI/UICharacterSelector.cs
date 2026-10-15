@@ -25,7 +25,10 @@ public class UICharacterSelector : MonoBehaviour
 
     void Start()
     {
-        if (defaultCharacter) selectedCharacter = defaultCharacter;
+        if (defaultCharacter)
+        {
+            Select(defaultCharacter);
+        }
     }
 
     public static CharacterStats[] GetAllCharacterDataAssets()
