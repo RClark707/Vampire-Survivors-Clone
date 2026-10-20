@@ -64,7 +64,8 @@ public class UIUpgradeWindow : MonoBehaviour
                 TextMeshProUGUI name = rt.Find(namePath).GetComponent<TextMeshProUGUI>();
                 if (name)
                 {
-                    name.text = selectedItem.name; // TODO: this grabs the file name
+
+                    name.text = selectedItem.GetLevelData(0).name;
                 }
 
                 TextMeshProUGUI level = rt.Find(levelPath).GetComponent<TextMeshProUGUI>();
@@ -78,7 +79,8 @@ public class UIUpgradeWindow : MonoBehaviour
                         }
                         else
                         {
-                            level.text = selectedItem.GetLevelData(item.currentLevel + 1).name; // if we name our levels "Level: 2" this works, otherwise we can cut name and just access current Level
+                            // level.text = selectedItem.GetLevelData(item.currentLevel + 1).name; // if we name our levels "Level: 2" this works, otherwise we can cut name and just access current Level
+                            level.text = "Level: " + (item.currentLevel + 1).ToString();
                             level.color = levelTextColor;
                         }
                     }

@@ -20222,7 +20222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &383644687
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35794,6 +35794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin
       objectReference: {fileID: 0}
+    - target: {fileID: 1588660026635293371, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5658872413028148747, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.61
@@ -41189,6 +41193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinBag
       objectReference: {fileID: 0}
+    - target: {fileID: 1006409208182291610, guid: 0b1ed0bdea3e7964abb80fc21e3849a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6157313826713389098, guid: 0b1ed0bdea3e7964abb80fc21e3849a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.0835958
@@ -41418,7 +41426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1080897228
 RectTransform:
   m_ObjectHideFlags: 0
@@ -51569,6 +51577,10 @@ PrefabInstance:
     - target: {fileID: 1588660026635293371, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
       propertyPath: m_Name
       value: Coin (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588660026635293371, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5658872413028148747, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -76249,6 +76261,8 @@ GameObject:
   - component: {fileID: 1392034379}
   - component: {fileID: 1392034380}
   - component: {fileID: 1392034381}
+  - component: {fileID: 1392034383}
+  - component: {fileID: 1392034382}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -76305,7 +76319,7 @@ SpriteRenderer:
   m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7950320164446702114, guid: 8c086848334a1c94992cb877807f787c, type: 3}
+  m_Sprite: {fileID: -255975087, guid: 56d92a69b2a00ca4aae7687099273cf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -76415,7 +76429,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -76445,7 +76459,7 @@ Animator:
   m_GameObject: {fileID: 1392034372}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ee526e1c2b953b3479b3d155750f99e0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2f8bc51c92aa5264481375a5810a4c22, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -76539,6 +76553,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6004528865ec1774597bd6794e3bf15f, type: 2}
   - {fileID: 11400000, guid: 7f79d39bb889ffd4480c313ebd737b4a, type: 2}
   upgradeWindow: {fileID: 698429051}
+--- !u!114 &1392034382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392034372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
+  m_CategoryHash: 1.8625731e-11
+  m_labelHash: 7.136606e-10
+  m_SpriteKey: 0
+  m_SpriteHash: 481708447
+--- !u!114 &1392034383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392034372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrary
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 11ef0fc4349127d42a4d474871f60af1, type: 3}
 --- !u!1 &1403384901
 GameObject:
   m_ObjectHideFlags: 0
@@ -76554,7 +76598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1403384902
 RectTransform:
   m_ObjectHideFlags: 0
@@ -101642,6 +101686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 5285969702383061990, guid: e71ce3e21e3646f43b706550724666d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6841099146564784513, guid: e71ce3e21e3646f43b706550724666d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.78
@@ -101899,6 +101947,10 @@ PrefabInstance:
     - target: {fileID: 1588660026635293371, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
       propertyPath: m_Name
       value: Coin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588660026635293371, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5658872413028148747, guid: 1f93e01962afb1144bce1ebb9b80250d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -116899,7 +116951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1920538380
 RectTransform:
   m_ObjectHideFlags: 0

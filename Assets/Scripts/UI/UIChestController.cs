@@ -52,7 +52,10 @@ public class UIChestController : MonoBehaviour
         {
             Instance = this;
             audioSource = GetComponent<AudioSource>();
-            gameObject.SetActive(false);
+            foreach (Transform child in Instance.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
             chestImage.sprite = closedChestSprite;
         }
         else
@@ -71,8 +74,11 @@ public class UIChestController : MonoBehaviour
 
         // Debug.Log(Instance.currentChestStats);
 
+        foreach (Transform child in Instance.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
         GameController.Instance.StartChestState();
-        Instance.gameObject.SetActive(true);
     }
 
     public static void NotifyItemRecieved(Sprite icon) // change this name
@@ -302,7 +308,11 @@ public class UIChestController : MonoBehaviour
         fireworks.SetActive(false);
         curvedBeams.SetActive(false);
 
-        gameObject.SetActive(false);
+        foreach (Transform child in Instance.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
         ResetDisplay();
 
         if (pickupSound)

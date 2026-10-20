@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
   m_Name: SoulEaterStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
+  itemName: Soul Eater
   icon: {fileID: 1711685785, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 1
   evolutionData: []
