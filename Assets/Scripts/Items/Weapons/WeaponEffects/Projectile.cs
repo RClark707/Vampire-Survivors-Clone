@@ -10,19 +10,24 @@ public class Projectile : WeaponEffect
 
     protected Rigidbody2D rb;
     protected int piercing;
+    protected float area;
 
     protected virtual void Start()
     {
+        transform.SetParent(GameObject.Find("ProjectileParent").transform);
+
         Weapon.Stats stats = weapon.GetStats();
 
         rb = GetComponent<Rigidbody2D>();
         if (rb.bodyType == RigidbodyType2D.Dynamic)
         {
             rb.angularVelocity = rotationSpeed.z;
-            rb.linearVelocity = transform.right * stats.speed * weapon.Owner.ActualStats.projectileSpeed;
+            rb.linearVelocity = transform.right * weapon.GetProjectileSpeed();
+            // Debug.Log($"The {stats.name} spawned a projectile with {rb.linearVelocity} linear velocity.");
+            // Debug.Log($"The {stats.name} spawned a projectile with {rb.angularVelocity} angular velocity.");
         }
 
-        float area = weapon.GetArea();
+        area = weapon.GetArea();
         if (area <= 0f) area = 1f;
         transform.localScale = new Vector3(
             area = Mathf.Sign(transform.localScale.x),
@@ -32,7 +37,7 @@ public class Projectile : WeaponEffect
 
         piercing = stats.piercing;
 
-        if (stats.lifespan > 0) Destroy(gameObject, stats.lifespan);
+        if (weapon.GetDuration() > 0) Destroy(gameObject, weapon.GetDuration());
 
         if (hasAutoAim) AcquireAutoAimFacing();
         else
@@ -62,10 +67,6 @@ public class Projectile : WeaponEffect
         transform.rotation = Quaternion.Euler(0f, 0f, aimAngle); // this assumes our projectile faces UP
     }
 
-    /// <summary>
-    /// This function sets the rotation of a sprite based on a given facing vector when spawned
-    /// </summary>
-    /// <param name="fixedDirection"></param>
     public virtual void SetSpriteRotationFromPlayerDirection(Vector3 fixedDirection, float offsetAngle = 90f)
     {
         float angle = Mathf.Atan2(fixedDirection.y, fixedDirection.x) * Mathf.Rad2Deg;

@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571d741fbb931d644ab8e00f2fab5044, type: 3}
   m_Name: SkullStats
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStats
-  itemName: 
-  icon: {fileID: 0}
-  maxLevel: 0
+  icon: {fileID: 718474375, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  maxLevel: 5
   evolutionData: []
   baseStats:
-    name: 
-    description: 
+    name: Skull O'Maniac
+    description: +10% Curse
     boosts:
       maxHealth: 0
       recovery: 0
@@ -33,7 +32,8 @@ MonoBehaviour:
       luck: 0
       growth: 0
       greed: 0
-      curse: 0
+      curse: 0.1
       magnet: 0
       revival: 0
+  alwaysRepeatBaseModifier: 1
   growth: []

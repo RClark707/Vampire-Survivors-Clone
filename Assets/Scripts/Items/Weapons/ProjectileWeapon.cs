@@ -13,7 +13,7 @@ public class ProjectileWeapon : Weapon
         currentAttackInterval -= Time.deltaTime;
         if (currentAttackInterval <= 0)
         {
-            Attack(currentAttackCount); // writing it this way ONLY functions if we add code to the Attack() function to reset the currentAttackInterval
+            Attack(currentAttackCount);
         }
     }
 
@@ -55,7 +55,7 @@ public class ProjectileWeapon : Weapon
 
         if (attackAmount > 0) // should we make another attack?
         {
-            currentAttackCount = attackAmount;
+            currentAttackCount = attackAmount - 1;
             currentAttackInterval = ((WeaponStats)statsData).baseStats.projectileInterval;
         }
 

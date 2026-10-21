@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Arnold
   fullName: Arnold Belizarro
   description: Permanent +1 projectiles (all weapons).
-  startingWeapon: {fileID: 11400000, guid: 170fbbe172ae3394b95bb19a3c03f401, type: 2}
+  startingWeapon: {fileID: 11400000, guid: 63dd8a4b8edfa7543853c406eb32643d, type: 2}
   stats:
     maxHealth: 100
     recovery: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
     area: 1
     projectileSpeed: 1
     duration: 1
-    amount: 1
+    amount: 0
     cooldown: 1
     luck: 1
     growth: 1

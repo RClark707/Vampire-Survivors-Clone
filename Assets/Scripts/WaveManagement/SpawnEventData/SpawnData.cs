@@ -8,7 +8,7 @@ public abstract class SpawnData : ScriptableObject // we need to subclass this i
     public GameObject[] possibleSpawnPrefabs = new GameObject[1];
     // repeat prefabs to change spawn probability
 
-    [Tooltip("Time between each spawn (in seconds). Will take a random number between X and Y.")]
+    [Tooltip("Time between each spawn (in seconds). Will take a random amount between X and Y.")]
     public Vector2 spawnInterval = new Vector2(2, 3);
 
     [Tooltip("How many enemies are spawned per interval?")]

@@ -7,8 +7,9 @@ public class SpawnController : MonoBehaviour
 
     public WaveData[] waveData;
     public Camera referenceCamera;
+    public Transform enemyParent;
 
-    [Tooltip("If there are more than this number of enemies, stops spawning any more.")]
+    [Tooltip("If there are more than this amount of enemies, stops spawning any more.")]
     public int maximumEnemyCount = 300;
     float spawnTimer;
     float currentWaveDuration = 0f;
@@ -22,7 +23,13 @@ public class SpawnController : MonoBehaviour
     void Start()
     {
         if (Instance == null)
+        {
             Instance = this;
+            if (waveData.Length == 0)
+            {
+                gameObject.SetActive(false);
+            }
+        }
         else
             Destroy(gameObject);
     }
@@ -61,7 +68,8 @@ public class SpawnController : MonoBehaviour
             {
                 if (!CanSpawn()) continue; // just skip ahead if we can't spawn yet (this happens if a previous loop iteration brought us to the limit
 
-                Instantiate(prefab, GenerateSpawnPosition(), Quaternion.identity);
+                GameObject go = Instantiate(prefab, GenerateSpawnPosition(), Quaternion.identity);
+                go.transform.SetParent(enemyParent);
 
                 currentWaveSpawnCount++;
             }

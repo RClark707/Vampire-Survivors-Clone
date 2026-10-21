@@ -11,7 +11,7 @@ public class WhipWeapon : ProjectileWeapon
     {
         if (!currentStats.projectilePrefab)
         {
-            Debug.LogError($"Projectile prefab is missing for {name}");
+            Debug.LogError($"Projectile prefab is missing for {name}.");
             ActivateCooldown();
             return false;
         }
@@ -31,9 +31,10 @@ public class WhipWeapon : ProjectileWeapon
         }
 
         float spawnDir = Mathf.Sign(playerMovement.lastMoveDirection.x) * (currentSpawnCount % 2 != 0 ? -1 : 1); // face left or right?
+
         Vector2 spawnOffset = new Vector2(
             spawnDir * Random.Range(currentStats.spawnVariance.xMin, currentStats.spawnVariance.xMax),
-            currentSpawnYOffset
+            Random.Range(currentStats.spawnVariance.yMin, currentStats.spawnVariance.yMax)
             );
 
         Projectile prefab = Instantiate(
@@ -67,7 +68,7 @@ public class WhipWeapon : ProjectileWeapon
 
         if (attackAmount > 0)
         {
-            currentAttackCount = attackAmount; // this determines if CanAttack() evals to true
+            currentAttackCount = attackAmount - 1;
             currentAttackInterval = ((WeaponStats)statsData).baseStats.projectileInterval;
         }
 

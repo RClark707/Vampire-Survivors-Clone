@@ -14,17 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStatsB
   icon: {fileID: -335470898, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 5
-  evolutionData:
-  - name: BladeDance
-    evoReq: 1
-    consumes: 2
-    evolutionLevel: 1
-    catalysts:
-    - itemType: {fileID: 11400000, guid: 170fbbe172ae3394b95bb19a3c03f401, type: 2}
-      level: 3
-    outcome:
-      itemType: {fileID: 11400000, guid: a51f8d117097d19409dea81ba46c64c2, type: 2}
-      level: 1
+  evolutionData: []
   baseStats:
     name: Wings
     description: +10% Move Speed

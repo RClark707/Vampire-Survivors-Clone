@@ -6,7 +6,7 @@ public abstract class EventData : SpawnData // we must subclass this object to u
     [Range(0f, 1f)] public float probability = 1f;
     [Range(0f, 1f)] public float luckFactor = 1f;
 
-    [Tooltip("If a value is specified, this event will only occur after the level runs for this number of seconds.")]
+    [Tooltip("If a value is specified, this event will only occur after the level runs for this amount of seconds.")]
     public float activeAfter = 0f;
 
     public abstract bool Activate(Player player = null, bool alwaysFires = false);

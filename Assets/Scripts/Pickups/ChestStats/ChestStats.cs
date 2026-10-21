@@ -17,7 +17,7 @@ public class ChestStats : ScriptableObject
 
     [Header("Item Display Settings")]
     public int numberOfItems = 1;
-    [Tooltip("You need at least as many beam colors as number of items to be rewarded.")]
+    [Tooltip("You need at least as many beam colors as amount of items to be rewarded.")]
     public Color[] beamColors = new Color[] { new Color(0, 0, 1, 0.6f) };
 
     [Range(0f, 100f)] public float beamDelayTime = 0f;

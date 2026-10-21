@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6841099146564784513
 Transform:
   m_ObjectHideFlags: 0
@@ -155,5 +155,7 @@ MonoBehaviour:
   minimumDistance: 0.2
   possibleReward: -1
   rewardCountType: 1
+  defaultRewardSprite: {fileID: 0}
   chestStats:
   - {fileID: 11400000, guid: 155ad294b0680c647af09c01577a3e6c, type: 2}
+  - {fileID: 11400000, guid: 9ac983e71c06b724cafe750659bd4773, type: 2}

@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571d741fbb931d644ab8e00f2fab5044, type: 3}
   m_Name: CloverStats
   m_EditorClassIdentifier: Assembly-CSharp::PassiveStats
-  itemName: 
-  icon: {fileID: 0}
-  maxLevel: 0
+  icon: {fileID: -1910616203, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  maxLevel: 5
   evolutionData: []
   baseStats:
-    name: 
-    description: 
+    name: Clover
+    description: +10% Luck
     boosts:
       maxHealth: 0
       recovery: 0
@@ -30,10 +29,11 @@ MonoBehaviour:
       duration: 0
       amount: 0
       cooldown: 0
-      luck: 0
+      luck: 0.1
       growth: 0
       greed: 0
       curse: 0
       magnet: 0
       revival: 0
+  alwaysRepeatBaseModifier: 1
   growth: []

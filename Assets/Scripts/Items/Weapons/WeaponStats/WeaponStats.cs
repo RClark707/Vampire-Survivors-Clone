@@ -5,7 +5,21 @@ public class WeaponStats : ItemStats
 {
     [HideInInspector]
     public string behavior;
-    public Weapon.Stats baseStats;
+    public Weapon.Stats baseStats = new Weapon.Stats
+    {
+
+        duration = 0.5f,
+        damage = 10f,
+        damageVariance = 0f,
+        area = 1f,
+        projectileSpeed = 1f,
+        cooldown = 1f,
+        amount = 1,
+        piercing = 1,
+        projectileInterval = 0.1f,
+        knockback = 1f,
+    };
+
     public Weapon.Stats[] linearGrowth; // for level ups
     public Weapon.Stats[] randomGrowth; // for endless play
 
@@ -21,7 +35,7 @@ public class WeaponStats : ItemStats
 
         if (randomGrowth.Length > 0)
         {
-            return randomGrowth[Random.Range(0, randomGrowth.Length)];
+            return randomGrowth[UnityEngine.Random.Range(0, randomGrowth.Length)];
         }
 
         Debug.LogError($"The weapon doesn't have any defined level data for level {level}");

@@ -6,15 +6,21 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
     public class Stats : LevelData
     {
         [Header("Visuals")]
+        [Tooltip("The object to instantiate as a projectile.")]
         public Projectile projectilePrefab;
+        [Tooltip("The object to instantiate as an aura.")]
         public Aura auraPrefab;
+        [Tooltip("The VFX to instantiate when the weapon damages an enemy, and when the weapon is used.")]
         public ParticleSystem hitEffect, procEffect; // hit effects are played on the enemy, procs are played on the player
+        [Tooltip("What random values to apply to the spawn position of the weapon's projectile or aura.")]
         public Rect spawnVariance;
 
         [Header("Values")]
-        public float lifespan;
-        public float damage, damageVariance, area, speed, cooldown, projectileInterval, knockback;
-        public int number, piercing, maxInstances;
+        [Tooltip("After how many seconds should we destroy any instantiated projectiles.")]
+        public float duration;
+        [Tooltip("The stats of the weapon, leave at 0 if you want to ignore it.")]
+        public float damage, damageVariance, area, projectileSpeed, cooldown, projectileInterval, knockback;
+        public int amount, piercing, maxInstances;
 
         public Entity.BuffInfo[] appliedBuffs;
 
@@ -29,13 +35,13 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
                 auraPrefab = s2.auraPrefab ?? s1.auraPrefab,
                 hitEffect = s2.hitEffect ?? s1.hitEffect,
                 spawnVariance = s2.spawnVariance,
-                lifespan = s1.lifespan + s2.lifespan,
+                duration = s1.duration + s2.duration,
                 damage = s1.damage + s2.damage,
                 damageVariance = s1.damageVariance + s2.damageVariance,
                 area = s1.area + s2.area,
-                speed = s1.speed + s2.speed,
+                projectileSpeed = s1.projectileSpeed + s2.projectileSpeed,
                 cooldown = s1.cooldown + s2.cooldown,
-                number = s1.number + s2.number,
+                amount = s1.amount + s2.amount,
                 piercing = s1.piercing + s2.piercing,
                 projectileInterval = s1.projectileInterval + s2.projectileInterval,
                 knockback = s1.knockback + s2.knockback,
@@ -45,9 +51,23 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
             return result;
         }
 
-        public float GetDamage()
+        public float GetDamageWithVariance()
         {
             return damage + Random.Range(0, damageVariance);
+        }
+
+        public Stats()
+        {
+            duration = 0.5f;
+            damage = 10f;
+            damageVariance = 0f;
+            area = 1f;
+            projectileSpeed = 0f;
+            cooldown = 1f;
+            amount = 1;
+            piercing = 1;
+            projectileInterval = 0.1f;
+            knockback = 1f;
         }
     }
 
@@ -72,7 +92,7 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
         currentCooldown -= Time.deltaTime;
         if (currentCooldown <= 0)
         {
-            Attack(currentStats.number + Owner.ActualStats.amount);
+            Attack(currentStats.amount + Owner.ActualStats.amount);
         }
     }
 
@@ -109,15 +129,30 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
         return false;
     }
 
+    public virtual float GetDuration()
+    {
+        return currentStats.duration + Owner.ActualStats.duration;
+    }
+
     // this gets the amount of damage for the weapon, factoring in damage variance and might
     public virtual float GetDamage()
     {
-        return currentStats.GetDamage() * Owner.ActualStats.might;
+        return currentStats.GetDamageWithVariance() * Owner.ActualStats.might;
     }
 
     public virtual float GetArea()
     {
         return currentStats.area + Owner.ActualStats.area;
+    }
+
+    public virtual float GetProjectileSpeed()
+    {
+        return currentStats.projectileSpeed + Owner.ActualStats.projectileSpeed;
+    }
+
+    public virtual int GetAmount()
+    {
+        return currentStats.amount + Owner.ActualStats.amount;
     }
 
     public virtual Stats GetStats()

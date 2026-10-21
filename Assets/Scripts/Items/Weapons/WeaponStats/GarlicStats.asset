@@ -12,20 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
   m_Name: GarlicStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
-  itemName: Garlic
   icon: {fileID: 773899887, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
   maxLevel: 3
-  evolutionData:
-  - name: Soul Eater
-    evoReq: 1
-    consumes: 2
-    evolutionLevel: 3
-    catalysts:
-    - itemType: {fileID: 11400000, guid: ac44fb628f9ca7045a4f5ba68568f869, type: 2}
-      level: 1
-    outcome:
-      itemType: {fileID: 11400000, guid: 382abfc79ee7a0247b077bd091cd129b, type: 2}
-      level: 1
+  evolutionData: []
   behavior: AuraWeapon
   baseStats:
     name: Garlic
@@ -44,11 +33,11 @@ MonoBehaviour:
     damage: 5
     damageVariance: 1
     area: 2
-    speed: 0
+    projectileSpeed: 0
     cooldown: 1.3
     projectileInterval: 0
     knockback: 1
-    number: 1
+    amount: 0
     piercing: 0
     maxInstances: 50
     appliedBuffs: []
@@ -69,11 +58,11 @@ MonoBehaviour:
     damage: 0
     damageVariance: 0
     area: 1
-    speed: 0
+    projectileSpeed: 0
     cooldown: 0
     projectileInterval: 0
     knockback: 0
-    number: 0
+    amount: 0
     piercing: 0
     maxInstances: 0
     appliedBuffs: []
@@ -93,11 +82,11 @@ MonoBehaviour:
     damage: 0
     damageVariance: 0
     area: 0.5
-    speed: 0
+    projectileSpeed: 0
     cooldown: 0
     projectileInterval: 0
     knockback: 0
-    number: 0
+    amount: 0
     piercing: 0
     maxInstances: 0
     appliedBuffs: []

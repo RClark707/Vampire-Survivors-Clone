@@ -12,24 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
   m_Name: KnifeStats
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStatsB
-  itemName: Knife
   icon: {fileID: -1494385616, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
-  maxLevel: 3
-  evolutionData:
-  - name: BladeDance
-    evoReq: 1
-    consumes: 2
-    evolutionLevel: 3
-    catalysts:
-    - itemType: {fileID: 11400000, guid: 9fec34d1ebd7e3645ba942b86db0847b, type: 2}
-      level: 1
-    outcome:
-      itemType: {fileID: 11400000, guid: a51f8d117097d19409dea81ba46c64c2, type: 2}
-      level: 1
+  maxLevel: 8
+  evolutionData: []
   behavior: ProjectileWeapon
   baseStats:
     name: Knife
-    description: Fires quickly in the faced direction.
+    description: Fires quickly in the faced direction
     projectilePrefab: {fileID: 6963808102643740350, guid: 06892c392a1f1724b8a5cf099625198b, type: 3}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
@@ -40,21 +29,21 @@ MonoBehaviour:
       y: 0
       width: 0
       height: 0
-    lifespan: 3
-    damage: 6
-    damageVariance: 2
+    lifespan: 1
+    damage: 6.5
+    damageVariance: 0
     area: 1
-    speed: 10
+    projectileSpeed: 1
     cooldown: 1
-    projectileInterval: 2
+    projectileInterval: 0.1
     knockback: 0.5
-    number: 1
+    amount: 1
     piercing: 1
     maxInstances: 70
     appliedBuffs: []
   linearGrowth:
   - name: Level 2
-    description: Increase Speed by 50%
+    description: +1 Amount
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
@@ -69,16 +58,40 @@ MonoBehaviour:
     damage: 0
     damageVariance: 0
     area: 0
-    speed: 5
+    projectileSpeed: 0
     cooldown: 0
     projectileInterval: 0
     knockback: 0
-    number: 0
+    amount: 1
     piercing: 0
     maxInstances: 0
     appliedBuffs: []
   - name: Level 3
-    description: Decrease Interval by 0.1
+    description: +1 Amount, +5 Damage
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 5
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 1
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 4
+    description: +1 Amount, -0.02 pInterval
     projectilePrefab: {fileID: 0}
     auraPrefab: {fileID: 0}
     hitEffect: {fileID: 0}
@@ -93,12 +106,108 @@ MonoBehaviour:
     damage: 0
     damageVariance: 0
     area: 0
-    speed: 0
+    projectileSpeed: 0
     cooldown: 0
-    projectileInterval: -0.1
+    projectileInterval: -0.02
     knockback: 0
-    number: 0
+    amount: 1
     piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 5
+    description: +1 Piercing
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 0
+    piercing: 1
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 6
+    description: +1 Amount, -0.02 pInterval
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: -0.02
+    knockback: 0
+    amount: 1
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 7
+    description: +1 Amount, +5 Damage
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 5
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 1
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 8
+    description: +1 Piercing, -0.02 pInterval
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    lifespan: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: -0.02
+    knockback: 0
+    amount: 0
+    piercing: 1
     maxInstances: 0
     appliedBuffs: []
   randomGrowth: []

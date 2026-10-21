@@ -5,7 +5,7 @@ public class WaveData : SpawnData
 {
     [Header("Wave Data")]
 
-    [Tooltip("If there are less than this number of enemies, we will keep spawning until we get there.")]
+    [Tooltip("If there are less than this amount of enemies, we will keep spawning until we get there.")]
     [Min(0)] public int initialMinimumCount; // this could use a rename probably
 
     [Tooltip("How many enemies can this wave spawn at a maximum?")]
