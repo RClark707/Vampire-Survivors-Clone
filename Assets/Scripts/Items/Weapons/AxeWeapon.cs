@@ -19,9 +19,9 @@ public class AxeWeapon : ProjectileWeapon
 
     // To easily implement additional specific scaling, you can use these override functions!
     // this could be replaced with something like the Resistances for Enemies too
-    public override float GetArea()
+    public override float GetAreaPercentage()
     {
-        return base.GetArea() * 1.3f;
+        return base.GetAreaPercentage() * 1.3f;
     }
 
 }

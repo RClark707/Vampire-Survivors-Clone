@@ -174,3 +174,5 @@ MonoBehaviour:
   knockbackSource: 0
   hasAutoAim: 0
   rotationSpeed: {x: 0, y: 0, z: -270}
+  baseSpeed: 5
+  baseArea: 1.3

@@ -10,7 +10,7 @@ public class LightningRingWeapon : ProjectileWeapon
         if (!currentStats.hitEffect)
         {
             Debug.LogError($"Hit effect prefab is missing from the {name}.");
-            ActivateCooldown();
+            ResetWeaponCooldown();
             return false;
         }
 
@@ -19,14 +19,14 @@ public class LightningRingWeapon : ProjectileWeapon
         if (currentCooldown <= 0)
         {
             allSelectedEnemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
-            ActivateCooldown();
+            ResetWeaponCooldown();
             currentAttackCount = attackAmount;
         }
 
         Enemy target = PickEnemy();
         if (target)
         {
-            DamageArea(target.transform.position, GetArea(), GetDamage());
+            DamageArea(target.transform.position, GetAreaPercentage(), GetDamage());
 
             Instantiate(currentStats.hitEffect, target.transform.position, Quaternion.identity);
         }

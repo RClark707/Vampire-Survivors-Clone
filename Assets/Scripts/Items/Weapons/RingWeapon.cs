@@ -17,8 +17,8 @@ public class RingWeapon : ProjectileWeapon
             {
                 // Convert the spawn angle onto a point on the circle's circumference and space it away relative to the player.
                 Vector3 spawnPosition = player.transform.position + new Vector3(
-                    GetArea() * Mathf.Cos(currentAngle),
-                    GetArea() * Mathf.Sin(currentAngle)
+                    GetAreaPercentage() * Mathf.Cos(currentAngle),
+                    GetAreaPercentage() * Mathf.Sin(currentAngle)
                 );
 
                 // Spawn the book at the calculated position, and parents it to the owner so it follows them around.
@@ -37,7 +37,7 @@ public class RingWeapon : ProjectileWeapon
         if (!currentStats.projectilePrefab)
         {
             Debug.LogError($"Projectile prefab is missing for {name}.");
-            ActivateCooldown(true);
+            ResetWeaponCooldown(true);
             return false;
         }
 
@@ -46,7 +46,7 @@ public class RingWeapon : ProjectileWeapon
 
         SpawnRing(owner);
 
-        ActivateCooldown(true);
+        ResetWeaponCooldown(true);
 
         attackCount--;
 
@@ -60,7 +60,7 @@ public class RingWeapon : ProjectileWeapon
         return true;
     }
 
-    public override bool ActivateCooldown(bool strict = false)
+    public override bool ResetWeaponCooldown(bool strict = false)
     {
         // When 'strict' is enabled and the cooldown is not yet finished,
         // do not refresh the cooldown.
@@ -84,7 +84,7 @@ public class RingWeapon : ProjectileWeapon
         base.LevelUp(updateUI);
         // Spawn a ring after every upgrade option, just like in the original game.
         SpawnRing(owner);
-        ActivateCooldown(false);
+        ResetWeaponCooldown(false);
         return true;
     }
 }

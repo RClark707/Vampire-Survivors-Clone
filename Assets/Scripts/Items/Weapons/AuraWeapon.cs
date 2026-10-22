@@ -3,6 +3,7 @@ using UnityEngine;
 public class AuraWeapon : Weapon
 {
     protected Aura currentAura;
+    protected float baseArea = 1f; // this can't easily be changed
 
     protected override void Update() { }
 
@@ -23,7 +24,7 @@ public class AuraWeapon : Weapon
             currentAura = Instantiate(currentStats.auraPrefab, transform);
             currentAura.weapon = this;
             currentAura.owner = owner;
-            float area = GetArea();
+            float area = baseArea * GetAreaPercentage();
             currentAura.transform.localScale = new Vector3(area, area, area); // set area
         }
     }

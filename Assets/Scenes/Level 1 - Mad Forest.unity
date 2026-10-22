@@ -35889,7 +35889,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4aacde1606f2ab41b44141207dc6c16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnController
-  waveData: []
+  waveData:
+  - {fileID: 11400000, guid: 54ff15f3da52d3f4c95522dd9bb99335, type: 2}
+  - {fileID: 11400000, guid: 54ff15f3da52d3f4c95522dd9bb99335, type: 2}
   referenceCamera: {fileID: 519420031}
   enemyParent: {fileID: 74007871}
   maximumEnemyCount: 300
@@ -76447,8 +76449,32 @@ MonoBehaviour:
   - item: {fileID: 0}
   - item: {fileID: 0}
   availableWeapons:
+  - {fileID: 11400000, guid: 4b9fb00deaf6e3c4abd7890293229066, type: 2}
+  - {fileID: 11400000, guid: 8114ffe443c4bea478f2aa8c021d876b, type: 2}
+  - {fileID: 11400000, guid: 8ea4c331282915245be054482439ac21, type: 2}
   - {fileID: 11400000, guid: 63dd8a4b8edfa7543853c406eb32643d, type: 2}
-  availablePassives: []
+  - {fileID: 11400000, guid: 170fbbe172ae3394b95bb19a3c03f401, type: 2}
+  - {fileID: 11400000, guid: 53b09fc395a4d5943880701234b33b3a, type: 2}
+  - {fileID: 11400000, guid: fc587a872ead5f14fb30787d6748f869, type: 2}
+  - {fileID: 11400000, guid: db5f12dc114296448863d5da28e44ba8, type: 2}
+  - {fileID: 11400000, guid: 71f080f6f34dd7b48b379407c08d8fa5, type: 2}
+  availablePassives:
+  - {fileID: 11400000, guid: dae60e6f976da474db60d66645f23f85, type: 2}
+  - {fileID: 11400000, guid: eb2c9d9a25b02624090b089266083a50, type: 2}
+  - {fileID: 11400000, guid: 4e0d9edf05a9898458a9429948a1c0b9, type: 2}
+  - {fileID: 11400000, guid: a339cbf8ed117b14fbe0ee7ef9a110ad, type: 2}
+  - {fileID: 11400000, guid: a6d10129eb53abc40acaf30c43a65471, type: 2}
+  - {fileID: 11400000, guid: 612c636e69695904191a1febff4bca8f, type: 2}
+  - {fileID: 11400000, guid: ef47b14f7ce12054c84ba9fcf18269a2, type: 2}
+  - {fileID: 11400000, guid: 04bd14407864bf14b917fdb9cf7f006d, type: 2}
+  - {fileID: 11400000, guid: 284235f4d342e6745a8dd370850fb3a4, type: 2}
+  - {fileID: 11400000, guid: ac44fb628f9ca7045a4f5ba68568f869, type: 2}
+  - {fileID: 11400000, guid: acd6fce5774f4e645972678b1338f427, type: 2}
+  - {fileID: 11400000, guid: 14dcef4202ec2c046a7e8e2d63bc862d, type: 2}
+  - {fileID: 11400000, guid: 561ed3431c3c2b444930adeca41b3d2c, type: 2}
+  - {fileID: 11400000, guid: 8f31152d4c68779499806ed141c423a2, type: 2}
+  - {fileID: 11400000, guid: 995c8cebcd72f5a4f823dc5837a3eedb, type: 2}
+  - {fileID: 11400000, guid: 9fec34d1ebd7e3645ba942b86db0847b, type: 2}
   powerups: []
   availablePowerups:
   - {fileID: 11400000, guid: 6004528865ec1774597bd6794e3bf15f, type: 2}

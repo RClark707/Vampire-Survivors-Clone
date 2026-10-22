@@ -7,7 +7,6 @@ public class WeaponStats : ItemStats
     public string behavior;
     public Weapon.Stats baseStats = new Weapon.Stats
     {
-
         duration = 0.5f,
         damage = 10f,
         damageVariance = 0f,

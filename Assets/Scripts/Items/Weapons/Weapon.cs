@@ -12,6 +12,8 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
         public Aura auraPrefab;
         [Tooltip("The VFX to instantiate when the weapon damages an enemy, and when the weapon is used.")]
         public ParticleSystem hitEffect, procEffect; // hit effects are played on the enemy, procs are played on the player
+        [Tooltip("The SFX to play when the when is used to attack.")]
+        public AudioClip soundEffect;
         [Tooltip("What random values to apply to the spawn position of the weapon's projectile or aura.")]
         public Rect spawnVariance;
 
@@ -55,40 +57,29 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
         {
             return damage + Random.Range(0, damageVariance);
         }
-
-        public Stats()
-        {
-            duration = 0.5f;
-            damage = 10f;
-            damageVariance = 0f;
-            area = 1f;
-            projectileSpeed = 0f;
-            cooldown = 1f;
-            amount = 1;
-            piercing = 1;
-            projectileInterval = 0.1f;
-            knockback = 1f;
-        }
     }
 
     protected PlayerMovement playerMovement;
     protected Stats currentStats;
     protected float currentCooldown;
+    public Enemy nearestEnemy;
+    protected float nearestEnemyDistance;
 
     // some weapons need to be initialized
     public virtual void Initialize(WeaponStats stats)
     {
-        Debug.Log($"{name} has been initialized.");
+        // Debug.Log($"{name} has been initialized.");
         base.Initialize(stats);
         playerMovement = owner.GetComponent<PlayerMovement>();
 
         this.statsData = stats;
         currentStats = stats.baseStats;
-        ActivateCooldown();
+        ResetWeaponCooldown();
     }
 
     protected virtual void Update()
     {
+        FindNearestEnemy();
         currentCooldown -= Time.deltaTime;
         if (currentCooldown <= 0)
         {
@@ -123,33 +114,43 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
     {
         if (CanAttack())
         {
-            ActivateCooldown();
+            ResetWeaponCooldown();
             return true;
         }
         return false;
     }
 
+    // This returns the flat duration of the weapon
     public virtual float GetDuration()
     {
         return currentStats.duration + Owner.ActualStats.duration;
     }
 
-    // this gets the amount of damage for the weapon, factoring in damage variance and might
+    // This returns the flat cooldown of the weapon, after percentage modification
+    public virtual float GetCooldown()
+    {
+        return currentStats.cooldown * Owner.ActualStats.cooldown;
+    }
+
+    // this gets the flat amount of damage for the weapon, factoring in damage variance and percentage might
     public virtual float GetDamage()
     {
         return currentStats.GetDamageWithVariance() * Owner.ActualStats.might;
     }
 
-    public virtual float GetArea()
+    // This returns a percentage with which to multiply by (or use in place of 1)
+    public virtual float GetAreaPercentage()
     {
         return currentStats.area + Owner.ActualStats.area;
     }
 
-    public virtual float GetProjectileSpeed()
+    // This returns a percentage with which to multiply by
+    public virtual float GetProjectileSpeedPercentage()
     {
         return currentStats.projectileSpeed + Owner.ActualStats.projectileSpeed;
     }
 
+    // This returns the flat amount of projectiles for the weapon
     public virtual int GetAmount()
     {
         return currentStats.amount + Owner.ActualStats.amount;
@@ -160,12 +161,36 @@ public abstract class Weapon : Item // because this is an abstract class, we nee
         return currentStats;
     }
 
-    public virtual bool ActivateCooldown(bool strict = false)
+    public virtual bool ResetWeaponCooldown(bool strict = false)
     {
         if (strict && currentCooldown > 0) return false;
-        float actualCooldown = currentStats.cooldown * Owner.ActualStats.cooldown; // this will make the cooldown longer if our cooldown is above 1
+        float actualCooldown = GetCooldown(); // this will make the cooldown longer if our cooldown is above 1
         currentCooldown = Mathf.Min(actualCooldown, currentCooldown + actualCooldown);
         return true;
+    }
+
+    protected virtual void FindNearestEnemy()
+    {
+        Enemy[] allEnemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        float thisDistance;
+        foreach (Enemy enemy in allEnemies)
+        {
+            if (nearestEnemy == null)
+            {
+                nearestEnemy = enemy;
+                nearestEnemyDistance = (owner.transform.position - nearestEnemy.transform.position).magnitude;
+            }
+            else
+            {
+                thisDistance = (owner.transform.position - enemy.transform.position).magnitude;
+                if (thisDistance < nearestEnemyDistance)
+                {
+                    nearestEnemy = enemy;
+                    nearestEnemyDistance = thisDistance;
+                }
+            }
+        }
     }
 
     public void ApplyBuffs(Entity e)

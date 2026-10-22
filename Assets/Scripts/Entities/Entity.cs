@@ -14,7 +14,6 @@ public abstract class Entity : MonoBehaviour // this is meant to be subclasses i
     // Freezing system
     protected Animator animator;
 
-
     [System.Serializable]
     public class Buff
     {

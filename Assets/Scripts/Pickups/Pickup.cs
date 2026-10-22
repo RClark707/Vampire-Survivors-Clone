@@ -13,6 +13,7 @@ public abstract class Pickup : Sortable
         name = pickupStats.name;
         strength = pickupStats.PickupStrength;
         speed = pickupStats.MovementSpeed;
+        transform.SetParent(GameObject.Find("PickupsParent").transform);
     }
 
     public virtual void Update()

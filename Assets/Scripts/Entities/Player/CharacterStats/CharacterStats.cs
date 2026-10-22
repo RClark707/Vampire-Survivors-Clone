@@ -24,11 +24,17 @@ public class CharacterStats : ScriptableObject
     [System.Serializable]
     public struct Stats
     {
+        [Tooltip("These attributes are NOT percentages.")]
         public float maxHealth, recovery, armor;
+        [Tooltip("These attributes are percentages, which apply a boost if greater than 1.")]
         [Range(-1, 10)] public float moveSpeed, might, area;
+        [Tooltip("These attributes are percentages, which apply a boost if greater than 1.")]
         [Range(-1, 5)] public float projectileSpeed, duration;
+        [Tooltip("This attribute is NOT a percentage.")]
         [Range(-1, 10)] public int amount;
+        [Tooltip("This attribute is a percentage. Only use negative values when reducing cooldown with a Passive.")]
         [Range(-1, 1)] public float cooldown;
+        [Tooltip("These attributes are percentages, which apply a boost if greater than 1.")]
         [Min(-1)] public float luck, growth, greed, curse;
         public float magnet;
         public int revival;

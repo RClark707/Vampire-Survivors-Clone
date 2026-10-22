@@ -28,7 +28,7 @@ public class ProjectileWeapon : Weapon
         if (!currentStats.projectilePrefab)
         {
             Debug.LogError($"Projectile prefab has not yet been set for the {name}.");
-            ActivateCooldown();
+            ResetWeaponCooldown();
             return false;
         }
 
@@ -51,7 +51,7 @@ public class ProjectileWeapon : Weapon
         prefab.weapon = this;
         prefab.owner = owner;
 
-        ActivateCooldown();
+        ResetWeaponCooldown();
 
         if (attackAmount > 0) // should we make another attack?
         {

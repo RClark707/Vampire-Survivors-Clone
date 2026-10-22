@@ -25,7 +25,7 @@ public class PlayerInventoryController : MonoBehaviour
                 //image.enabled = true;
                 //image.sprite = p.statsData.icon;
             }
-            Debug.Log($"Assigned {item.name} to player's inventory.");
+            // Debug.Log($"Assigned {item.name} to player's inventory.");
         }
 
         public void Clear()
@@ -500,5 +500,4 @@ public class PlayerInventoryController : MonoBehaviour
         // ClearUpgradeOptions();
         SetUpgradeOptions();
     }
-
 }

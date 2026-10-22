@@ -7,6 +7,7 @@ public class Enemy : Entity
     public static int count; // this is used by the SpawnController to track spawn counts
     PickupController pc;
     EnemyMovement enemyMovement;
+    public bool dead = false;
 
     [System.Serializable]
     public class Resistances
@@ -180,7 +181,8 @@ public class Enemy : Entity
         // Debug.Log($"The {name} has been killed.");
         StartCoroutine(KillFade());
 
-        if (pc) pc.OnHostKilled(); // update this with reference to if we are an elite enemy!
+        if (pc && !dead) pc.OnHostKilled(); // update this with reference to if we are an elite enemy!
+        dead = true;
     }
 
     public override void RecalculateStats()

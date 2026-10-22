@@ -12,7 +12,7 @@ public class WhipWeapon : ProjectileWeapon
         if (!currentStats.projectilePrefab)
         {
             Debug.LogError($"Projectile prefab is missing for {name}.");
-            ActivateCooldown();
+            ResetWeaponCooldown();
             return false;
         }
 
@@ -56,7 +56,7 @@ public class WhipWeapon : ProjectileWeapon
         }
 
         prefab.weapon = this;
-        ActivateCooldown();
+        ResetWeaponCooldown();
         attackAmount--;
 
         // determine where to spawn the projectile
