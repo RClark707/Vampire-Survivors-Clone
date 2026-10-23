@@ -6,7 +6,7 @@ using UnityEngine;
 /// This script was written by kyle on the Terresquall blog: https://blog.terresquall.com/community/topic/general-creating-a-king-bible-weapon/
 /// The only changes were to sync their script with my own.
 /// </summary>
-public class KingBibleProjectile : Projectile
+public class KingBible : Projectile
 {
     Dictionary<Enemy, float> affectedTargets = new Dictionary<Enemy, float>();
     List<Enemy> targetsToUnaffect = new List<Enemy>();

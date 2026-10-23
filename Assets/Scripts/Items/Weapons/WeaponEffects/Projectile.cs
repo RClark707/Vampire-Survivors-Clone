@@ -5,6 +5,9 @@ public class Projectile : WeaponEffect
 {
     public enum KnockbackSource { Projectile, Owner };
     public KnockbackSource knockbackSource = KnockbackSource.Projectile;
+    public enum SpriteDirection { Left, Right, Up, Down };
+    [Tooltip("Which direction is \"forward\" for your sprite?")]
+    public SpriteDirection spriteDirection = SpriteDirection.Up;
     public bool hasAutoAim = false;
     [Tooltip("Typically, only z-axis rotation will have an effect. May affect Physics.")]
     public Vector3 rotationSpeed = new Vector3(0f, 0f, 0f);
@@ -23,7 +26,7 @@ public class Projectile : WeaponEffect
 
         if (hasAutoAim)
         {
-            AcquireAutoAim();
+            SetAutoAimAngle();
         }
         else
         {
@@ -34,7 +37,28 @@ public class Projectile : WeaponEffect
         if (rb.bodyType == RigidbodyType2D.Dynamic)
         {
             rb.angularVelocity = rotationSpeed.z;
-            rb.linearVelocity = transform.right * baseSpeed * weapon.GetProjectileSpeedPercentage();// + (Vector3)owner.GetComponent<Rigidbody2D>().linearVelocity;
+
+            Vector3 forward;
+
+            switch (spriteDirection)
+            {
+                case SpriteDirection.Left:
+                    forward = -transform.right;
+                    break;
+                default:
+                case SpriteDirection.Right:
+                    forward = transform.right;
+                    break;
+                case SpriteDirection.Up:
+                    forward = transform.up;
+                    break;
+                case SpriteDirection.Down:
+                    forward = -transform.up;
+                    break;
+            }
+
+            rb.linearVelocity = forward * baseSpeed * weapon.GetProjectileSpeedPercentage();
+            // + (Vector3)owner.GetComponent<Rigidbody2D>().linearVelocity;
             // Debug.Log($"The {stats.name} spawned a projectile with {rb.linearVelocity} linear velocity.");
             // Debug.Log($"The {stats.name} spawned a projectile with {rb.angularVelocity} angular velocity.");
         }
@@ -50,12 +74,10 @@ public class Projectile : WeaponEffect
         piercing = stats.piercing;
 
         if (weapon.GetDuration() > 0) Destroy(gameObject, weapon.GetDuration());
-
-
     }
 
     // automatically track a new target to launch towards
-    public virtual void AcquireAutoAim()
+    public virtual void SetAutoAimAngle()
     {
         float aimAngle;
 
@@ -72,14 +94,32 @@ public class Projectile : WeaponEffect
 
         // This line rotates our projectile so that linearVelocity sends it in the aimAngle direction
         // This assumes our projectile sprite faces UP
+
+        switch (spriteDirection)
+        {
+            case SpriteDirection.Left:
+                aimAngle -= 180f;
+                break;
+            default:
+            case SpriteDirection.Right:
+                break;
+            case SpriteDirection.Up:
+                aimAngle -= 90f;
+                break;
+            case SpriteDirection.Down:
+                aimAngle += 90f;
+                break;
+        }
+
         transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
         // Debug.Log($"The {name} is launching at an {aimAngle} degree angle towards {weapon.nearestEnemy}.");
         // Debug.Log($"Projectile Rotation: {transform.rotation.eulerAngles}");
-
     }
 
-    public virtual void SetSpriteRotationFromPlayerDirection(Vector3 fixedDirection, float offsetAngle = 90f)
+    public virtual void SetSpriteRotationFromPlayerDirection(Vector2 fixedDirection, float offsetAngle = 90f)
     {
+        // TODO: Check if this needs to be updated with Sprite Direction switch
+        // We don't want this to run for weapons that change their angles on their own
         float angle = Mathf.Atan2(fixedDirection.y, fixedDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle - offsetAngle);
         // Debug.Log($"The {name} is launching at a fixed {angle - offsetAngle} degree angle.");

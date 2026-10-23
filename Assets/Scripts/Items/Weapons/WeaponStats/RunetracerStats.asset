@@ -1,0 +1,221 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e637383efad8bd7479794b137d49d7b4, type: 3}
+  m_Name: RunetracerStats
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
+  icon: {fileID: -680480949, guid: dddf56e64d6d64c41b089bb0fb0a0c94, type: 3}
+  maxLevel: 8
+  evolutionData: []
+  behavior: ProjectileWeapon
+  baseStats:
+    name: Runetracer
+    description: Passes through enemies, bounces around
+    projectilePrefab: {fileID: -63028534211021321, guid: 6a8814dc7a9eda84e859c20466b729c6, type: 3}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 2.25
+    damage: 10
+    damageVariance: 1
+    area: 1
+    projectileSpeed: 1
+    cooldown: 3
+    projectileInterval: 0.2
+    knockback: 1
+    amount: 1
+    piercing: 99
+    maxInstances: 25
+    appliedBuffs: []
+  linearGrowth:
+  - name: Level 2
+    description: +5 Damage, +20% Speed
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0
+    damage: 5
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0.2
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 0
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 3
+    description: +5 Damage, +0.3 Duration
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0.3
+    damage: 5
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 0
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 4
+    description: +1 Amount
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 1
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 5
+    description: +5 Damage, +20% Speed
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0
+    damage: 5
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0.2
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 0
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 6
+    description: +5 Damage, +0.3 Duration
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0.3
+    damage: 5
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 0
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 7
+    description: +1 Amount
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0
+    damage: 0
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 1
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  - name: Level 8
+    description: +0.5 Duration
+    projectilePrefab: {fileID: 0}
+    auraPrefab: {fileID: 0}
+    hitEffect: {fileID: 0}
+    procEffect: {fileID: 0}
+    soundEffect: {fileID: 0}
+    spawnVariance:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    duration: 0.5
+    damage: 0
+    damageVariance: 0
+    area: 0
+    projectileSpeed: 0
+    cooldown: 0
+    projectileInterval: 0
+    knockback: 0
+    amount: 0
+    piercing: 0
+    maxInstances: 0
+    appliedBuffs: []
+  randomGrowth: []

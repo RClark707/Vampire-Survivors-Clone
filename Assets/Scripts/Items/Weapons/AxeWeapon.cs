@@ -6,6 +6,7 @@ public class AxeWeapon : ProjectileWeapon
     {
         int offset = currentAttackCount > 0 ? GetAmount() - currentAttackCount : 0;
         float angle = 90f - (5f * (offset + 1)) * Mathf.Sign(playerMovement.lastMoveDirection.x);
+        // Debug.Log($"The {name} is spawning a projectile at a launch angle of {angle} degrees.");
         return angle;
     }
 
